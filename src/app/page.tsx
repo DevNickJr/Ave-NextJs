@@ -1,113 +1,173 @@
+import Header from '@/components/Header'
 import Image from 'next/image'
+import CryptImage from '@/assets/cryp.png'
+import { GiCheckMark } from 'react-icons/gi'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className="">
+        <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/60'>
+          <Image src={CryptImage} alt="Auth Image" className='absolute top-0 left-0 w-full h-full -z-10' />
+          <div className='flex flex-col justify-center w-full h-full gap-4'>
+            <h1 className='text-4xl font-semibold'>Invest for the Future in Stable Platform and Make Fast Money</h1>
+            <p className='text-lg'>Our goal is to provide our investors with a reliable source of high income, while minimizing any possible risks and offering a high-quality service.</p>
+            <button className='p-4 px-6 text-white rounded-md w-fit bg-primary'>Get Started</button>
+          </div>
+        </section>
+        <section className='px-12 py-12 lg:px-24'>
+          <div className="flex flex-col gap-8 mb-16 md:flex-row">
+            <div className='flex flex-col items-center flex-1 gap-3 mb-8 text-center md:items-start md:text-left'>
+              <h2 className='text-3xl font-semibold'>All About Us</h2>
+              <div className="flex flex-col gap-3">
+                <p className=''>Meet the Crypto Gurus - we&apos;re a bunch of wildly passionate finance wizards, masterminds of cryptocurrency, and die-hard innovators.</p>
+                <p>Our mission is to transform the cryptoverse into a dazzling universe where galactic returns await all adventurers.</p>
+                <p>In a time of mindless click-frenzies and sugar-coated promises, we bring you true crypto utopia!</p>
+              </div>
+            </div>
+            <div className="flex-1 bg-gray-100"> 
+            </div>
+          </div>
+          <div className="flex flex-col gap-8 md:flex-row">
+            <div className="flex-1 bg-gray-100"> 
+            </div>
+            <div className='flex flex-col items-center flex-1 gap-3 mb-8 text-center md:items-start md:text-left'>
+              <h2 className='text-3xl font-semibold'>We Bring together Marketplaces & Finance through the use of artificial intelligence AI</h2>
+              <div className="flex flex-col gap-3">
+                <p className=''>The ultimate goal of Roza Trades is to be the all-in-one solution and offer a wide array of services from market to finance..</p>
+                <p>Our clients – both corporate and private ones – will access all the services they need from a single platform. Blockchain technology and AI gives us the chance to make your finances grow faster and give better returns</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className='px-12 py-12 lg:px-24'>
+          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
+            <h2 className='text-3xl font-semibold'>How It Work</h2>
+            <p className=''>Get involved in our tremendous platform and Invest. We will utilize your money and give you profit in your wallet automatically.</p>
+          </div>
+          <div className="flex flex-col gap-8">
+            <div className="flex items-center gap-4">
+              <div className="flex-[1_0_48px] w-12 h-12 bg-black">dsss</div>
+              <div className="flex flex-col gap-1">
+                <p>Register</p>
+                <p>You will immediately have access to your trading account and all tools you need for successful trading.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex-[1_0_48px] w-12 h-12 bg-black">dsss</div>
+              <div className="flex flex-col gap-1">
+                <p>Register</p>
+                <p>You will immediately have access to your trading account and all tools you need for successful trading.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex-[1_0_48px] w-12 h-12 bg-black">dsss</div>
+              <div className="flex flex-col gap-1">
+                <p>Register</p>
+                <p>You will immediately have access to your trading account and all tools you need for successful trading.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className='px-12 py-12 lg:px-24'>
+          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
+            <h2 className='text-3xl font-semibold'>Our Investment Plans</h2>
+            <p className=''>Plans for everyone</p>
+          </div>
+          <div className='flex flex-col flex-wrap gap-3 mb-8 md:flex-row'>
+            <div className="flex flex-col gap-3 p-6 text-white rounded-md shadow-md w-72 bg-primary">
+              <span className='text-xs'>Standard</span>
+              <span className='mb-4 text-2xl font-semibold text-black'>$24.99/mo</span>
+              <div className="flex flex-col gap-1 text-[11px]">
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+              </div>
+              <button className='p-2 mt-2 text-sm bg-black rounded-md'>Invest Now</button>
+            </div>
+            <div className="flex flex-col gap-3 p-6 text-white rounded-md shadow-md w-72 bg-primary">
+              <span className='text-xs'>Pro</span>
+              <span className='mb-4 text-2xl font-semibold text-black'>$24.99/mo</span>
+              <div className="flex flex-col gap-1 text-[11px]">
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <GiCheckMark className="text-white" />
+                  <span className=''>50 Coins</span>
+                </div>
+              </div>
+              <button className='p-2 mt-2 text-sm bg-black rounded-md'>Invest Now</button>
+            </div>
+          </div>
+        </section>
+        <section className='px-12 py-12 lg:px-24'>
+          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
+            <h2 className='text-3xl font-semibold'>What makes Avestock Trades stand out?</h2>
+          </div>
+          <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
+            <div className="flex flex-col w-full gap-3 p-6 text-white rounded-md shadow-md bg-primary">
+              <span className='w-6 h-6 bg-gray-100'></span>
+              <span className='text-lg font-semibold text-black'>$24.99/mo</span>
+              <span>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet praesentium molestiae veniam.
+              </span>
+            </div>            
+          </div>
+        </section>
+        <section className='px-12 py-12 lg:px-24'>
+          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
+            <h2 className='text-3xl font-semibold'>Top 8 cryptocurrency, Subscribe and start earning</h2>
+          </div>
+          <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
+            <div className="flex flex-col w-full gap-3 p-6 text-white rounded-md shadow-md bg-primary">
+            <div className="tradingview-widget-container" style={{"width": "100%", height: "100%"}}>
+							<iframe scrolling="no" allowTransparency={true} frameBorder="0" src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=en#%7B%22symbol%22%3A%22BITSTAMP%3ABTCUSD%22%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22dateRange%22%3A%2212M%22%2C%22colorTheme%22%3A%22dark%22%2C%22isTransparent%22%3Atrue%2C%22autosize%22%3Atrue%2C%22largeChartUrl%22%3A%22%22%2C%22noTimeScale%22%3Afalse%2C%22chartOnly%22%3Afalse%2C%22utm_source%22%3A%22rozatradesllc.com%22%2C%22utm_medium%22%3A%22widget%22%2C%22utm_campaign%22%3A%22mini-symbol-overview%22%2C%22page-uri%22%3A%22rozatradesllc.com%2Fportal%2Fhome%2Fv1%2Findex.php%22%7D" title="mini symbol-overview TradingView widget" lang="en" style={{userSelect: "none", "boxSizing": "border-box", display: "block", height: "100%", width: "100%"}}></iframe>
+						</div>
+            </div>            
+          </div>
+        </section>
+        <section className='px-12 py-12 lg:px-24'>
+          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
+            <h2 className='text-3xl font-semibold'>What Our Customers Say</h2>
+            <p className=''>Our customers from all over the world share their lovely words about us</p>
+          </div>
+          <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
+            <div className="flex flex-col items-center w-full gap-3 p-6 text-center rounded-md shadow-md">
+              <span className="bg-gray-100 rounded-full w-28 h-28"></span>
+              <span className='text-lg font-medium'>Nichlas Tesla</span>
+              <span>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum beatae vero non accusamus incidunt, ex, qui placea
+              </span>
+            </div>            
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   )
 }
