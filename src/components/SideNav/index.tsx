@@ -21,34 +21,43 @@ const SideNav = ({ }) => {
     // console.log({pathname})
 
   return (
-    <div className='no-scrollbar hidden sm:flex flex-col justify-between grad-to-bottom text-black max-h-screen overflow-hidden h-screen min-w-[240px] w-60 pb-4'>
+    <div className='no-scrollbar hidden sm:flex flex-col justify-between grad-to-bottom max-h-screen overflow-hidden h-screen min-w-[240px] w-60 pb-4 bg-primary text-white'>
         <div>
-            <div className='w-full flex flex-col items-center text-center gap-5 border-b border-white/10 pt-4'>
-                <Link href={"/"}>
-                    <Image src={Logo} className='w-full h-12 md:h-12 bg-white' alt='' />
+            <div className='flex flex-col items-center w-full gap-5 py-5 text-center border-b border-white/10'>
+                <Link href={"/dashboard/"} className='text-2xl font-semibold'>
+                    {/* <Image src={Logo} className='w-full h-12 bg-white md:h-12' alt='' /> */}
+                    Avestore
                 </Link>
             </div>
-            <div className='flex flex-col gap-2 pb-2 text-black/70 pt-12'>
-                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${(pathname === '/admin') && 'text-black'}`} href="/dashboard">
+            <div className='flex flex-col gap-2 pt-12 pb-2'>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${(pathname === '/admin') && 'font-bold'}`} href="/dashboard">
                     <MdOutlineDashboardCustomize size={"1.3rem"} />
-                    Dashboard
+                    Home
                 </Link>
-                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("winners") && 'text-black'}`} href={"/courses"}>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("account") && 'font-bold'}`} href={"/dashboard/account"}>
                     <GiCrownedSkull size={"1.3rem"} />
-                    Courses
+                    Account
                 </Link>
-                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("advisory") && 'text-black'}`} href={"/profile"}>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("invest") && 'font-bold'}`} href={"/dashboard/invest"}>
                     <RiTeamLine size={"1.3rem"} />
-                    Settings
+                    Invest
+                </Link>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("deposit") && 'font-bold'}`} href={"/dashboard/deposit"}>
+                    <RiTeamLine size={"1.3rem"} />
+                    Deposit
+                </Link>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("withdrawal") && 'font-bold'}`} href={"/dashboard/withdrawal"}>
+                    <RiTeamLine size={"1.3rem"} />
+                    Withdrawal
                 </Link>
             </div>
         </div>
-        <div className='flex flex-col gap-10 pb-2 text-black/70'>
+        <div className='flex flex-col gap-10 pb-2 underline'>
             <div onClick={() => signOut()} className={`py-2.5 pl-6 text-sm flex items-center gap-2 cursor-pointer`}>
                 <MdLogout size={"1.3rem"} />
                 Logout
             </div>
-            <div className='px-6'>
+            {/* <div className='px-6'>
                 <div className={`p-2.5 text-sm flex flex-col gap-4 bg-primaryDark text-white rounded-md`}>
                     <div className='flex items-center gap-4'>
                         <AiOutlineCopyrightCircle size={"1.3rem"} />
@@ -58,7 +67,7 @@ const SideNav = ({ }) => {
                         An Online learning platform for to Lecturers to verify all students in a particular department
                     </p>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
   )

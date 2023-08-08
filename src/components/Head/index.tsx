@@ -9,7 +9,7 @@ const Head = () => {
 
 
   return (
-    <div className='fixed top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 overflow-hidden bg-white shadow sm:ml-60 sm:py-4 md:px-6'>
+    <div className='sticky top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 overflow-hidden text-white shadow sm:py-4 md:px-6 bg-primary '>
         <input type="text" placeholder='Search' className='border border-gray-300 rounded-full px-4 min-w-[100px] md:w-96' />
         <div className='flex items-center justify-between gap-2'>
           <div className="w-4 h-4 bg-gray-200 rounded-full" />
@@ -17,7 +17,7 @@ const Head = () => {
            <div className="w-6 h-6 rounded-full bg-primary/30" />
            <div className="flex-col hidden gap-1 md:flex">
             <div className='text-sm font-semibold'>Nicholas Duadei</div>
-            <div className='text-xs text-black/70'>nicholasduadei14@gmail.com</div>
+            <div className='text-xs'>nicholasduadei14@gmail.com</div>
            </div>
            <RxCaretDown className='hidden text-2xl text-gray-dark md:block' />
             { !isOpen && 
