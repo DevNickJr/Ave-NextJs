@@ -89,3 +89,8 @@ export interface ITableColumn {
         sort: boolean;
     };
 }
+
+export interface IFaqs {
+    question: string;
+    answer: string;
+}
