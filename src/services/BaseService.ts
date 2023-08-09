@@ -3,7 +3,7 @@ import appConfig from "@/configs/app.config";
 
 
 const BaseService = axios.create({
-    baseURL: appConfig.apiPrefix,
+    baseURL: '/api',
     timeout: 50000,
     headers: {
       'Content-Type': 'application/json',

@@ -15,8 +15,6 @@ const initialState: IUserRegister = {
   confirm_password: '',
   first_name: '',      
   last_name: '',        
-  level: '',      
-  matric_no: '',
   terms: false  
 }
 
@@ -31,9 +29,11 @@ const router = useRouter()
 const registerMutation = usePost<IUserRegister, any>(
     apiRegister,
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
           // queryClient.invalidateQueries('user')
-          sessionStorage.setItem('email', user.email)
+          // sessionStorage.setItem('email', user.email)
+          // console.log({ data })
+          console.log({ message: "Registered Successfully", data })
       },
       onError: (error: any) => {
         console.log({error})

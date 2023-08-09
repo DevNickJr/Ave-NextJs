@@ -1,6 +1,8 @@
 import { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { apiLogin } from '@/services/AuthService'
+import dbConnect from '@/lib/dbConnection';
+import UserModel from '@/models/UserModel';
 
 
 export const authOptions: NextAuthOptions = {
@@ -20,7 +22,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, account, user }: any) {
         // Persist the OAuth access_token to the token right after signin
-        // console.log({ userSession: user })
         if (user) {
           token.user = user
         }
@@ -28,10 +29,10 @@ export const authOptions: NextAuthOptions = {
       },
     async session({ session, token, user }: any) {
       // Send properties to the client, like an access_token from a provider.
-      //   console.log({ token, session, user })
+        // console.log({ token, session, user })
       // console.log('session: ', token)
-      session.user = token.user
-      session.accessToken = token.user.token.accessToken
+      const { password, ...rest } = token.user
+      session.user = token.rest
       return session
     },    
   },
@@ -64,23 +65,32 @@ export const authOptions: NextAuthOptions = {
                 return null;
             }
 
-            const res = await apiLogin({
-                email: credentials.email,
-                password: credentials.password
-            })
+        
 
-            console.log({res})
-
-            const user: User = res.data
-
-            // console.log({ user })
-
+            await dbConnect();
+          
+            if (!req?.body?.password || (!req?.body?.email && !req.body?.username)) {
+                throw new Error('Please fill in all fields');
+            }
+    
+            const user = await UserModel.findOne({
+                  email: req.body.email ? req.body.email : '' ,
+            });
+    
             if (!user) {
-              throw new Error('User not found');
-          }
-
-          return user;
-
+                throw new Error('User not found');
+                // return null;
+            }
+            const isMatch = await user.comparePassword(req.body.password);
+    
+            if (!isMatch) {
+              throw new Error('Invalid credentials');
+                // return null;
+            }
+    
+            return user;
+          
+        
       },
     }),
   ],

@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
-import getData from '@/utils/getData'
 import { AxiosResponse } from 'axios'
 
 interface IProps<T> {
@@ -19,7 +18,8 @@ const useFetch = <T,>({ api, param, key, onSuccess, requireAuth, select, ...rest
 
     const { data, error, isLoading, isSuccess, isFetching, remove, refetch, fetchStatus } = useQuery({
         queryKey: [...key],
-        queryFn: () => requireAuth ? api(session?.user?.token.access, param) : api(param),
+        queryFn: () => requireAuth ? api('session?.user?.token.access', param) : api(param),
+        // queryFn: () => requireAuth ? api(session?.user?.token.access, param) : api(param),
         select: select || ((d: any) => d?.data?.data),
         ...rest
     })

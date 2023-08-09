@@ -1,3 +1,5 @@
+'use client'
+import React, { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import Image from 'next/image'
 import CryptImage from '@/assets/cryp.png'
@@ -5,6 +7,35 @@ import { GiCheckMark } from 'react-icons/gi'
 import Footer from '@/components/Footer'
 
 export default function Home() {
+  const [page, setPage] = useState(1)
+  const [data, setData] = useState<[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const num_per_page = 6
+
+  useEffect(() => {
+    const fetchScholarships = async () => {
+      setIsLoading(true)
+      try {
+        const res = await fetch('/api/users')
+        const data = await res.json()
+
+        console.log({ res, data })
+
+        if (!res.ok) {
+          throw new Error(data?.message || 'An error Occured')
+        }
+        setData(data)
+      } catch (error) {
+        console.log({error})
+      }
+      setIsLoading(false)
+    }
+
+    fetchScholarships()
+  }, [])
+
+  // console.log({ data })
+  
   return (
     <>
       <Header />
@@ -146,7 +177,7 @@ export default function Home() {
           <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
             <div className="flex flex-col w-full gap-3 p-6 text-white rounded-md shadow-md bg-primary">
             <div className="tradingview-widget-container" style={{"width": "100%", height: "100%"}}>
-							<iframe scrolling="no" allowTransparency={true} frameBorder="0" src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=en#%7B%22symbol%22%3A%22BITSTAMP%3ABTCUSD%22%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22dateRange%22%3A%2212M%22%2C%22colorTheme%22%3A%22dark%22%2C%22isTransparent%22%3Atrue%2C%22autosize%22%3Atrue%2C%22largeChartUrl%22%3A%22%22%2C%22noTimeScale%22%3Afalse%2C%22chartOnly%22%3Afalse%2C%22utm_source%22%3A%22rozatradesllc.com%22%2C%22utm_medium%22%3A%22widget%22%2C%22utm_campaign%22%3A%22mini-symbol-overview%22%2C%22page-uri%22%3A%22rozatradesllc.com%2Fportal%2Fhome%2Fv1%2Findex.php%22%7D" title="mini symbol-overview TradingView widget" lang="en" style={{userSelect: "none", "boxSizing": "border-box", display: "block", height: "100%", width: "100%"}}></iframe>
+							<iframe scrolling="no" src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=en#%7B%22symbol%22%3A%22BITSTAMP%3ABTCUSD%22%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22dateRange%22%3A%2212M%22%2C%22colorTheme%22%3A%22dark%22%2C%22isTransparent%22%3Atrue%2C%22autosize%22%3Atrue%2C%22largeChartUrl%22%3A%22%22%2C%22noTimeScale%22%3Afalse%2C%22chartOnly%22%3Afalse%2C%22utm_source%22%3A%22rozatradesllc.com%22%2C%22utm_medium%22%3A%22widget%22%2C%22utm_campaign%22%3A%22mini-symbol-overview%22%2C%22page-uri%22%3A%22rozatradesllc.com%2Fportal%2Fhome%2Fv1%2Findex.php%22%7D" title="mini symbol-overview TradingView widget" lang="en" style={{userSelect: "none", "boxSizing": "border-box", display: "block", height: "100%", width: "100%"}}></iframe>
 						</div>
             </div>            
           </div>

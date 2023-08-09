@@ -22,23 +22,22 @@ const Login = () => {
     return { ...state, [action.type]: action.payload }
 }, initialState)
 
-const { mutate } = usePost<IUserLogin, any>(
-  apiLogin,
-  {
-    onSuccess: () => {
-      console.log({ active })
-        // queryClient.invalidateQueries('user')
-        toast.success("Logged in Successfully")
-        if (active === 'student') {
-          return router.push('/dashboard')
-        }
-        router.push('/staff')
-    },
-    onError: (error: any) => {
-        toast.error(error?.message || "An error occured")
-    }
-  }
-)
+// const { mutate } = usePost<IUserLogin, any>(
+//   apiLogin,
+//   {
+//     onSuccess: () => {
+//       console.log({ active })
+//         toast.success("Logged in Successfully")
+//         if (active === 'student') {
+//           return router.push('/dashboard')
+//         }
+//         router.push('/staff')
+//     },
+//     onError: (error: any) => {
+//         toast.error(error?.message || "An error occured")
+//     }
+//   }
+// )
 
 
   const router = useRouter()
@@ -79,7 +78,7 @@ const { mutate } = usePost<IUserLogin, any>(
   return (
     <div className='md:pl-24'>
       {loading && <Loader />}
-      <div className="flex flex-col items-center gap-4 mb-12 mt-16">
+      <div className="flex flex-col items-center gap-4 mt-16 mb-12">
           <h1 className='text-2xl font-bold'>Welcome Back!</h1>
           <p className='text-sm'>Sign in to continue to Avestock</p>
       </div>
@@ -100,6 +99,9 @@ const { mutate } = usePost<IUserLogin, any>(
         <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 mt-12 text-sm font-bold text-white rounded-md bg-primary'>
             Sign In
         </button>
+        <Link href='/register' className='my-2 text-sm font-semibold text-'>
+            Register
+        </Link>
       </form>
     </div>
   )

@@ -17,7 +17,8 @@ const usePost = <T,K>(api: (data: T, token?: string) => Promise<AxiosResponse>, 
 
     const Mutation = useMutation<K, K, T>({
         mutationFn: async (data: T) => {
-          const response = requireAuth ? await api(data, session?.user?.token.access) : await api(data)
+          // const response = requireAuth ? await api(data, session?.user?.token.access) : await api(data)
+          const response = requireAuth ? await api(data, session?.user?.email!) : await api(data)
           // console.log("response from usePost", response)
           return response?.data
           // if (response?.data?.status === "success") {
@@ -27,12 +28,13 @@ const usePost = <T,K>(api: (data: T, token?: string) => Promise<AxiosResponse>, 
           //   }
         },
         onSuccess: (data, variables, context) => {
-            console.log("success", data)
+            console.log("successful", data)
             if (showSuccessMessage) {
               // toast.success(data?.message);
               toast.success("Successful !");
             }
             if (onSuccess) {
+              // console.log("onSuccess", onSuccess)
                 onSuccess(data, variables, context)
             }
         },
