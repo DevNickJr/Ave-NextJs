@@ -19,12 +19,9 @@ export interface IUserRegister {
     email: string
     password: string
     confirm_password: string
-    // phone: string
     first_name: string      
-    last_name: string        
-    level: string      
-    matric_no: string
-    terms: boolean  
+    last_name: string    
+    terms: boolean     
 }
 
 export interface IRegisterFace {
@@ -94,3 +91,45 @@ export interface IFaqs {
     question: string;
     answer: string;
 }
+
+export interface IWallet {
+    name: string;
+    address: string;
+    qr_code: string;
+}
+
+export interface IPlan {
+    name: string;
+    minimum: number;
+    maximum: number;
+    roi: string;
+}
+
+export interface IDeposit {
+    email: string;
+    userId: string;
+    amount: number;
+    wallet: string;
+    proof: string;
+    status: string;
+}
+
+export interface IWithdrawal {
+    email: string;
+    userId: string;
+    amount: number;
+    wallet: string;
+    proof: string;
+    status: string;
+}
+   
+// export interface IPlan {
+//     name: string;
+//     minimum: string;
+//     maximum: string;
+//     roi: string;
+//     duration: string;
+//     status: string;
+//     description: string;
+//     image: string;
+// }

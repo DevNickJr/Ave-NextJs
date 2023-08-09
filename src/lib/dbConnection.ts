@@ -23,7 +23,7 @@ async function dbConnect() {
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(`${MONGODB_URI}`).then(mongoose => {
-        // console.log('MongoDB Connected', mongoose, mongoose.connection.readyState)
+        console.log('MongoDB Connected', mongoose.connection.readyState)
         return mongoose
     })
   }

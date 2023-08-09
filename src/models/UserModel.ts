@@ -1,9 +1,18 @@
 import { models, model, Schema } from 'mongoose';
 const bcrypt = require('bcrypt');
 
-
 const UserSchema: Schema = new Schema({
   email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  first_name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  last_name: {
     type: String,
     required: true,
     unique: true,
@@ -12,9 +21,14 @@ const UserSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  username: {
+  status: {
     type: String,
-    required: true,
+    // required: true,
+  },
+  document: {
+    front: String,
+    back: String
+    // required: true,
   },
 }, {
   timestamps: true
@@ -25,9 +39,7 @@ UserSchema.methods.comparePassword = async function comparePassword(enteredPassw
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-
 const UserModel = models.User || model('User', UserSchema);
-
 
 
 export default UserModel
