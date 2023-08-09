@@ -18,13 +18,12 @@ export async function GET(req: Request, res: NextApiResponse) {
         //   return res.status(401).json({ message: "You must be signed in to access this" });
         // } 
       
-        const users = UserModel;
         
-        const allUsers = await users.find({}).lean();
+        const users = await UserModel.find({}).lean();
     
-        console.log({allUsers})
+        // console.log({users})
 
-        return NextResponse.json({ users: allUsers }, { status: 200 });
+        return NextResponse.json(users, { status: 200 });
     
         // return res.status(200).json({ users: allUsers });
       } catch (error) {

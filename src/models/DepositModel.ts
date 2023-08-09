@@ -5,7 +5,6 @@ const DepositSchema: Schema = new Schema<IDeposit>({
   userId: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -25,7 +24,6 @@ const DepositSchema: Schema = new Schema<IDeposit>({
   },
   status: {
     type: String,
-    required: true,
   },
 }, {
   timestamps: true

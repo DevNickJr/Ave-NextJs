@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from '@/lib/dbConnection';
-import WalletModel from '@/models/WalletModel';
+import DepositModel from '@/models/DepositModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
-import { IWallet } from '@/interfaces';
+import { IDeposit } from '@/interfaces';
 
 // ----------------------------------------------------------------------
 
@@ -19,11 +19,11 @@ export async function GET(req: NextRequest) {
         // } 
       
         
-        const wallet = await WalletModel.find({}).lean();
+        const deposit = await DepositModel.find({}).lean();
     
-        console.log({wallet})
+        console.log({deposit})
 
-        return NextResponse.json(wallet, { status: 200 });
+        return NextResponse.json(deposit, { status: 200 });
     
         // return res.status(200).json({ users: allUsers });
       } catch (error) {
@@ -46,27 +46,18 @@ export async function POST(req: NextRequest) {
       // body.username = "nicholasjd12";
       // body.confirm_password = "123456";
 
-      const body: IWallet = await req.json()
+      const body: IDeposit = await req.json()
 
 
-      if (!body.address || !body.qr_code || !body.name) {
+      if (!body.userId || !body.email || !body.amount || !body.proof || !body.wallet) {
           return NextResponse.json({ message: 'Please fill in all fields' }, { status: 400 });
       }
 
-      const walletExists = await WalletModel.findOne({
-               name: body.name ? body.name : '',
-      });
+      const deposit = await DepositModel.create(body);
 
-      if (walletExists) {
-          return NextResponse.json({ message: 'Wallet already exists' }, { status: 400 });
-      
-      }
+      if (!deposit) throw new Error('Post Failed')
 
-      const wallet = await WalletModel.create(body);
-
-      if (!wallet) throw new Error('Post Failed')
-
-      return NextResponse.json(wallet, { status: 200 });
+      return NextResponse.json(deposit, { status: 200 });
 
   } catch (error: any) {
       console.error({error});

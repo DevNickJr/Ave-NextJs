@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from '@/lib/dbConnection';
-import WalletModel from '@/models/WalletModel';
+import PlanModel from '@/models/PlanModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 
@@ -24,14 +24,14 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
           return NextResponse.json({ message: 'ID is required' }, { status: 400 });
         }
 
-        const wallet = await WalletModel.findById(id).lean();
+        const plan = await PlanModel.findById(id).lean();
 
-        if (!wallet) {
-          return NextResponse.json({ message: 'Wallet not found' }, { status: 400 });
+        if (!plan) {
+          return NextResponse.json({ message: 'plan not found' }, { status: 400 });
         }
               
 
-        return NextResponse.json(wallet, { status: 200 });
+        return NextResponse.json(plan, { status: 200 });
     
         // return res.status(200).json({ users: allUsers });
       } catch (error) {
@@ -60,13 +60,13 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
       return NextResponse.json({ message: 'ID is required' }, { status: 400 });
     }
 
-    const wallet = await WalletModel.findByIdAndDelete(id).lean();
+    const plan = await PlanModel.findByIdAndDelete(id).lean();
 
-    if (!wallet) {
-      return NextResponse.json({ message: 'Wallet not found' }, { status: 400 });
+    if (!plan) {
+      return NextResponse.json({ message: 'plan not found' }, { status: 400 });
     }
           
-    return NextResponse.json(wallet, { status: 200 });
+    return NextResponse.json(plan, { status: 200 });
 
     // return res.status(200).json({ users: allUsers });
   } catch (error) {
@@ -95,14 +95,14 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
     const body = await req.json()
 
-    const wallet = await WalletModel.findByIdAndUpdate(id, body, { new: true }).lean();
+    const plan = await PlanModel.findByIdAndUpdate(id, body, { new: true }).lean();
 
-    if (!wallet) {
+    if (!plan) {
       return NextResponse.json({ message: 'failed to update' }, { status: 400 });
     }
           
 
-    return NextResponse.json(wallet, { status: 200 });
+    return NextResponse.json(plan, { status: 200 });
 
     // return res.status(200).json({ users: allUsers });
   } catch (error) {
