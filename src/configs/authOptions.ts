@@ -1,6 +1,5 @@
 import { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { apiLogin } from '@/services/AuthService'
 import dbConnect from '@/lib/dbConnection';
 import UserModel from '@/models/UserModel';
 
@@ -12,7 +11,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/",
+    signIn: "/login",
     error: '/',
     // signOut: '/auth/signout',
     // error: '/', // Error code passed in query string as ?error=
@@ -32,7 +31,9 @@ export const authOptions: NextAuthOptions = {
         // console.log({ token, session, user })
       // console.log('session: ', token)
       const { password, ...rest } = token.user
-      session.user = token.rest
+
+      session.user = rest
+      // console.log({ session })
       return session
     },    
   },

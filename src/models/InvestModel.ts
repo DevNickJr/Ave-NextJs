@@ -1,7 +1,7 @@
-import { IDeposit } from '@/interfaces';
+import { IInvest } from '@/interfaces';
 import { models, model, Schema } from 'mongoose';
 
-const DepositSchema: Schema = new Schema<IDeposit>({
+const InvestSchema: Schema = new Schema<IInvest>({
   userId: {
     type: String,
     required: true,
@@ -15,11 +15,7 @@ const DepositSchema: Schema = new Schema<IDeposit>({
     required: true,
     default: 0
   },
-  wallet: {
-    type: String,
-    required: true,
-  },
-  proof: {
+  plan: {
     type: String,
     required: true,
   },
@@ -31,7 +27,7 @@ const DepositSchema: Schema = new Schema<IDeposit>({
   timestamps: true
 });
 
-const DepositModel = models.Deposit || model('Deposit', DepositSchema);
+const InvestModel = models.Invest || model('Invest', InvestSchema);
 
 
-export default DepositModel
+export default InvestModel

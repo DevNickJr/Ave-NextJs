@@ -10,15 +10,16 @@ interface State {
   showSuccessMessage?: boolean;
   showErrorMessage?: boolean;
   requireAuth?: boolean;
+  id?: string;
 }
 
-const usePost = <T,K>(api: (data: T, token?: string) => Promise<AxiosResponse>, { onSuccess, onError, showSuccessMessage=true, showErrorMessage=true, requireAuth, ...rest }: State) => {
-    const { data: session } = useSession()
+const usePost = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?: any }) => Promise<AxiosResponse>, { onSuccess, onError, showSuccessMessage=true, showErrorMessage=true, requireAuth, id, ...rest }: State) => {
+    // const { data: session } = useSession()
 
     const Mutation = useMutation<K, K, T>({
         mutationFn: async (data: T) => {
           // const response = requireAuth ? await api(data, session?.user?.token.access) : await api(data)
-          const response = requireAuth ? await api(data, session?.user?.email!) : await api(data)
+          const response = requireAuth ? await api(data, { id: ''}) : await api(data, { id: id! })
           // console.log("response from usePost", response)
           return response?.data
           // if (response?.data?.status === "success") {

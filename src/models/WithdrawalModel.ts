@@ -5,7 +5,6 @@ const WithdrawalSchema: Schema = new Schema<IWithdrawal>({
   userId: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -19,19 +18,20 @@ const WithdrawalSchema: Schema = new Schema<IWithdrawal>({
     type: String,
     required: true,
   },
-  proof: {
-    type: String,
-    required: true,
-  },
+  // proof: {
+  //   type: String,
+  //   required: true,
+  // },
   status: {
     type: String,
     required: true,
+    default: "processing"
   },
 }, {
   timestamps: true
 });
 
-const WithdrawalModel = models.Withdrawal || model('Withdrawal', WithdrawalSchema);
+const WithdrawalModel = models.Withdraw || model('Withdraw', WithdrawalSchema);
 
 
 export default WithdrawalModel

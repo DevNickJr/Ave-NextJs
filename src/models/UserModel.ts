@@ -1,7 +1,8 @@
+import { IUser } from '@/interfaces';
 import { models, model, Schema } from 'mongoose';
 const bcrypt = require('bcrypt');
 
-const UserSchema: Schema = new Schema({
+const UserSchema: Schema = new Schema<IUser>({
   email: {
     type: String,
     required: true,
@@ -23,6 +24,28 @@ const UserSchema: Schema = new Schema({
   },
   status: {
     type: String,
+    enum: ['verified', 'unverified', 'suspended', 'deleted'],
+    default: 'unverified'
+    // required: true,
+  },
+  balance: {
+    type: Number,
+    default: 0
+    // required: true,
+  },
+  total_deposit: {
+    type: Number,
+    default: 0
+    // required: true,
+  },
+  total_withdrawal: {
+    type: Number,
+    default: 0
+    // required: true,
+  },
+  bonus: {
+    type: Number,
+    default: 0
     // required: true,
   },
   document: {

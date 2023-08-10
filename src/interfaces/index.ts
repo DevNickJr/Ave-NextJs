@@ -21,7 +21,17 @@ export interface IUserRegister {
     confirm_password: string
     first_name: string      
     last_name: string    
-    terms: boolean     
+    terms?: boolean     
+}
+
+export interface IUser extends IUserRegister {
+    id?: string
+    balance: number
+    bonus: number,
+    total_deposit: number,
+    total_withdrawal: number,
+    status: string,
+    document?: string
 }
 
 export interface IRegisterFace {
@@ -44,14 +54,6 @@ export interface IProfile {
     matric_no: string 
   }
 
-export interface IUser extends IUserRegister {
-    status: string
-    middle_name: string | null,
-    profile_picture_url: string,
-    is_active: boolean | null,
-    is_verified: boolean | null,
-    is_staff: boolean | null
-}
 
 export interface IPassword {
     old_password: string
@@ -93,34 +95,51 @@ export interface IFaqs {
 }
 
 export interface IWallet {
+    _id?: string;
     name: string;
     address: string;
     qr_code: string;
 }
 
 export interface IPlan {
+    _id?: string;
     name: string;
     minimum: number;
     maximum: number;
+    duration: number;
     roi: string;
 }
 
 export interface IDeposit {
+    _id?: string;
     email: string;
     userId: string;
     amount: number;
     wallet: string;
     proof: string;
-    status: string;
+    status?: string;
+    createdAt?: string;
+}
+
+export interface IInvest {
+    _id?: string;
+    email: string;
+    userId: string;
+    amount: number;
+    plan: string;
+    status?: string;
+    createdAt?: string;
 }
 
 export interface IWithdrawal {
+    _id?: string;
     email: string;
     userId: string;
     amount: number;
     wallet: string;
-    proof: string;
-    status: string;
+    // proof: string;
+    status?: string;
+    createdAt?: string;
 }
    
 // export interface IPlan {
@@ -129,7 +148,7 @@ export interface IWithdrawal {
 //     maximum: string;
 //     roi: string;
 //     duration: string;
-//     status: string;
+//     status?: string;
 //     description: string;
 //     image: string;
 // }
