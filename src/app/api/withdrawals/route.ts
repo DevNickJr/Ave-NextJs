@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       const body: IWithdrawal = await req.json()
 
 
-      if (!body.userId || !body.email || !body.amount || !body.proof || !body.wallet) {
+      if (!body.userId || !body.email || !body.amount || !body.wallet) {
           return NextResponse.json({ message: 'Please fill in all fields' }, { status: 400 });
       }
 
