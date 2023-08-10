@@ -5,6 +5,8 @@ import Image from 'next/image'
 import CryptImage from '@/assets/cryp.png'
 import { GiCheckMark } from 'react-icons/gi'
 import Footer from '@/components/Footer'
+import AboutImage from '@/assets/about-chart.png'
+
 
 export default function Home() {
   const [page, setPage] = useState(1)
@@ -37,10 +39,10 @@ export default function Home() {
   // console.log({ data })
   
   return (
-    <>
+    <div className='text-white'>
       <Header />
       <main className="">
-        <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/60'>
+        <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/40'>
           <Image src={CryptImage} alt="Auth Image" className='absolute top-0 left-0 w-full h-full -z-10' />
           <div className='flex flex-col justify-center w-full h-full gap-4'>
             <h1 className='text-4xl font-semibold'>Invest for the Future in Stable Platform and Make Fast Money</h1>
@@ -48,7 +50,7 @@ export default function Home() {
             <button className='p-4 px-6 text-white rounded-md w-fit bg-primary'>Get Started</button>
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24'>
+        <section className='px-12 py-12 lg:px-24 bg-[#08262e]'>
           <div className="flex flex-col gap-8 mb-16 md:flex-row">
             <div className='flex flex-col items-center flex-1 gap-3 mb-8 text-center md:items-start md:text-left'>
               <h2 className='text-3xl font-semibold'>All About Us</h2>
@@ -59,6 +61,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex-1 bg-gray-100"> 
+              <Image src={AboutImage} alt="Auth Image" className='object-cover w-full h-full' />
             </div>
           </div>
           <div className="flex flex-col gap-8 md:flex-row">
@@ -73,7 +76,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24'>
+        <section className='px-12 py-12 text-black bg-white lg:px-24'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>How It Work</h2>
             <p className=''>Get involved in our tremendous platform and Invest. We will utilize your money and give you profit in your wallet automatically.</p>
@@ -102,66 +105,66 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24'>
+        <section className='px-12 py-12 bg-[#08262e] text-primary lg:px-24'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>Our Investment Plans</h2>
             <p className=''>Plans for everyone</p>
           </div>
-          <div className='flex flex-col flex-wrap gap-3 mb-8 md:flex-row'>
-            <div className="flex flex-col gap-3 p-6 text-white rounded-md shadow-md w-72 bg-primary">
+          <div className='flex flex-col flex-wrap gap-3 mb-8 md:flex-row text-primary'>
+            <div className="flex flex-col gap-3 p-6  rounded-md shadow-md w-72 bg-[#0D0D0D]">
               <span className='text-xs'>Standard</span>
-              <span className='mb-4 text-2xl font-semibold text-black'>$24.99/mo</span>
+              <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
               <div className="flex flex-col gap-1 text-[11px]">
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
               </div>
-              <button className='p-2 mt-2 text-sm bg-black rounded-md'>Invest Now</button>
+              <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>Invest Now</button>
             </div>
-            <div className="flex flex-col gap-3 p-6 text-white rounded-md shadow-md w-72 bg-primary">
+            <div className="flex flex-col gap-3 p-6 rounded-md shadow-md w-72 bg-[#0D0D0D]">
               <span className='text-xs'>Pro</span>
-              <span className='mb-4 text-2xl font-semibold text-black'>$24.99/mo</span>
+              <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
               <div className="flex flex-col gap-1 text-[11px]">
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <GiCheckMark className="text-white" />
+                  <GiCheckMark className="" />
                   <span className=''>50 Coins</span>
                 </div>
               </div>
-              <button className='p-2 mt-2 text-sm bg-black rounded-md'>Invest Now</button>
+              <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>Invest Now</button>
             </div>
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24'>
+        <section className='px-12 py-12 text-black lg:px-24'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>What makes Avestock Trades stand out?</h2>
           </div>
           <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
-            <div className="flex flex-col w-full gap-3 p-6 text-white rounded-md shadow-md bg-primary">
+            <div className="flex flex-col w-full gap-3 p-6 rounded-md shadow-md">
               <span className='w-6 h-6 bg-gray-100'></span>
               <span className='text-lg font-semibold text-black'>$24.99/mo</span>
               <span>
@@ -170,7 +173,7 @@ export default function Home() {
             </div>            
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24'>
+        <section className='px-12 py-12 lg:px-24 bg-backg'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>Top 8 cryptocurrency, Subscribe and start earning</h2>
           </div>
@@ -199,6 +202,6 @@ export default function Home() {
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

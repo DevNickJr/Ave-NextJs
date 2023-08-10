@@ -7,7 +7,15 @@ module.exports = {
       colors: {
         primary: '#E37302',
         // primary: '#ffbf00',
-        secondary: '#0040FF',
+        // secondary: '#C18700',
+        // secondary: '#0040FF',
+        grayish: "#DFE0DF ",
+        backg: "#08262e",
+        // backg: "#0F4C5C",
+        secondary: "#135F72",
+        // dark: "#0c1a32",
+        // dark: "#BBA89C",
+        // dark: "#9EB0A2",
         // primaryDark: '#2167B4',
       }
     },

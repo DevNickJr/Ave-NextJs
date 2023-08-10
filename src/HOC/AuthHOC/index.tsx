@@ -34,10 +34,10 @@ export default function AuthHOC(
       );
     }
 
-    // if (!session.data) {
-    //   signIn()
-    //   return null;
-    // }
+    if (!session.data) {
+      signIn()
+      return null;
+    }
 
     return <ProtectedComponent user={session} {...props} />;
   };

@@ -1,33 +1,55 @@
 'use client'
-import Table from '@/components/Table'
-import { ITableColumn } from '@/interfaces'
 import React from 'react'
+import Table from '@/components/Table'
+import { ITableColumn, IWallet } from '@/interfaces'
+import { useSession } from 'next-auth/react'
+import useFetch from '@/hooks/useFetch'
+import { apiGetWallets } from '@/services/UserService'
+
 // import { useSession } from 'next-auth/react'
 
 
 const Home = () => {
-  // const { data } = useSession()
+  const session = useSession()
+  const user = session.data?.user
+  const { data: wallets, error, isLoading, isFetching, remove, refetch, fetchStatus } = useFetch<IWallet[]>({api: apiGetWallets, key: ['wallets'] })
+
+
   const columns: ITableColumn[] = [
     {
-      name: 'matric_no',
+      name: 'name',
       label: 'Currency',
     },
-    {
-      name: 'full_name',
-      label: "Balance",
-    },
+    // {
+    //   name: 'full_name',
+    //   label: "A",
+    // },
     {
       name: 'option',
       label: 'Action',
+      options: {
+        filter: true,
+        sort: true,
+      },
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <div className="flex items-center gap-3">
+                <button className='p-2 px-3 text-sm text-white bg-primary'>Deposit</button>
+                <button className='p-2 px-3 text-sm bg-white text-primary'>Withdraw</button>
+            </div>
+        )
+      },
     },
   ]
-  const data = [
+
+  const tableData = [
     {
-        matric_no: 'Dollar',
+        name: 'Dollar',
         full_name: '$0.00',
     },
     {
-        matric_no: 'Bitcoin',
+        name: 'Bitcoin',
         full_name: '$0.00',
     },
     {
@@ -35,6 +57,8 @@ const Home = () => {
         full_name: '$0.00',
     },
   ]
+
+  console.log({ user })
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
@@ -44,7 +68,7 @@ const Home = () => {
                 <div className="flex items-center justify-between gap-8">
                     <span>My Balance</span>
                 </div>
-                <p>$0.00</p>
+                <p>${user?.balance || '0.00'}</p>
                 <div className="flex items-center gap-6">
                     <button className='p-2 px-3 text-sm text-white bg-primary'>Deposit</button>
                     {/* <button className='p-2 px-3 text-sm bg-white text-primary'></button> */}
@@ -59,7 +83,7 @@ const Home = () => {
             </div>
         </div>
         <div className=''>
-          <Table data={data || []} columns={columns} />
+          <Table data={wallets || []} columns={columns} />
         </div>
     </main>
   )

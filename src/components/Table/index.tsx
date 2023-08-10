@@ -8,6 +8,7 @@ interface Props<T = any> {
   columns: ITableColumn[]
   className?: string
   colspan?: number
+  title?: string
 } 
 
 
@@ -36,7 +37,7 @@ const formatDate = (date: number) => {
 };
 
 
-const Table = <T extends any>({ data, columns, className, colspan }: Props) => {
+const Table = <T extends any>({ data, columns, className, colspan, title }: Props) => {
   const [filtererdData, setFilteredData] = React.useState<null | T[]>(null);
   const [search, setSearch] = React.useState<string>("");
 
@@ -75,7 +76,7 @@ const Table = <T extends any>({ data, columns, className, colspan }: Props) => {
               <tr className="bg-[#1B5390] rounded-t-lg"> 
                 <th colSpan={colspan || 4} className="border-none rounded-t-lg">
                   <div className="flex justify-between items-center gap-4 md:gap-8 px-4 py-6 bg-[#1B5390] text-white rounded-t-lg">
-                    <span>Wallet</span>
+                    <span>{title || 'Wallet'}</span>
                   </div>
                 </th>
               </tr>

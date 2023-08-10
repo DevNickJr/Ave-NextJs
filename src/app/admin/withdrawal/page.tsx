@@ -1,58 +1,76 @@
 'use client'
 import Table from '@/components/Table'
-import { ITableColumn } from '@/interfaces'
+import useFetch from '@/hooks/useFetch'
+import { IWithdrawal, ITableColumn } from '@/interfaces'
+import { apiGetWithdrawals } from '@/services/AdminService'
+import { formatDate } from '@/utils/dateFunc'
 import React from 'react'
 // import { useSession } from 'next-auth/react'
 
 
 const Withdrawal = () => {
   // const { data } = useSession()
-  const columns: ITableColumn[] = [
+  const { data: withdrawals, error, isLoading, isFetching, remove, refetch, fetchStatus } = useFetch<IWithdrawal[]>({api: apiGetWithdrawals, key: ['Adminwithdrawals'] })
+
+  console.log( { withdrawals  })
+
+   const columns: ITableColumn[] = [
     {
-      name: 'matric_no',
+      name: 'email',
       label: 'Email',
     },
     {
-      name: 'full_name',
+      name: 'amount',
       label: "Amount",
     },
     {
-      name: 'option',
+      name: 'wallet',
       label: 'Wallet',
     },
+    // {
+    //   name: 'proof',
+    //   label: 'Proof',
+    // },
     {
-      name: 'option',
+      name: 'status',
       label: 'Status',
     },
     {
-      name: 'option',
-      label: 'Proof',
+      name: 'createdAt',
+      label: 'Created At',
+      options: {
+        filter: true,
+        sort: true,
+      },
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <p>{formatDate(val)}</p>
+        )
+      }
     },
     {
-      name: 'option',
+      name: 'Action',
       label: 'Action',
-    },
+      options: {
+        filter: false,
+        sort: false,
+      },
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <button className='btn btn-primary'>View</button>
+        )
+      }
+    }
   ]
-  const data = [
-    {
-        matric_no: 'Dollar',
-        full_name: '$0.00',
-    },
-    {
-        matric_no: 'Bitcoin',
-        full_name: '$0.00',
-    },
-    {
-        matric_no: 'Ethereum',
-        full_name: '$0.00',
-    },
-  ]
+
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
         <h2 className='mb-6 text-lg font-semibold'>Admin Dashboard - Withdrawal</h2>
         <div className='mb-6'>
-          <Table data={data || []} columns={columns} colspan={8} />
+          <Table data={withdrawals || []} columns={columns} colspan={8} />
         </div>
     </main>
   )

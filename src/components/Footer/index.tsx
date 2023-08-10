@@ -22,7 +22,7 @@ const Footer = () => {
   }
 
   return (
-      <footer className='bg-footer-bg pb-14'>
+      <footer className='text-black bg-footer-bg pb-14'>
         {/* {loading && <Loader loader={4} />} */}
         <div className='flex items-center justify-between gap-8 py-2 border-y-2 border-[#D3DAE6] px-8 md:px-10 lg:px-24 mb-12 sm:mb-28'>
           <h3 className='font-semibold text-center text-primary'>Avestock 2023</h3>

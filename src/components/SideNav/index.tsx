@@ -34,7 +34,7 @@ const SideNav = ({ }) => {
                     <MdOutlineDashboardCustomize size={"1.3rem"} />
                     Home
                 </Link>
-                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("account") && 'font-bold'}`} href={"/dashboard/account"}>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("accounts") && 'font-bold'}`} href={"/dashboard/accounts"}>
                     <GiCrownedSkull size={"1.3rem"} />
                     Account
                 </Link>
