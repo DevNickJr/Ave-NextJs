@@ -37,7 +37,7 @@ const Withdrawal = () => {
       userId: user?._id!,
       wallet,
       amount: +amount,
-      proof: 'image_to_firebase',      
+      // proof: 'image_to_firebase',      
     })
   }
 
