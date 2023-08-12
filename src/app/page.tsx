@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import Image from 'next/image'
 import CryptImage from '@/assets/cryp.png'
+import CoinImage from '@/assets/coin1.png'
 import { GiCheckMark } from 'react-icons/gi'
 import Footer from '@/components/Footer'
 import AboutImage from '@/assets/about-chart.png'
@@ -39,7 +40,7 @@ export default function Home() {
   // console.log({ data })
   
   return (
-    <div className='text-white'>
+    <div className=''>
       <Header />
       <main className="">
         <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/40'>
@@ -50,7 +51,7 @@ export default function Home() {
             <button className='p-4 px-6 text-white rounded-md w-fit bg-primary'>Get Started</button>
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24 bg-[#08262e]'>
+        <section className='px-12 py-12 lg:px-24 bg-[#08262e] text-white'>
           <div className="flex flex-col gap-8 mb-16 md:flex-row">
             <div className='flex flex-col items-center flex-1 gap-3 mb-8 text-center md:items-start md:text-left'>
               <h2 className='text-3xl font-semibold'>All About Us</h2>
@@ -61,12 +62,11 @@ export default function Home() {
               </div>
             </div>
             <div className="flex-1 bg-gray-100"> 
-              <Image src={AboutImage} alt="Auth Image" className='object-cover w-full h-full' />
+              <Image src={CoinImage} alt="Auth Image" className='flex-1 object-cover w-full h-full max-h-[450px]' />
             </div>
           </div>
           <div className="flex flex-col gap-8 md:flex-row">
-            <div className="flex-1 bg-gray-100"> 
-            </div>
+            <Image src={CryptImage} alt="Auth Image" className='flex-1 object-cover w-full h-full max-h-[450px]' />
             <div className='flex flex-col items-center flex-1 gap-3 mb-8 text-center md:items-start md:text-left'>
               <h2 className='text-3xl font-semibold'>We Bring together Marketplaces & Finance through the use of artificial intelligence AI</h2>
               <div className="flex flex-col gap-3">
@@ -78,7 +78,7 @@ export default function Home() {
         </section>
         <section className='px-12 py-12 text-black bg-white lg:px-24'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
-            <h2 className='text-3xl font-semibold'>How It Work</h2>
+            <h2 className='text-3xl font-semibold'>How It Works</h2>
             <p className=''>Get involved in our tremendous platform and Invest. We will utilize your money and give you profit in your wallet automatically.</p>
           </div>
           <div className="flex flex-col gap-8">
@@ -105,36 +105,39 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='px-12 py-12 bg-[#08262e] text-primary lg:px-24'>
+        <section className='px-12 py-12 bg-[#08262e] text-white lg:px-24'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>Our Investment Plans</h2>
             <p className=''>Plans for everyone</p>
           </div>
-          <div className='flex flex-col flex-wrap gap-3 mb-8 md:flex-row text-primary'>
-            <div className="flex flex-col gap-3 p-6  rounded-md shadow-md w-72 bg-[#0D0D0D]">
-              <span className='text-xs'>Standard</span>
-              <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
-              <div className="flex flex-col gap-1 text-[11px]">
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
+          <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row text-primary'>
+            {
+               [0,1,2,3,4,5].map((el, i) => 
+              <div key={i} className="flex flex-col gap-3 p-6  rounded-md shadow-md w-72 bg-[#0D0D0D]">
+                <span className='text-xs'>Standard</span>
+                <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
+                <div className="flex flex-col gap-1 text-[11px]">
+                  <div className="flex items-center gap-2">
+                    <GiCheckMark className="" />
+                    <span className=''>50 Coins</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <GiCheckMark className="" />
+                    <span className=''>50 Coins</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <GiCheckMark className="" />
+                    <span className=''>50 Coins</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <GiCheckMark className="" />
+                    <span className=''>50 Coins</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
-                </div>
+                <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>Invest Now</button>
               </div>
-              <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>Invest Now</button>
-            </div>
-            <div className="flex flex-col gap-3 p-6 rounded-md shadow-md w-72 bg-[#0D0D0D]">
+            )}
+            {/* <div className="flex flex-col gap-3 p-6 rounded-md shadow-md w-72 bg-[#0D0D0D]">
               <span className='text-xs'>Pro</span>
               <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
               <div className="flex flex-col gap-1 text-[11px]">
@@ -156,7 +159,7 @@ export default function Home() {
                 </div>
               </div>
               <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>Invest Now</button>
-            </div>
+            </div> */}
           </div>
         </section>
         <section className='px-12 py-12 text-black lg:px-24'>
@@ -173,7 +176,7 @@ export default function Home() {
             </div>            
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24 bg-backg'>
+        <section className='px-12 py-12 text-white lg:px-24 bg-backg'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>Top 8 cryptocurrency, Subscribe and start earning</h2>
           </div>
@@ -190,14 +193,17 @@ export default function Home() {
             <h2 className='text-3xl font-semibold'>What Our Customers Say</h2>
             <p className=''>Our customers from all over the world share their lovely words about us</p>
           </div>
-          <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
-            <div className="flex flex-col items-center w-full gap-3 p-6 text-center rounded-md shadow-md">
-              <span className="bg-gray-100 rounded-full w-28 h-28"></span>
-              <span className='text-lg font-medium'>Nichlas Tesla</span>
-              <span>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum beatae vero non accusamus incidunt, ex, qui placea
-              </span>
-            </div>            
+          <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row'>
+            {
+              [0,1,2,3,4,5,6,7].map((el, i) => 
+              <div key={i} className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md shadow-md">
+                <span className="bg-gray-100 rounded-full w-28 h-28"></span>
+                <span className='text-lg font-medium'>Nichlas Tesla</span>
+                <span>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum beatae vero non accusamus incidunt, ex, qui placea
+                </span>
+              </div>         
+            )}
           </div>
         </section>
       </main>

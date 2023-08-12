@@ -42,7 +42,7 @@ const usePost = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?: any 
         onError: (error: any, variables, context) => {
             console.log("error", error)
             if (showErrorMessage) {
-              toast.error(error?.response?.data?.data?.message || "An Error Occurred!");
+              toast.error(error?.response?.data?.message || "An Error Occurred!");
             } else {
               // toast.error("An Error Occurred!");
             }

@@ -34,13 +34,13 @@ const registerMutation = usePost<IUserRegister, any>(
           // sessionStorage.setItem('email', user.email)
           // console.log({ data })
           console.log({ message: "Registered Successfully", data })
+          
       },
-      onError: (error: any) => {
-        console.log({error})
-          toast.error(error?.response?.data?.errors?.message || "An error occured")
-      }
+      showErrorMessage: true,
     }
   )
+
+  console.log({user})
 
 
 
@@ -59,6 +59,10 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
       toast.error("Password must be at least 6 characters")
       return
   }
+  if (!user?.terms) {
+      toast.error("You must agree to the terms and conditions")
+      return
+  }
 
   try {
     console.log("user", user )
@@ -70,7 +74,7 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
       // console.log("res", res)
   } catch (error: any) {
       console.log("error", error)
-      toast.error(error?.response?.data?.data?.message || "An error occured")
+      toast.error(error?.response?.data?.message || "An error occured")
 
   }
   setLoading(false)
@@ -108,12 +112,18 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
                 <input required value={user?.confirm_password} onChange={(e) => dispatch({ type: "confirm_password", payload: e.target.value})}  type="password" name="confirm_password" id="confirm_password" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Confrim Password' />
               </div>
               <div className="flex items-center gap-3">
-                <input type="checkbox" name="terms" id="terms" checked={user?.terms} onChange={(e) => dispatch({ type: "terms", payload: String(!user?.terms) })}  />
+                <input type="checkbox" name="terms" id="terms" checked={String(user?.terms) === "true"} onChange={(e) => dispatch({ type: "terms", payload: String(!user?.terms) })}  />
                 <p className='text-xs'>I agree to Polar Profits Terms & Conditions and Privacy Policy</p>
               </div>
               <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 text-sm font-bold text-white rounded-md bg-primary'>
                 Proceed
               </button>
+              <p className='my-2 text-sm text-center'>
+              Already have an account? {'  '}
+                <Link href='/login' className='font-semibold'>
+                  Login
+                </Link>
+              </p>
             </form>
         </div>
         

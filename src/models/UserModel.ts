@@ -11,12 +11,12 @@ const UserSchema: Schema = new Schema<IUser>({
   first_name: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   last_name: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   password: {
     type: String,

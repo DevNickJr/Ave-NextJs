@@ -29,11 +29,10 @@ const Footer = () => {
           <nav className="items-center hidden sm:flex gap-x-14 md:gap-4 lg:gap-7">
             <ul className='flex items-center gap-3 text-sm md:gap-4 lg:gap-7 opacity-80'>
               <li><Link href="/" className={`text-green font-medium`}>Home</Link></li>
-              <li><Link href="/explore" className={`text-green font-medium`}>Explore</Link></li>
-              <li><Link href="/blogs" className={`text-green font-medium`}>Blog</Link></li>
               <li><Link href="/about" className={`text-green font-medium`}>About</Link></li>
-              <li><Link href="/contact" className={`text-green font-medium`}>Contact</Link></li>
+              <li><Link href="/" className={`text-green font-medium`}>Contact</Link></li>
               <li><Link href="/login" className={`text-green font-medium`}>Login</Link></li>
+              <li><Link href="/register" className={`text-green font-medium`}>Register</Link></li>
             </ul>
           </nav>
         </div>

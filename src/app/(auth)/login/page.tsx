@@ -83,7 +83,7 @@ const Login = () => {
           <p className='text-sm'>Sign in to continue to Avestock</p>
       </div>
       <form onSubmit={handleLogin} action="" className="max-w-l">
-        <div className='grid gap-8 mb-2'>
+        <div className='grid gap-4 mb-2'>
             <div className='flex flex-col gap-2 text-xs'>
               <label htmlFor="name">Email Address</label>
               <input  value={user?.email} onChange={(e) => dispatch({ type: "email", payload: e.target.value})} type="text" name="name" id="name" className='p-3 border rounded-md placeholder:text-sm' placeholder='Enter Email Address' />
@@ -93,15 +93,19 @@ const Login = () => {
               <input  value={user?.password} onChange={(e) => dispatch({ type: "password", payload: e.target.value})} type="text" name="password" id="password" className='p-3 border rounded-md placeholder:text-sm' placeholder='Enter Password' />
             </div>
         </div>
-        <Link href='/forgot-password' className='my-2 text-sm font-semibold text-'>
+        <Link href='/login' className='my-2 text-sm font-semibold text-'>
             Forgot Password?
         </Link>
         <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 mt-12 text-sm font-bold text-white rounded-md bg-primary'>
             Sign In
         </button>
-        <Link href='/register' className='my-2 text-sm font-semibold text-'>
+        <p className='my-2 text-sm text-center'>
+            Don&apos;t have an account? {'  '}
+          <Link href='/register' className='font-semibold'>
             Register
         </Link>
+        </p>
+        
       </form>
     </div>
   )
