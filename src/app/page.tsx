@@ -45,7 +45,7 @@ export default function Home() {
       <main className="">
         <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/40'>
           <Image src={CryptImage} alt="Auth Image" className='absolute top-0 left-0 w-full h-full -z-10' />
-          <div className='flex flex-col justify-center w-full h-full gap-4'>
+          <div className='flex flex-col justify-center w-full h-full max-w-3xl gap-4 md:w-1/2'>
             <h1 className='text-4xl font-semibold'>Invest for the Future in Stable Platform and Make Fast Money</h1>
             <p className='text-lg'>Our goal is to provide our investors with a reliable source of high income, while minimizing any possible risks and offering a high-quality service.</p>
             <button className='p-4 px-6 text-white rounded-md w-fit bg-primary'>Get Started</button>
