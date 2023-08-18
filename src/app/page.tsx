@@ -21,27 +21,27 @@ export default function Home() {
 
 
 
-  useEffect(() => {
-    const fetchScholarships = async () => {
-      setIsLoading(true)
-      try {
-        const res = await fetch('/api/translate')
-        const data = await res.json()
+  // useEffect(() => {
+  //   const fetchScholarships = async () => {
+  //     setIsLoading(true)
+  //     try {
+  //       const res = await fetch('/api/translate')
+  //       const data = await res.json()
 
-        console.log({ res, data })
+  //       console.log({ res, data })
 
-        if (!res.ok) {
-          throw new Error(data?.message || 'An error Occured')
-        }
-        setData(data)
-      } catch (error) {
-        console.log({error})
-      }
-      setIsLoading(false)
-    }
+  //       if (!res.ok) {
+  //         throw new Error(data?.message || 'An error Occured')
+  //       }
+  //       setData(data)
+  //     } catch (error) {
+  //       console.log({error})
+  //     }
+  //     setIsLoading(false)
+  //   }
 
-    fetchScholarships()
-  }, [])
+  //   fetchScholarships()
+  // }, [])
 
   // console.log({ data })
   
