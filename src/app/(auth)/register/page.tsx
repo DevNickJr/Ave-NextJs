@@ -34,6 +34,7 @@ const registerMutation = usePost<IUserRegister, any>(
           // sessionStorage.setItem('email', user.email)
           // console.log({ data })
           console.log({ message: "Registered Successfully", data })
+          router.push('/auth/login')
           
       },
       showErrorMessage: true,

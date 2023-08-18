@@ -7,6 +7,9 @@ import CoinImage from '@/assets/coin1.png'
 import { GiCheckMark } from 'react-icons/gi'
 import Footer from '@/components/Footer'
 import AboutImage from '@/assets/about-chart.png'
+import Hero from '@/components/Hero'
+import { translate } from '@vitalets/google-translate-api';
+
 
 
 export default function Home() {
@@ -15,11 +18,14 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const num_per_page = 6
 
+
+
+
   useEffect(() => {
     const fetchScholarships = async () => {
       setIsLoading(true)
       try {
-        const res = await fetch('/api/users')
+        const res = await fetch('/api/translate')
         const data = await res.json()
 
         console.log({ res, data })
@@ -42,16 +48,17 @@ export default function Home() {
   return (
     <div className=''>
       <Header />
+      <Hero />
       <main className="">
-        <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/40'>
+        {/* <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/40'>
           <Image src={CryptImage} alt="Auth Image" className='absolute top-0 left-0 w-full h-full -z-10' />
           <div className='flex flex-col justify-center w-full h-full max-w-3xl gap-4 md:w-1/2'>
             <h1 className='text-4xl font-semibold'>Invest for the Future in Stable Platform and Make Fast Money</h1>
             <p className='text-lg'>Our goal is to provide our investors with a reliable source of high income, while minimizing any possible risks and offering a high-quality service.</p>
             <button className='p-4 px-6 text-white rounded-md w-fit bg-primary'>Get Started</button>
           </div>
-        </section>
-        <section className='px-12 py-12 lg:px-24 bg-[#08262e] text-white'>
+        </section> */}
+        {/* <section className='px-12 py-12 text-white lg:px-24 bg-backg'>
           <div className="flex flex-col gap-8 mb-16 md:flex-row">
             <div className='flex flex-col items-center flex-1 gap-3 mb-8 text-center md:items-start md:text-left'>
               <h2 className='text-3xl font-semibold'>All About Us</h2>
@@ -75,13 +82,13 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className='px-12 py-12 text-black bg-white lg:px-24'>
-          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
-            <h2 className='text-3xl font-semibold'>How It Works</h2>
-            <p className=''>Get involved in our tremendous platform and Invest. We will utilize your money and give you profit in your wallet automatically.</p>
+          <div data-aos="slide-up" className='flex flex-col items-center gap-3 mb-8 text-center'>
+            <h2 className='text-3xl font-semibold text-primary'>How It Works</h2>
+            <p className='text-sm'>Get involved in our tremendous platform and Invest. We will utilize your money and give you profit in your wallet automatically.</p>
           </div>
-          <div className="flex flex-col gap-8">
+          <div data-aos="slide-up" className="flex flex-col gap-8">
             <div className="flex items-center gap-4">
               <div className="flex-[1_0_48px] w-12 h-12 bg-black">dsss</div>
               <div className="flex flex-col gap-1">
@@ -89,14 +96,14 @@ export default function Home() {
                 <p>You will immediately have access to your trading account and all tools you need for successful trading.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div data-aos="slide-up" className="flex items-center gap-4">
               <div className="flex-[1_0_48px] w-12 h-12 bg-black">dsss</div>
               <div className="flex flex-col gap-1">
                 <p>Register</p>
                 <p>You will immediately have access to your trading account and all tools you need for successful trading.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div data-aos="slide-left" className="flex items-center gap-4">
               <div className="flex-[1_0_48px] w-12 h-12 bg-black">dsss</div>
               <div className="flex flex-col gap-1">
                 <p>Register</p>
@@ -105,7 +112,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='px-12 py-12 bg-[#08262e] text-white lg:px-24'>
+        <section className='px-12 py-12 text-white bg-[#4C4637] lg:px-24'>
           <div className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>Our Investment Plans</h2>
             <p className=''>Plans for everyone</p>
@@ -113,7 +120,7 @@ export default function Home() {
           <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row text-primary'>
             {
                [0,1,2,3,4,5].map((el, i) => 
-              <div key={i} className="flex flex-col gap-3 p-6  rounded-md shadow-md w-72 bg-[#0D0D0D]">
+              <div key={i} data-aos="flip-left" className="flex flex-col gap-3 p-6  rounded-md shadow-md w-72 bg-[#0D0D0D]">
                 <span className='text-xs'>Standard</span>
                 <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
                 <div className="flex flex-col gap-1 text-[11px]">
@@ -163,7 +170,7 @@ export default function Home() {
           </div>
         </section>
         <section className='px-12 py-12 text-black lg:px-24'>
-          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
+          <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>What makes Avestock Trades stand out?</h2>
           </div>
           <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
@@ -188,12 +195,12 @@ export default function Home() {
             </div>            
           </div>
         </section>
-        <section className='px-12 py-12 lg:px-24'>
-          <div className='flex flex-col items-center gap-3 mb-8 text-center'>
+        <section  className='px-12 py-12 lg:px-24'>
+          <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-8 text-center'>
             <h2 className='text-3xl font-semibold'>What Our Customers Say</h2>
             <p className=''>Our customers from all over the world share their lovely words about us</p>
           </div>
-          <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row'>
+          <div data-aos="fade-in" className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row'>
             {
               [0,1,2,3,4,5,6,7].map((el, i) => 
               <div key={i} className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md shadow-md">

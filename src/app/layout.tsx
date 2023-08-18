@@ -2,6 +2,8 @@ import NextAuthSesssionProvider from '@/providers/SesssionProvider';
 import QueryProvider from '@/providers/QueryProvider';
 import './globals.css'
 import { Inter } from 'next/font/google'
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,15 +18,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+
   return (
     <html lang="en">
       <body className={inter.className}>
       <NextAuthSesssionProvider>
         <QueryProvider>
           {children}
+
         </QueryProvider>
       </NextAuthSesssionProvider>
       </body>
+      <script src="//code.tidio.co/xmkv5uj01vnyzvbec65ti8tmhdaoylfc.js" async></script>
     </html>
   )
 }
