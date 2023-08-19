@@ -46,7 +46,7 @@ const ContactUs = () => {
             <h1 className="mb-3 text-4xl font-extrabold text-white md:text-5xl font-argentinum">Contact Us</h1>
             <p className='max-w-lg text-sm'>We value your inquiries, feedback, and collaboration opportunities</p>
         </section>
-        <section className="flex flex-col gap-3 px-12 py-20 pt-20 pb-20 lg:px-24 section md:flex-row">
+        <section className="flex flex-col gap-3 px-12 py-20 pt-20 pb-20 bg-white lg:px-24 section md:flex-row">
             <div className="flex flex-col justify-between w-full gap-4 md:flex-row md:gap-12">
                 <div className="flex flex-col flex-1 gap-4">
                     <Image src={ContactImg} alt="" className="w-full h-40 max-w-sm mb-8" />
