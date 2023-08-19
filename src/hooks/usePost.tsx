@@ -1,59 +1,58 @@
-import { MutationFunction, useMutation } from "@tanstack/react-query";
+import { useState, FormEvent } from 'react'
 import { toast } from 'react-toastify';
-import { AxiosResponse } from "axios";
-import { useSession } from 'next-auth/react'
 
 
-interface State {
-  onSuccess?: (data: any, variables?: any, context?: any) => void;
-  onError?: (error: any, variables?: any, context?: any) => void;
-  showSuccessMessage?: boolean;
-  showErrorMessage?: boolean;
-  requireAuth?: boolean;
-  id?: string;
+interface Props {
+    api: (string);
+    method?: "POST" | "GET" | "PUT" | "DELETE" | "PATCH"
+    onSuccess?: (a?: any) => void
+    onFailure?: (a?: any) => void
 }
 
-const usePost = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?: any }) => Promise<AxiosResponse>, { onSuccess, onError, showSuccessMessage=true, showErrorMessage=true, requireAuth, id, ...rest }: State) => {
-    // const { data: session } = useSession()
+const usePost = ({ api, method, onSuccess, onFailure, ...rest }: Props) => {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+    const [data, setData] = useState(null)
 
-    const Mutation = useMutation<K, K, T>({
-        mutationFn: async (data: T) => {
-          // const response = requireAuth ? await api(data, session?.user?.token.access) : await api(data)
-          const response = requireAuth ? await api(data, { id: ''}) : await api(data, { id: id! })
-          // console.log("response from usePost", response)
-          return response?.data
-          // if (response?.data?.status === "success") {
-          //   return response?.data?.data
-          // } else {
-          //   throw new Error(response?.data?.message)
-          //   }
-        },
-        onSuccess: (data, variables, context) => {
-            console.log("successful", data)
-            if (showSuccessMessage) {
-              // toast.success(data?.message);
-              toast.success("Successful !");
+    const post = async (val: any, route?: string): Promise<void> => {
+        setLoading(true)
+        setError('')
+        // console.log({val})
+        try {
+            const res = await fetch(`/api/${route || api}`, {
+                method: method ? method : "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(val)
+            })
+ 
+        
+             
+            if (!res.ok) {
+                const error = await res.json()
+                throw new Error(error?.message || 'Something Went Wrong!')
             }
+
+            const data = await res.json()
+
+            setData(data)
+
             if (onSuccess) {
-              // console.log("onSuccess", onSuccess)
-                onSuccess(data, variables, context)
+                onSuccess(data)
             }
-        },
-        onError: (error: any, variables, context) => {
-            console.log("error", error)
-            if (showErrorMessage) {
-              toast.error(error?.response?.data?.message || "An Error Occurred!");
-            } else {
-              // toast.error("An Error Occurred!");
-            }
-            if (onError) {
-                onError(error, variables, context)
-            }
-        },
-        ...rest
-      })
 
-    return Mutation
+        } catch (error: any) {
+            console.log("error", error)
+            setError(error?.message)
+            toast.error(error?.message || 'An error Occured')
+        }
+        setLoading(false)
+    }
+
+
+
+    return { loading, error, data, post }
 }
 
 export default usePost

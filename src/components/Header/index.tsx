@@ -26,8 +26,8 @@ const Header = () => {
         <nav className="items-center hidden md:flex gap-x-14 md:gap-4 lg:gap-7">
           <ul className='flex flex-col items-center text-sm font-medium md:flex-row text-dark-light gap-7 md:gap-4 lg:gap-7'>
             <li><Link href="/" className={`pb-1.5 px-1 font-medium ${pathname==="/" && "text-primary border-b-2 border-primary"}`}>Home</Link></li>
-            <li><Link href="/" className={`pb-1.5 px-1 font-medium ${pathname==="/about" && "text-primary border-b-2 border-primary"}`}>About</Link></li>
-            <li><Link href="/" className={`pb-1.5 px-1 font-medium ${pathname==="/contact" && "text-primary border-b-2 border-primary"}`}>Contact</Link></li>
+            <li><Link href="/about" className={`pb-1.5 px-1 font-medium ${pathname==="/about" && "text-primary border-b-2 border-primary"}`}>About</Link></li>
+            <li><Link href="/contact" className={`pb-1.5 px-1 font-medium ${pathname==="/contact" && "text-primary border-b-2 border-primary"}`}>Contact</Link></li>
             <li><Link href="/login" className={`pb-1.5 px-1 font-medium ${pathname==="/login" && "text-primary border-b-2 border-primary"}`}>Login</Link></li>
             <li><Link href="/register" className={`pb-1.5 px-1 font-medium ${pathname==="/register" && "text-primary border-b-2 border-primary"}`}>Register</Link></li>
             {/* {!user ? 

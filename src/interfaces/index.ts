@@ -152,3 +152,10 @@ export interface IWithdrawal {
 //     description: string;
 //     image: string;
 // }
+
+
+export interface IFeedback {
+    name: string;
+    email: string;
+    message: string;
+}

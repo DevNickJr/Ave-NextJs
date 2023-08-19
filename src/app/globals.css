@@ -16,6 +16,19 @@ body {
   width: 100%;
 }
 
+.top-section {
+  margin-top: 50px/* 64px */;
+  padding-top: 2rem/* 32px */;
+  padding-bottom: 2rem/* 32px */;
+}
+
+@media screen and (min-width: 768px) {
+  .top-section {
+    margin-top: 89px;
+    padding-top: 3rem/* 48px */;
+    padding-bottom: 3rem/* 48px */;
+  }
+}
 
 .carousel-slide {
     animation: slideOut 50s infinite forwards linear;

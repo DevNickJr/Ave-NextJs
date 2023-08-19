@@ -45,34 +45,35 @@ const Login = () => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
     setLoading(true)
-    try {
-      console.log("user", user )
-        const res = await signIn('credentials', {
-            ...user,
-            redirect: false,
-            // callbackUrl: `${window.location.origin}/dashboard`,
-            email: user?.email,
-            onUnauthenticated() {
-                toast.error("Invalid Credentials")
-            }
-        })
-
-        console.log("res", res)
-
-        if (!res?.error) {
-          if (active === 'student') {
-            return router.push('/dashboard')
-          }
-          return router.push('/staff')
-          // return router.push('/dashboard')
-        }
-        
-        throw new Error(res?.error)
-    } catch (error: any) {
-        console.log("error", error)
-        toast.error(error?.message)
-    }
+    toast.info('Deactivated By Admin')
     setLoading(false)
+    // try {
+    //   console.log("user", user )
+    //     const res = await signIn('credentials', {
+    //         ...user,
+    //         redirect: false,
+    //         email: user?.email,
+    //         onUnauthenticated() {
+    //             toast.error("Invalid Credentials")
+    //         }
+    //     })
+
+    //     console.log("res", res)
+
+    //     if (!res?.error) {
+    //       if (active === 'student') {
+    //         return router.push('/dashboard')
+    //       }
+    //       return router.push('/staff')
+    //     }
+        
+    //     throw new Error(res?.error)
+    // } catch (error: any) {
+    //     console.log("error", error)
+    //     toast.error(error?.message)
+    // }
+    // setLoading(false)
+
 }
 
   return (
