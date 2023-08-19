@@ -1,7 +1,7 @@
 'use client'
 import React, { use, useEffect } from 'react'
 import Image from 'next/image'
-import usePost from '@/hooks/usePost'
+import useMutation from '@/hooks/useMutation'
 import { IPlan } from '@/interfaces'
 import { apiGetPlans, apiUpdatePlan } from '@/services/AdminService'
 import useFetch from '@/hooks/useFetch'
@@ -19,7 +19,7 @@ const Plans = () => {
     }
   }, [plans])
 
-  const updatePlanMutation = usePost<IPlan, any>(apiUpdatePlan, {
+  const updatePlanMutation = useMutation<IPlan, any>(apiUpdatePlan, {
     onSuccess: (data) => {
       refetch()
       console.log(data)

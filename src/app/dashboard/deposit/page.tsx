@@ -4,7 +4,7 @@ import useFetch from '@/hooks/useFetch'
 import { apiDeposit, apiGetUserDeposits, apiGetWallets } from '@/services/UserService'
 import { IDeposit, IWallet } from '@/interfaces'
 import { useSession } from 'next-auth/react'
-import usePost from '@/hooks/usePost'
+import usePost from '@/hooks/useMutation'
 import { formatDate } from '@/utils/dateFunc'
 // import { useSession } from 'next-auth/react'
 

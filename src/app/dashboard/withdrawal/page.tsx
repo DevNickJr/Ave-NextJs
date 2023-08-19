@@ -1,6 +1,6 @@
 'use client'
 import useFetch from '@/hooks/useFetch'
-import usePost from '@/hooks/usePost'
+import usePost from '@/hooks/useMutation'
 import { IWithdrawal } from '@/interfaces'
 import { apiGetUserWithdrawals, apiWithdrawal } from '@/services/UserService'
 import { formatDate } from '@/utils/dateFunc'

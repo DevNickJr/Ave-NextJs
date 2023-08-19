@@ -1,7 +1,7 @@
 'use client'
 import Table from '@/components/Table'
 import useFetch from '@/hooks/useFetch'
-import usePost from '@/hooks/usePost'
+import usePost from '@/hooks/useMutation'
 import { IUser, ITableColumn, IPlan } from '@/interfaces'
 import { apiGetUsers, apiUpdatePlan } from '@/services/AdminService'
 import { formatDate } from '@/utils/dateFunc'

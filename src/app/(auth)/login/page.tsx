@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { IUserLogin, ILoginReducerAction } from '@/interfaces'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
-import usePost from '@/hooks/usePost'
+import useMutation from '@/hooks/useMutation'
 import { apiLogin } from '@/services/AuthService'
 import Loader from '@/components/Loader'
 
@@ -22,7 +22,7 @@ const Login = () => {
     return { ...state, [action.type]: action.payload }
 }, initialState)
 
-// const { mutate } = usePost<IUserLogin, any>(
+// const { mutate } = useMutation<IUserLogin, any>(
 //   apiLogin,
 //   {
 //     onSuccess: () => {

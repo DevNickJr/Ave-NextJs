@@ -2,7 +2,7 @@
 import React, { use, useEffect } from 'react'
 import Image from 'next/image'
 import { apiGetWallets, apiUpdateWallet } from '@/services/AdminService'
-import usePost from '@/hooks/usePost'
+import usePost from '@/hooks/useMutation'
 import { IWallet } from '@/interfaces'
 import useFetch from '@/hooks/useFetch'
 import { set } from 'mongoose'

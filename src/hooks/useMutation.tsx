@@ -13,7 +13,7 @@ interface State {
   id?: string;
 }
 
-const usePost = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?: any }) => Promise<AxiosResponse>, { onSuccess, onError, showSuccessMessage=true, showErrorMessage=true, requireAuth, id, ...rest }: State) => {
+const useMutations = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?: any }) => Promise<AxiosResponse>, { onSuccess, onError, showSuccessMessage=true, showErrorMessage=true, requireAuth, id, ...rest }: State) => {
     // const { data: session } = useSession()
 
     const Mutation = useMutation<K, K, T>({
@@ -56,4 +56,4 @@ const usePost = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?: any 
     return Mutation
 }
 
-export default usePost
+export default useMutations

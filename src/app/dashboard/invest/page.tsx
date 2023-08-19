@@ -5,7 +5,7 @@ import { IInvest, IPlan, ITableColumn } from '@/interfaces'
 import { apiInvest, apiGetPlans, apiGetUserInvestments } from '@/services/UserService'
 import React from 'react'
 import { useSession } from 'next-auth/react'
-import usePost from '@/hooks/usePost'
+import usePost from '@/hooks/useMutation'
 import { formatDate } from '@/utils/dateFunc'
 
 
