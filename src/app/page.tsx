@@ -195,7 +195,7 @@ export default function Home() {
             </div> */}
           </div>
         </section>
-        <section className='px-12 py-20 text-black lg:px-24'>
+        <section className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
             <h2 className='text-3xl font-semibold text-primary'>What makes Avestock Trades stand out?</h2>
             <p className='max-w-lg text-sm md:text-base'>Unveiling the Unique Qualities That Elevate Avestock Trades to Prominence in the Investment Landscape</p>
@@ -287,7 +287,7 @@ export default function Home() {
             </div>            
           </div>
         </section>
-        <section  className='px-12 py-12 lg:px-24'>
+        <section  className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
             <h2 className='text-3xl font-semibold text-primary'>What Our Customers Say</h2>
             <p className='max-w-lg text-sm md:text-base'>Our customers from all over the world share their lovely words about us</p>
