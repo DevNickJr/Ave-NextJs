@@ -23,3 +23,8 @@
 .carousel-item.active {
   opacity: 1;
 }
+
+
+.grad-to-right {
+  background-image: linear-gradient(to right top, #d0bf91, #a3876d, #6f564d, #392c2c, #000000);
+}

@@ -24,7 +24,6 @@ export default function Providers({ children }: Props) {
 
   React.useEffect(() => {
     AOS.init({
-      // easing: "ease-out-cubic",
     });
   }, []);
 

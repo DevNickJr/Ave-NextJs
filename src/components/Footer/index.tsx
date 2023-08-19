@@ -39,7 +39,7 @@ const Footer = () => {
         <div className='justify-between px-8 md:px-10 lg:px-24 sm:flex sm:w-11/12'>
           <div className='flex justify-between gap-8 mb-8 lg:gap-32'>
             <div>
-              <h4 className='text-sm font-medium mb-7'>Other pages</h4>
+              <h4 className='text-sm font-medium mb-7 text-primary'>Other pages</h4>
               <ul className='flex flex-col gap-6 text-xs text-footer-gray'>
                 <li>
                   <Link href={"/faqs"}>FAQ</Link>
@@ -57,7 +57,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h4 className='text-sm font-medium mb-7'>Contact Info</h4>
+              <h4 className='text-sm font-medium mb-7 text-primary'>Contact Info</h4>
               <ul className='flex flex-col gap-6 text-xs text-footer-gray'>
                 <li className='flex items-center gap-3'> 
                   <BiLocationPlus />
@@ -75,8 +75,8 @@ const Footer = () => {
             </div>
           </div>
           <div className='mb-8'>
-            <h4 className='mb-2 text-25'>Stay Updated</h4>
-            <span className='text-xs text-footer-gray'>Keep a close watch on your favourite businesses</span>
+            <h4 className='mb-2 font-medium text-25 text-primary'>Stay Updated</h4>
+            <span className='text-xs text-footer-gray'>Keep a close watch on your favourite Currencies</span>
             <div onClick={handleSubmit} className='flex text-xs mt-7'>
               <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder='Enter your email' className='w-full p-2 px-3 text-xs border-2 border-r-0 rounded-tl-md rounded-bl-md border-gray' />
               <button type={'submit'} className='rounded-tr-md rounded-br-md py-1.5 px-5 text-xs bg-primary text-white'>
