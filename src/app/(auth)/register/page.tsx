@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useReducer, FormEvent } from 'react'
 import { IUserRegister, IRegistereducerAction } from '@/interfaces'
 import { toast } from 'react-toastify'
-import usePost from '@/hooks/usePost'
+import useMutation from '@/hooks/useMutation'
 import { useRouter } from 'next/navigation'
 import { apiRegister } from '@/services/AuthService'
 import Loader from '@/components/Loader'
@@ -26,7 +26,7 @@ const Register = () => {
 
 const router = useRouter()
 
-const registerMutation = usePost<IUserRegister, any>(
+const registerMutation = useMutation<IUserRegister, any>(
     apiRegister,
     {
       onSuccess: (data) => {
