@@ -4,34 +4,43 @@ export interface IUserLogin {
 }
 
 export interface IForgotPassword { 
-    email: string, 
+    email: string 
     redirect_url: string 
 }
 
 export interface IChangePassword { 
-    password: string,
-    confirm_password: string, 
-    token: string, 
-    uidb64: 'MTI' 
+    old_password: string
+    password: string
+    confirm_password: string 
 }
 
 export interface IUserRegister {
     email: string
     password: string
-    confirm_password: string
+    // confirm_password: string
     first_name: string      
     last_name: string    
-    terms?: boolean     
+    terms?: boolean  
+    nationality: string
+    currency: string   
 }
 
 export interface IUser extends IUserRegister {
     id?: string
     balance: number
-    bonus: number,
-    total_deposit: number,
-    total_withdrawal: number,
-    status: string,
-    document?: string
+    bonus: number
+    total_deposit: number
+    total_withdrawal: number
+    status: string
+    document?: {
+        front: string
+        back: string
+    }
+}
+
+export interface IVerifyKYC {
+    front: string
+    back: string
 }
 
 export interface IRegisterFace {
@@ -73,7 +82,7 @@ export interface ILoginReducerAction extends IReducerAction<"email" | "password"
     payload: string
 }
 
-export interface IRegistereducerAction extends IReducerAction<"email" | "password" | "confirm_password" | "first_name" | "last_name" | "terms"> {
+export interface IRegistereducerAction extends IReducerAction<"email" | "password" | "confirm_password" | "first_name" | "last_name" | "terms" | "currency" | "nationality"> {
     payload: string
 }
 

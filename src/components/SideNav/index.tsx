@@ -2,16 +2,10 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MdOutlineDashboardCustomize, MdLogout, MdOutlineFeedback } from 'react-icons/md'
-import { RiTeamLine, RiQuestionnaireLine } from 'react-icons/ri'
+import { MdOutlineDashboardCustomize, MdLogout } from 'react-icons/md'
+import { RiTeamLine } from 'react-icons/ri'
 import { GiCrownedSkull } from 'react-icons/gi'
-import { BsFillPersonFill } from 'react-icons/bs'
-import { TiNews } from 'react-icons/ti'
-import { FaAward } from 'react-icons/fa'
-import { AiTwotoneGold, AiOutlineHome, AiOutlineCopyrightCircle } from 'react-icons/ai'
-import Logo from "@/assets/logo.svg"
-import Image from 'next/image'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { signOut } from "next-auth/react"
 
 // import { useSession, signIn, signOut } from "next-auth/react"
 
@@ -49,6 +43,10 @@ const SideNav = ({ }) => {
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("withdrawal") && 'font-bold'}`} href={"/dashboard/withdrawal"}>
                     <RiTeamLine size={"1.3rem"} />
                     Withdrawal
+                </Link>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("settings") && 'font-bold'}`} href={"/dashboard/settings"}>
+                    <RiTeamLine size={"1.3rem"} />
+                    Settings
                 </Link>
             </div>
         </div>

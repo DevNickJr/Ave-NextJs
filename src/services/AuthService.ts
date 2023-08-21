@@ -1,4 +1,4 @@
-import { IUserRegister, IUserLogin, IUser, IProfile, IPassword, IRegisterFace, IVerifiedFace, IForgotPassword, IChangePassword } from '@/interfaces'
+import { IUserRegister, IUserLogin, IUser, IPassword, IForgotPassword, IChangePassword } from '@/interfaces'
 import BaseService from "./BaseService"
 import { User } from "next-auth"
 
@@ -19,6 +19,26 @@ export const apiLogin =  (data: IUserLogin) => {
     return BaseService.post<User>(`${servicePrefix}/login`, data)
 }
 
+export const apiGetUser =  ({ id }: { id: string }) => {
+    return BaseService.get<IUser>(`/users/${id}`)
+}
+
+export const apiUpdateUser =  (data: Partial<IUser>, { id }: { id: string }) => {
+    return BaseService.patch<Partial<IUser>>(`/users/${id}`, data)
+}
+
+
+export const apiChangePassword =  (data: IChangePassword, { id }: { id: string }) => {
+    return BaseService.patch(`/users/${id}/change_password`, data)
+}
+
+
+
+
+
+
+
+
 export const apiRefreshToken =  (data: { refresh: string }) => {
     return BaseService.post(`${servicePrefix}/token/refresh`, data)
 }
@@ -27,25 +47,12 @@ export const apiForgotPassword =  (data: IForgotPassword) => {
     return BaseService.post(`${servicePrefix}/password/reset`, data)
 }
 
-export const apiChangePassword =  (data: IChangePassword) => {
-    return BaseService.patch(`${servicePrefix}/password/reset/complete`, data)
-}
 
-export const apiGetUser =  (token: string) => {
-    return BaseService.get<IProfile>(`${servicePrefix}/user`, Auth(token))
-}
 
-export const apiUpdateUser =  (data: IProfile, token?: string) => {
-    const formData = new FormData()
-    Object.keys(data).forEach(key => formData.append(key, data[key as keyof IProfile]))
 
-    return BaseService.patch<IUser>(`${servicePrefix}/user`, formData, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data"
-        }
-    })
-}
+
+
+
 
 export const apiVerifyFace =  (data: FormData, token?: string) => {
     // const formData = new FormData()

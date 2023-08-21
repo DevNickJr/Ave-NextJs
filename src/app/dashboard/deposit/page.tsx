@@ -6,6 +6,7 @@ import { IDeposit, IWallet } from '@/interfaces'
 import { useSession } from 'next-auth/react'
 import usePost from '@/hooks/useMutation'
 import { formatDate } from '@/utils/dateFunc'
+import { BiLeftArrow } from 'react-icons/bi'
 // import { useSession } from 'next-auth/react'
 
 
@@ -54,16 +55,16 @@ const Deposit = () => {
         <>
           <div className='grid gap-4 mb-6 mb-12 md:grid-cols-2 lg:grid-cols-3'>
             <div onClick={() => setStep(2)} className="cursor-pointer flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
-              <p>$0.00</p>
-              <p>Make Deposit</p>
+              <p className='font-bold text-primary'>Fund Via Cryto Wallet</p>
+              <p className='text-xs'>click to view address details</p>
             </div>
-            {/* <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
-              <p>$0.00</p>
-              <p>Pay with Wallet</p>
-            </div> */}
             <div onClick={() => setStep(3)} className="cursor-pointer flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
-              <p>$0.00</p>
-              <p>Submit Proof</p>
+              <p className='font-bold text-primary'>Fund Via Local Bank</p>
+              <p className='text-xs'>click to view bank options</p>
+            </div>
+            <div onClick={() => setStep(4)} className="cursor-pointer flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
+              <p className='font-bold text-primary'>Submit Proof</p>
+              <p className='text-xs'>click to submit payment proof</p>
             </div>
           </div>
           <div className="p-5 bg-white rounded-md">
@@ -91,6 +92,10 @@ const Deposit = () => {
       )}
       {step === 2 && (
         <>
+          <h4 className='flex items-center gap-4 mb-4 text-xs font-semibold'>
+            <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
+            Cryto Wallets
+          </h4>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
               <select onChange={(e) => setChioce(e.target.value)} name="" id="">
@@ -110,7 +115,7 @@ const Deposit = () => {
                       {wallets?.find(wallet => wallet.name === choice)?.address}
                     </div>
                     <p>Click the icon below to copy the wallet address or scan the QR-code and procced to payment</p>
-                    <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={() => setStep(3)}>Next</button>
+                    <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={() => setStep(4)}>Next</button>
                   </div>
                   
               }
@@ -122,6 +127,41 @@ const Deposit = () => {
       )}
       {step === 3 && (
         <>
+         <h4 className='flex items-center gap-4 mb-4 text-xs font-semibold'>
+            <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
+            Bank Details
+          </h4>
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
+              <select onChange={(e) => setChioce(e.target.value)} name="" id="">
+                <option value="">Choose a Bank</option>
+                {wallets?.map(wallet => 
+                  <option key={wallet.name} value={wallet.name}>{wallet.name}</option>
+                )}
+              </select>
+              <div className='flex flex-col gap-4'>
+                <p>Make a transfer or deposit to the details below</p>
+                <div className="w-48 h-48 bg-gray-100">
+                  {wallets?.find(wallet => wallet.name === choice)?.qr_code}
+                </div>
+                <div className="w-full p-2 text-center rounded-md">
+                  {wallets?.find(wallet => wallet.name === choice)?.address}
+                </div>
+                <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={() => setStep(4)}>Next</button>
+              </div>
+                  
+            </div>
+            <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
+            </div>
+          </div>
+        </>
+      )}
+      {step === 4 && (
+        <>
+         <h4 className='flex items-center gap-4 mb-4 text-xs font-semibold'>
+            <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
+            Payment Proof
+          </h4>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
               <input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" className='p-3 rounded-md' placeholder='Enter Amount' />

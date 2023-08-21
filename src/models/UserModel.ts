@@ -22,9 +22,17 @@ const UserSchema: Schema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  currency: {
+    type: String,
+    required: true,
+  },
+  nationality: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
-    enum: ['verified', 'unverified', 'suspended', 'deleted'],
+    enum: ['verified', 'unverified', 'suspended', 'failed', 'pending'],
     default: 'unverified'
     // required: true,
   },

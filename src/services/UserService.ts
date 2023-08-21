@@ -1,4 +1,4 @@
-import { IUser, IPassword, IWallet, IDeposit, IWithdrawal, IPlan, IInvest } from '@/interfaces'
+import { IUser, IPassword, IWallet, IDeposit, IWithdrawal, IPlan, IInvest, IVerifyKYC } from '@/interfaces'
 import BaseService from "./BaseService"
 import { AxiosResponse } from 'axios'
 
@@ -34,4 +34,8 @@ export const apiInvest = (data: IInvest): Promise<AxiosResponse<IInvest, any>> =
 
 export const apiWithdrawal = (data: IWithdrawal): Promise<AxiosResponse<IWithdrawal, any>> => {
     return BaseService.post(`/withdrawals`, data)
+}
+    
+export const apiVerify = (data: IVerifyKYC, { id }: { id: string }): Promise<AxiosResponse<IUser, any>> => {
+    return BaseService.post(`/users/${id}/verify`, data)
 }

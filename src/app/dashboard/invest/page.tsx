@@ -87,8 +87,8 @@ const Invest = () => {
       <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
        {
           plans?.map((plan, index) => (
-            <div key={index} className="flex flex-col text-center text-white bg-black border rounded-md shadow-md">
-              <div className="flex flex-col gap-1 p-2 py-4 text-center border-b rounded-t-md bg-primary">
+            <div key={index} className="flex flex-col text-center border rounded-md shadow-md border-primary">
+              <div className="flex flex-col gap-1 p-2 py-4 text-center text-white border-b rounded-t-md bg-primary">
                 <h4 className='text-lg'>{plan.name} PLAN</h4>
                 <p className='text-sm'>Investment Range: ${plan.minimum} - ${plan.maximum}</p>
               </div>
@@ -96,7 +96,7 @@ const Invest = () => {
               <div className="p-3 px-12 border-b">ROI: {plan.roi} Days</div>
               <div className="p-3 px-12 border-b">Principal Return after completion</div>
               <div className="p-3 px-12 border-b">Withdraw Principal at any time 10% fee will be charged</div>
-              <button className="w-3/4 p-2 mx-auto my-2 rounded-md cursor-pointer bg-primary" onClick={() => handleInvest(plan)}>Invest Now</button>
+              <button className="w-3/4 p-2 mx-auto my-2 text-white rounded-md cursor-pointer bg-primary" onClick={() => handleInvest(plan)}>Invest Now</button>
             </div>
         ))}
       </div>

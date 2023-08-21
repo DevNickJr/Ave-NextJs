@@ -11,7 +11,7 @@ const Account = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
-        <h2 className='mb-6 text-lg font-semibold'>Welcome, Nicholas Duadei</h2>
+        <h2 className='mb-6 text-lg font-semibold'>Account</h2>
         <div className='flex flex-col gap-4 mb-12 lg:flex-row'>
             <div className="flex flex-col flex-1 gap-4 p-5 text-sm bg-white rounded-md shadow-md">
                 <span>Regular Account</span>
