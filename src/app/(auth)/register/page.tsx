@@ -7,16 +7,52 @@ import useMutation from '@/hooks/useMutation'
 import { useRouter } from 'next/navigation'
 import { apiRegister } from '@/services/AuthService'
 import Loader from '@/components/Loader'
+import countryData from "@/lib/countries.json"
 
 
 const initialState: IUserRegister = {
   email: '',
   password: '', 
-  confirm_password: '',
+  // confirm_password: '',
   first_name: '',      
   last_name: '',        
-  terms: false  
+  terms: false,
+  nationality: '',
+  currency: ''  
 }
+
+const currencies = [
+  {
+    "code": "AUD",
+    "name": "Austrillian Dollar",
+    "symbol": "$"
+  },
+  {
+    "code": "BWP",
+    "name": "Botswana Pula",
+    "symbol": "P"
+  },
+  {
+    "code": "EUR",
+    "name": "Euro",
+    "symbol": "€"
+  },
+  {
+    "code": "GBP",
+    "name": "British Pound",
+    "symbol": "£"
+  },
+  {
+    "code": "USD",
+    "name": "US Dollar",
+    "symbol": "$"
+  },
+  {
+    "code": "ZAR",
+    "name": "South African Rand",
+    "symbol": "R"
+  }
+]
 
 const Register = () => {
   const [loading, setLoading] = React.useState(false)
@@ -34,7 +70,7 @@ const registerMutation = useMutation<IUserRegister, any>(
           // sessionStorage.setItem('email', user.email)
           // console.log({ data })
           console.log({ message: "Registered Successfully", data })
-          router.push('/auth/login')
+          router.push('/login')
           
       },
       showErrorMessage: true,
@@ -52,10 +88,10 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
   console.log('registering')
 
 
-  if (user?.password !== user?.confirm_password) {
-      toast.error("Password Mismatch")
-      return
-  }
+  // if (user?.password !== user?.confirm_password) {
+  //     toast.error("Password Mismatch")
+  //     return
+  // }
   if (user?.password.length < 6) {
       toast.error("Password must be at least 6 characters")
       return
@@ -83,7 +119,7 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 
 
   return (
-    <div className='md:pl-24'>
+    <div className='bg-white md:pl-24'>
       {registerMutation?.isLoading && <Loader />}
       <div className="flex flex-col items-center gap-4 mt-16 mb-8">
           <h1 className='text-2xl font-bold'>Create an Account</h1>
@@ -108,10 +144,34 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
                 <label htmlFor="password">Password</label>
                 <input required value={user?.password} onChange={(e) => dispatch({ type: "password", payload: e.target.value})}  type="password" name="password" id="password" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Enter Password' />
               </div>
-              <div className='flex flex-col gap-2 text-xs'>
+              <div className="flex justify-between w-full gap-2">
+                <div className='flex flex-col flex-1 gap-2 text-xs'>
+                  <label htmlFor="nationality">Nationality</label>
+                  <select value={user?.nationality} onChange={(e) => dispatch({ type: "nationality", payload: e.target.value})} className='w-full p-2 px-3 text-sm border rounded-md text-black/70' name="nationality" id="nationality">
+                    <option value="">Nationality</option>
+                    {
+                      countryData.countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
+                    }
+                  </select>
+                </div>
+                {/* <div className='flex flex-col flex-1 gap-2 text-xs'>
+                  <input required value={user?.nationality} onChange={(e) => dispatch({ type: "nationality", payload: e.target.value})}  type="password" name="nationality" id="nationality" className='w-full p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Nationality' />
+                </div> */}
+                <div className='flex flex-col flex-1 gap-2 text-xs'>
+                  <label htmlFor="currency">Currency</label>
+                  <select value={user?.currency} onChange={(e) => dispatch({ type: "currency", payload: e.target.value})} className='w-full p-2 px-3 text-sm border rounded-md text-black/70' name="currency" id="currency">
+                    <option value="">Currency</option>
+                    {
+                      currencies.map(currency => <option key={currency.code} value={currency.code}>{currency.code}</option>)
+                    }
+                  </select>
+                  {/* <input required value={user?.currency} onChange={(e) => dispatch({ type: "currency", payload: e.target.value})}  type="password" name="currency" id="currency" className='w-full p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Currency' /> */}
+                </div>
+              </div>
+              {/* <div className='flex flex-col gap-2 text-xs'>
                 <label htmlFor="confirm_password">Confirm Password</label>
                 <input required value={user?.confirm_password} onChange={(e) => dispatch({ type: "confirm_password", payload: e.target.value})}  type="password" name="confirm_password" id="confirm_password" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Confrim Password' />
-              </div>
+              </div> */}
               <div className="flex items-center gap-3">
                 <input type="checkbox" name="terms" id="terms" checked={String(user?.terms) === "true"} onChange={(e) => dispatch({ type: "terms", payload: String(!user?.terms) })}  />
                 <p className='text-xs'>I agree to Polar Profits Terms & Conditions and Privacy Policy</p>

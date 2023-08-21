@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/lib/dbConnection';
 import User from '@/models/UserModel';
 import { NextResponse } from 'next/server';
+import { IUser } from '@/interfaces';
 
 
 const bcrypt = require('bcrypt');
@@ -18,21 +19,20 @@ export async function POST(req: Request, res: NextApiResponse) {
         // body.username = "nicholasjd12";
         // body.confirm_password = "123456";
 
-        const body = await req.json()
+        const body: IUser = await req.json()
 
-        console.log({body})
+        // console.log({body})
         
-        if (body.password !== body.confirm_password) {
-            return NextResponse.json({ message: 'Passwords do not match' }, { status: 400 });
-        }
+        // if (body.password !== body.confirm_password) {
+        //     return NextResponse.json({ message: 'Passwords do not match' }, { status: 400 });
+        // }
         if (body.password.length < 6) {
             return NextResponse.json({ message: 'Password must be at least 6 characters' }, { status: 400 });
         }
-        if (!body.email || !body.password) {
+        if (!body.email || !body.password || !body.currency || !body.nationality) {
             return NextResponse.json({ message: 'Please fill in all fields' }, { status: 400 });
         }
 
-        console.log('start')
         const userExists = await User.findOne({
                  email: body.email ? body.email : '',
         });
@@ -42,27 +42,21 @@ export async function POST(req: Request, res: NextApiResponse) {
         
         }
 
-        console.log('here')
-
         //hash password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(body.password, salt);
 
-        console.log({
-            ...body,
-            email: body.email,
-            password: hashedPassword,
-            username: body.username,
-        })
+        // console.log({
+        //     ...body,
+        //     email: body.email,
+        //     password: hashedPassword,
+        // })
 
         const user = await User.create({
             ...body,
             email: body.email,
             password: hashedPassword,
-            username: body.username,
         });
-        // console.log('user', user)
-        console.log('finish')
 
         const { password, ...rest } = user.toObject();
 

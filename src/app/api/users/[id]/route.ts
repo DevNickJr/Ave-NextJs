@@ -95,7 +95,16 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
     const body = await req.json()
 
-    const user = await UserModel.findByIdAndUpdate(id, body, { new: true }).lean();
+    const { 
+      password,
+      balance,
+      total_deposit,
+      total_withdrawal,
+      bonus,
+      ...rest 
+    } = body
+
+    const user = await UserModel.findByIdAndUpdate(id, rest, { new: true }).lean();
 
     if (!user) {
       return NextResponse.json({ message: 'failed to update' }, { status: 400 });

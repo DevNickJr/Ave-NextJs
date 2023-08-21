@@ -48,7 +48,7 @@ const Login = () => {
     // toast.info('Deactivated By Admin')
     // setLoading(false)
     try {
-      console.log("user", user )
+      console.log("user", user)
         const res = await signIn('credentials', {
             ...user,
             redirect: false,
@@ -76,7 +76,7 @@ const Login = () => {
 }
 
   return (
-    <div className='md:pl-24'>
+    <div className='bg-white md:pl-24'>
       {loading && <Loader />}
       <div className="flex flex-col items-center gap-4 mt-16 mb-12">
           <h1 className='text-2xl font-bold'>Welcome Back!</h1>
