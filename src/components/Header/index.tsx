@@ -31,11 +31,11 @@ const languages = [
     name: 'German',
     code: 'de',
   },
-  {
-    id: 5,
-    name: 'Italian',
-    code: 'it',
-  },
+  // {
+  //   id: 5,
+  //   name: 'Italian',
+  //   code: 'it',
+  // },
   {
     id: 6,
     name: 'Korean',

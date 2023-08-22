@@ -1,12 +1,54 @@
 'use client'
+import { useTranslation } from '@/hooks/useTranslationContext'
+import { ILanguage, languageCodes } from '@/interfaces'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 import { RxCaretDown } from 'react-icons/rx'
 
+const languages = [
+  {
+    id: 1,
+    name: 'English',
+    code: 'en',
+  },
+  {
+    id: 2,
+    name: 'Spanish',
+    code: 'es',
+  },
+  {
+    id: 3,
+    name: 'French',
+    code: 'fr',
+  },
+  {
+    id: 4,
+    name: 'German',
+    code: 'de',
+  },
+  // {
+  //   id: 5,
+  //   name: 'Italian',
+  //   code: 'it',
+  // },
+  {
+    id: 6,
+    name: 'Korean',
+    code: 'ko',
+  },
+  {
+    id: 7,
+    name: 'Turkish',
+    code: 'tr',
+  },
+]
+
 const Head = () => {
   const session = useSession()
   const user = session.data?.user
+  const { language, setLanguage } = useTranslation()
+
 
 
   return (
@@ -16,6 +58,22 @@ const Head = () => {
         <div className='flex items-center justify-between gap-2'>
           {/* <div className="w-4 h-4 bg-gray-200 rounded-full" /> */}
           <div className='flex items-center gap-2 text-xs'>
+            <select 
+              value={language} 
+              onChange={(e) => {
+                const value: ILanguage = e.target.value as ILanguage
+                if (languageCodes.includes(value)) {
+                  setLanguage(value)
+                }
+              }} 
+              className='hidden text-sm font-medium bg-transparent border-none outline-none cursor-pointer md:block text-dark-light gap-7 md:gap-4 lg:gap-7 focus:outline-none focus:ring-0 focus:border-transparent focus:ring-transparent focus:ring-offset-transparent'
+            >
+              {
+                languages.map((lang) => (
+                  <option key={lang.id} value={lang.code}>{lang.name}</option>
+                ))
+              }
+            </select>
             <div className="w-6 h-6 rounded-full bg-primary/30" />
             <div className="flex-col hidden gap-1 md:flex">
               <div className='text-sm font-semibold'>{user?.last_name} {user?.first_name}</div>
