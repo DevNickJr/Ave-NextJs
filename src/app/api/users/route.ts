@@ -21,7 +21,7 @@ export async function GET(req: Request, res: NextApiResponse) {
         
         const users = await UserModel.find({}).lean();
     
-        console.log({users})
+        // console.log({users})
 
         return NextResponse.json(users, { status: 200 });
     

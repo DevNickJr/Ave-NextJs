@@ -101,6 +101,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       total_deposit,
       total_withdrawal,
       bonus,
+      is_admin,
       ...rest 
     } = body
 

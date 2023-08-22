@@ -2,28 +2,42 @@
 import Table from '@/components/Table'
 import useFetch from '@/hooks/useFetch'
 import usePost from '@/hooks/useMutation'
-import { IUser, ITableColumn, IPlan } from '@/interfaces'
-import { apiGetUsers, apiUpdatePlan } from '@/services/AdminService'
+import { IUser, ITableColumn, IPlan, IChangePassword, IVerifyUser } from '@/interfaces'
+import { apiGetUsers, apiUpdatePlan, apiVerifyUser } from '@/services/AdminService'
+import { apiChangePassword } from '@/services/AuthService'
 import { formatDate } from '@/utils/dateFunc'
 import React from 'react'
+import { toast } from 'react-toastify'
+import GentleLoader from "@/components/GentleLoader"
 // import { useSession } from 'next-auth/react'
 
 
-const Invest = () => {
+const Admin = () => {
   // const { data } = useSession()
-  const { data: users, error, isLoading, isFetching, remove, fetchStatus } = useFetch<IUser[]>({api: apiGetUsers, key: ['users'] })
+  const { data: users, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IUser[]>({api: apiGetUsers, key: ['users'] })
 
-  // const updatePlanMutation = usePost<IPlan, any>(apiUpdatePlan, {
-  //   onSuccess: (data) => {
-  //     console.log(data)
-  //   },
-  //   onError: (error) => {
-  //     console.log(error)
-  //   }   
-  // })
+  const verifyUser = usePost<IVerifyUser, any>(apiVerifyUser, {
+    onSuccess: (data) => {
+      // console.log(data)
+      toast.success('Operation Successful')
+      refetch()
+    },
+    onError: (error) => {
+      // console.log(error)
+      toast.error('An error occured')
+    }   
+  })
 
+  const verifyUserHandler = (id: string) => {
+    verifyUser.mutate({ _id: id, status: 'verified' })
+  }
 
-  console.log( { users  })
+  const denyUserHandler = (id: string) => {
+    verifyUser.mutate({ _id: id, status: 'failed' }) 
+  }
+
+  console.log({users})
+
   const columns: ITableColumn[] = [
     {
       name: 'email',
@@ -40,6 +54,12 @@ const Invest = () => {
     {
       name: 'status',
       label: 'Status',
+      extra: true,
+      custom: (val: string, meta: IUser) => {
+        return  (
+          <p className={`${val === 'verified' ? 'text-green-500' : val === 'pending' ? 'text-yellow-500' : 'text-red-500'}`}>{val}</p>
+        )
+      }
     },
     {
       name: 'document',
@@ -49,11 +69,23 @@ const Invest = () => {
         sort: false,
       },
       extra: true,
-      custom: (val: string, meta: any) => {
+      custom: (val: string, meta: IUser) => {
         return  (
-          <a href={val} target="_blank" className="flex items-center gap-3 cursor-pointer text-primary">
-            <span className="text-sm">View Document</span>
-          </a>
+          <>
+         {meta?.document?.front 
+          ?
+            <div className='flex items-center space-x-2'>
+              <a href={meta?.document?.front} target="_blank" className="underline cursor-pointer text-primary underline-offset-1">
+                <span className="text-sm">front</span>
+              </a>
+              <a href={meta?.document?.back} target="_blank" className="underline cursor-pointer text-primary underline-offset-1">
+                <span className="text-sm">back</span>
+              </a>
+            </div>
+          :
+            <p>Not uploaded</p>
+          }
+          </>
         )
       }
     },
@@ -65,7 +97,7 @@ const Invest = () => {
         sort: true,
       },
       extra: true,
-      custom: (val: string, meta: any) => {
+      custom: (val: string, meta: IUser) => {
         return  (
             <p>{formatDate(val)}</p>
         )
@@ -79,11 +111,13 @@ const Invest = () => {
         sort: false,
       },
       extra: true,
-      custom: (val: string, meta: any) => {
+      custom: (val: string, meta: IUser) => {
+        // console.log({ val, meta })
+
         return  (
             <div className='flex items-center space-x-2'>
-              <button className='btn btn-primary'>Verify</button>
-              <button className='btn btn-danger'>Suspend</button>
+              <button onClick={() => verifyUserHandler(meta?._id!)} className='text-white bg-primary px-2 py-1.5 rounded-md'>Verify</button>
+              <button onClick={() => denyUserHandler(meta?._id!)} className='border-red-200 border px-2 py-1.5 rounded-md text-red-500'>Deny</button>
             </div>
         )
       }
@@ -92,12 +126,15 @@ const Invest = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+      {
+        verifyUser?.isLoading && <GentleLoader />
+      }
         <h2 className='mb-6 text-lg font-semibold'>Admin Dashboard - Users</h2>
         <div className='mb-6'>
-          <Table data={users || []} columns={columns} colspan={8} />
+          <Table title='Users' data={users || []} columns={columns} colspan={8} />
         </div>
     </main>
   )
 }
 
-export default Invest
+export default Admin
