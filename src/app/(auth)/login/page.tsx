@@ -1,13 +1,14 @@
 'use client'
 import Link from 'next/link'
-import React, { useReducer, FormEvent } from 'react'
+import React, { useReducer, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { IUserLogin, ILoginReducerAction } from '@/interfaces'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import { useRouter } from 'next/navigation'
-import useMutation from '@/hooks/useMutation'
-import { apiLogin } from '@/services/AuthService'
 import Loader from '@/components/Loader'
+import { IPageContent } from '@/dictionaries/login'
+import { LoginContent } from '@/dictionaries/login'
+import { useTranslation } from '@/hooks/useTranslationContext'
 
 const initialState: IUserLogin = {
   email: '',
@@ -16,6 +17,13 @@ const initialState: IUserLogin = {
 
 
 const Login = () => {
+  const { language } = useTranslation()
+  const [t, setTranslated] = useState<IPageContent | null>(null)
+
+  useEffect(() => {
+    setTranslated(LoginContent[language])
+  }, [language])
+
   const [active, setActive] = React.useState<'student' | 'staff'>('student')
   const [loading, setLoading] = React.useState(false)
   const [user, dispatch] = useReducer((state: IUserLogin, action: ILoginReducerAction) => {
@@ -79,30 +87,30 @@ const Login = () => {
     <div className='bg-white md:pl-24'>
       {loading && <Loader />}
       <div className="flex flex-col items-center gap-4 mt-16 mb-12">
-          <h1 className='text-2xl font-bold'>Welcome Back!</h1>
-          <p className='text-sm'>Sign in to continue to Avestock</p>
+          <h1 className='text-2xl font-bold'>{t?.title || "Welcome Back!"}</h1>
+          <p className='text-sm'>{t?.content || "Sign in to continue to Avestock"}</p>
       </div>
       <form onSubmit={handleLogin} action="" className="max-w-l">
         <div className='grid gap-4 mb-2'>
             <div className='flex flex-col gap-2 text-xs'>
-              <label htmlFor="name">Email Address</label>
-              <input  value={user?.email} onChange={(e) => dispatch({ type: "email", payload: e.target.value})} type="text" name="name" id="name" className='p-3 border rounded-md placeholder:text-sm' placeholder='Enter Email Address' />
+              <label htmlFor="name">{t?.email || "Email Address"}</label>
+              <input  value={user?.email} onChange={(e) => dispatch({ type: "email", payload: e.target.value})} type="text" name="name" id="name" className='p-3 border rounded-md placeholder:text-sm' placeholder={t?.email || 'Enter Email Address'} />
             </div>
             <div className='flex flex-col gap-2 text-xs'>
-              <label htmlFor="name">Password</label>
-              <input  value={user?.password} onChange={(e) => dispatch({ type: "password", payload: e.target.value})} type="text" name="password" id="password" className='p-3 border rounded-md placeholder:text-sm' placeholder='Enter Password' />
+              <label htmlFor="name">{t?.password || "Password"}</label>
+              <input  value={user?.password} onChange={(e) => dispatch({ type: "password", payload: e.target.value})} type="text" name="password" id="password" className='p-3 border rounded-md placeholder:text-sm' placeholder={t?.password || "Password"} />
             </div>
         </div>
         <Link href='/login' className='my-2 text-sm font-semibold text-'>
-            Forgot Password?
+            {t?.forgotPassword || "Forgot Password?"}
         </Link>
         <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 mt-12 text-sm font-bold text-white rounded-md bg-primary'>
-            Sign In
+            {t?.login || "Sign In"}
         </button>
         <p className='my-2 text-sm text-center'>
-            Don&apos;t have an account? {'  '}
+            {t?.registerLink || "Don't have an account?"} {'  '}
           <Link href='/register' className='font-semibold'>
-            Register
+            {t?.register || "Register"}
         </Link>
         </p>
         

@@ -8,6 +8,9 @@ import { useRouter } from 'next/navigation'
 import { apiRegister } from '@/services/AuthService'
 import Loader from '@/components/Loader'
 import countryData from "@/lib/countries.json"
+import { IPageContent } from '@/dictionaries/register'
+import { RegisterContent } from '@/dictionaries/register'
+import { useTranslation } from '@/hooks/useTranslationContext'
 
 
 const initialState: IUserRegister = {
@@ -55,6 +58,14 @@ const currencies = [
 ]
 
 const Register = () => {
+  const { language } = useTranslation()
+  const [t, setTranslated] = React.useState<IPageContent | null>(null)
+
+  React.useEffect(() => {
+    setTranslated(RegisterContent[language])
+  }, [language])
+
+
   const [loading, setLoading] = React.useState(false)
   const [user, dispatch] = useReducer((state: IUserRegister, action: IRegistereducerAction) => {
     return { ...state, [action.type]: action.payload }
@@ -122,33 +133,33 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     <div className='bg-white md:pl-24'>
       {registerMutation?.isLoading && <Loader />}
       <div className="flex flex-col items-center gap-4 mt-16 mb-8">
-          <h1 className='text-2xl font-bold'>Create an Account</h1>
-          <p className='text-sm'>Create an account to Get Started</p>
+          <h1 className='text-2xl font-bold'>{t?.title || "Create an Account"}</h1>
+          <p className='text-sm'>{t?.content || "Create an account to Get Started"}</p>
       </div>
       <div className="">
         <div className='mb-2'>
             <form className='grid gap-4' onSubmit={handleRegister}>
               <div className='flex flex-col gap-2 text-xs'>
-                <label htmlFor="first_name">First Name</label>
-                <input required value={user?.first_name} onChange={(e) => dispatch({ type: "first_name", payload: e.target.value})} type='text' name="first_name" id="first_name" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Enter First Name' />
+                <label htmlFor="first_name">{t?.first_name || "First Name"}</label>
+                <input required value={user?.first_name} onChange={(e) => dispatch({ type: "first_name", payload: e.target.value})} type='text' name="first_name" id="first_name" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.first_name || "First Name"} />
               </div>
               <div className='flex flex-col gap-2 text-xs'>
-                <label htmlFor="last_name">Last Name</label>
-                <input required value={user?.last_name} onChange={(e) => dispatch({ type: "last_name", payload: e.target.value})}  type="text" name="last_name" id="last_name" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Enter Last Name' />
+                <label htmlFor="last_name">{t?.last_name || "First Name"}</label>
+                <input required value={user?.last_name} onChange={(e) => dispatch({ type: "last_name", payload: e.target.value})}  type="text" name="last_name" id="last_name" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.last_name || "First Name"} />
               </div>
               <div className='flex flex-col gap-2 text-xs'>
-                <label htmlFor="email">Email Address</label>
-                <input required value={user?.email} onChange={(e) => dispatch({ type: "email", payload: e.target.value})}  type="email" name="email" id="email" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Enter Email Address' />
+                <label htmlFor="email">{t?.email || "Email Address"}</label>
+                <input required value={user?.email} onChange={(e) => dispatch({ type: "email", payload: e.target.value})}  type="email" name="email" id="email" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.email || "Email Address"} />
               </div>
               <div className='flex flex-col gap-2 text-xs'>
-                <label htmlFor="password">Password</label>
-                <input required value={user?.password} onChange={(e) => dispatch({ type: "password", payload: e.target.value})}  type="password" name="password" id="password" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Enter Password' />
+                <label htmlFor="password">{t?.password || "Password"}</label>
+                <input required value={user?.password} onChange={(e) => dispatch({ type: "password", payload: e.target.value})}  type="password" name="password" id="password" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.password || "Password"} />
               </div>
               <div className="flex justify-between w-full gap-2">
                 <div className='flex flex-col flex-1 gap-2 text-xs'>
-                  <label htmlFor="nationality">Nationality</label>
+                  <label htmlFor="nationality">{t?.nationality || "Nationality"}</label>
                   <select value={user?.nationality} onChange={(e) => dispatch({ type: "nationality", payload: e.target.value})} className='w-full p-2 px-3 text-sm border rounded-md text-black/70' name="nationality" id="nationality">
-                    <option value="">Nationality</option>
+                    <option value="">{t?.nationality || "Nationality"}</option>
                     {
                       countryData.countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
                     }
@@ -158,9 +169,9 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
                   <input required value={user?.nationality} onChange={(e) => dispatch({ type: "nationality", payload: e.target.value})}  type="password" name="nationality" id="nationality" className='w-full p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Nationality' />
                 </div> */}
                 <div className='flex flex-col flex-1 gap-2 text-xs'>
-                  <label htmlFor="currency">Currency</label>
+                  <label htmlFor="currency">{t?.currency || "Currency"}</label>
                   <select value={user?.currency} onChange={(e) => dispatch({ type: "currency", payload: e.target.value})} className='w-full p-2 px-3 text-sm border rounded-md text-black/70' name="currency" id="currency">
-                    <option value="">Currency</option>
+                    <option value="">{t?.currency || "Currency"}</option>
                     {
                       currencies.map(currency => <option key={currency.code} value={currency.code}>{currency.code}</option>)
                     }
@@ -174,15 +185,15 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
               </div> */}
               <div className="flex items-center gap-3">
                 <input type="checkbox" name="terms" id="terms" checked={String(user?.terms) === "true"} onChange={(e) => dispatch({ type: "terms", payload: String(!user?.terms) })}  />
-                <p className='text-xs'>I agree to Polar Profits Terms & Conditions and Privacy Policy</p>
+                <p className='text-xs'>{t?.privacy || "I agree to Polar Profits Terms & Conditions and Privacy Policy"}</p>
               </div>
               <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 text-sm font-bold text-white rounded-md bg-primary'>
-                Proceed
+                {t?.register || "Sign Up"}
               </button>
               <p className='my-2 text-sm text-center'>
-              Already have an account? {'  '}
+              {t?.login || "Already have an account?"} {'  '}
                 <Link href='/login' className='font-semibold'>
-                  Login
+                  {t?.loginLink || "Login"}
                 </Link>
               </p>
             </form>
