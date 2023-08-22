@@ -14,6 +14,10 @@ export interface IChangePassword {
     confirm_password: string 
 }
 
+export type ILanguage = 'en' | 'es' | 'de'  | 'zh' | 'ko' | 'tr'
+export const languageCodes: ILanguage[] = ['en', 'es', 'de', 'zh', 'ko', 'tr']
+
+
 export interface IUserRegister {
     email: string
     password: string

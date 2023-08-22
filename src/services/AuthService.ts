@@ -33,7 +33,9 @@ export const apiChangePassword =  (data: IChangePassword, { id }: { id: string }
 }
 
 
-
+export const apiHomeData =  () => {
+    return fetch(`../dictionaries/home.json`)
+}
 
 
 

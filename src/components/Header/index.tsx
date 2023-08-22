@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { use } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { BiMenu } from 'react-icons/bi'
@@ -7,14 +7,53 @@ import { MdOutlineClose } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
 import Logo1 from '@/assets/logo1.png'
 import Logo2 from '@/assets/logo3.png'
+import { useTranslation } from '@/hooks/useTranslationContext'
+import { ILanguage, languageCodes } from '@/interfaces'
 
+const languages = [
+  {
+    id: 1,
+    name: 'English',
+    code: 'en',
+  },
+  {
+    id: 2,
+    name: 'Spanish',
+    code: 'es',
+  },
+  {
+    id: 3,
+    name: 'French',
+    code: 'fr',
+  },
+  {
+    id: 4,
+    name: 'German',
+    code: 'de',
+  },
+  {
+    id: 5,
+    name: 'Italian',
+    code: 'it',
+  },
+  {
+    id: 6,
+    name: 'Korean',
+    code: 'ko',
+  },
+  {
+    id: 7,
+    name: 'Turkish',
+    code: 'tr',
+  },
+]
 
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const pathname = usePathname()
-
-  // console.log({ pathname })
+  // use translation context to change language
+  const { language, setLanguage } = useTranslation()
 
   return (
     <>
@@ -41,8 +80,24 @@ const Header = () => {
             } */}
           </ul>
         </nav>
-        { <BiMenu onClick={() => setIsOpen(true)} className='relative z-50 text-3xl font-bold cursor-pointer md:hidden text-primary' />
-        }
+        <select 
+          value={language} 
+          onChange={(e) => {
+            const value: ILanguage = e.target.value as ILanguage
+            if (languageCodes.includes(value)) {
+              setLanguage(value)
+            }
+          }} 
+          className='hidden text-sm font-medium bg-transparent border-none outline-none cursor-pointer md:block text-dark-light gap-7 md:gap-4 lg:gap-7 focus:outline-none focus:ring-0 focus:border-transparent focus:ring-transparent focus:ring-offset-transparent'
+        >
+          {
+            languages.map((lang) => (
+              <option key={lang.id} value={lang.code}>{lang.name}</option>
+            ))
+          }
+        </select>
+        <BiMenu onClick={() => setIsOpen(true)} className='relative z-50 text-3xl font-bold cursor-pointer md:hidden text-primary' />
+        
       </header>
       <div onClick={() => setIsOpen(false)} className={`md:hidden shadow fixed top-0 left-0 w-full min-h-screen h-screen bg-black/10 px-4 py-2 md:px-10 z-30  ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-300`}>
         <div className={`md:hidden shadow fixed top-0 left-0 w-5/6 min-h-screen h-screen grad-to-right text-white px-4 py-2 md:px-10 z-30  ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-300`}>
