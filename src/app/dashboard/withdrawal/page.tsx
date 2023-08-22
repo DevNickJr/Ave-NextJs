@@ -6,10 +6,22 @@ import { apiGetUserWithdrawals, apiWithdrawal } from '@/services/UserService'
 import { formatDate } from '@/utils/dateFunc'
 import { useSession } from 'next-auth/react'
 import React from 'react'
+import { IPageContent } from '@/dictionaries/dashboard/withdraw'
+import { DashboardWithdrawContent } from '@/dictionaries/dashboard/withdraw'
+import { useTranslation } from '@/hooks/useTranslationContext'
+
 // import { useSession } from 'next-auth/react'
 
 
 const Withdrawal = () => {
+  const { language } = useTranslation()
+  const [t, setTranslated] = React.useState<IPageContent | null>(null)
+
+  React.useEffect(() => {
+    setTranslated(DashboardWithdrawContent[language])
+  }, [language])
+
+
   const session = useSession()
   const user = session.data?.user
   const [step, setStep] = React.useState(1)
@@ -43,23 +55,23 @@ const Withdrawal = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
-      <h2 className='mb-6 text-lg font-semibold'>Withdrawal</h2>
+      <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Withdrawal"}</h2>
       {step === 1 && (
         <>
           <div className='grid gap-4 mb-6 md:grid-cols-2 lg:grid-cols-3'>
             <div onClick={() => setStep(2)} className="cursor-pointer flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
               <p>$0.00</p>
-              <p>Bonus</p>
+              <p>{t?.bonus || "Bonus"}</p>
             </div>
           </div>
           <div className="p-5 bg-white rounded-md">
-            <h4 className='mb-2 font-semibold'>Recent Transactions</h4>
+            <h4 className='mb-2 font-semibold'>{t?.transactions || "Recent Transactions"}</h4>
             {
               withdrawals?.length ?
                 withdrawals?.map((withdrawal) =>
                   <div key={withdrawal._id} className='p-2'>
                     <div className="flex justify-between flex-items-center">
-                      <span>sent withdrawal request</span>
+                      <span>{t?.sent_withdraw || "sent withdrawal request"}</span>
                       <span>{withdrawal.status}</span>
                     </div>
                     <div className="flex justify-between flex-items-center">
@@ -69,7 +81,7 @@ const Withdrawal = () => {
                   </div>
                  ) : (
                   <div className="flex justify-center">
-                    <span className='text-gray-500'>No recent transactions</span>
+                    <span className='text-gray-500'>{t?.no_transactions || "No recent transactions"}</span>
                   </div>
               )   
             }
@@ -80,15 +92,15 @@ const Withdrawal = () => {
         <>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
-              <input onChange={(e) => setAmount(e.target.value)} type="text" className='p-3 rounded-md' placeholder='Enter Amount' />
-              <input onChange={(e) => setWallet(e.target.value)} type="text" className='p-3 rounded-md' placeholder='Enter Wallet' />
+              <input onChange={(e) => setAmount(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.amount || 'Enter Amount'} />
+              <input onChange={(e) => setWallet(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.wallet || 'Enter Wallet'} />
               {/* <select className='p-3 rounded-md' name="" id="">
                 <option value="">Choose a payment method</option>
                 <option value="">Bitcoin</option>
                 <option value="">Ethereum</option>
               </select> */}
               <input type="file" className='rounded-md' placeholder='Upload' />
-          <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleWithdrawal}>Submit</button>
+          <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleWithdrawal}>{t?.submit || "Submit"}</button>
             </div>
             <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
             </div>

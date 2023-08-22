@@ -10,6 +10,10 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BiLeftArrow } from 'react-icons/bi'
 import { apiGetUser } from '@/services/AuthService'
+import { IPageContent } from '@/dictionaries/dashboard/settings'
+import { DashboardSettingsContent } from '@/dictionaries/dashboard/settings'
+import { useTranslation } from '@/hooks/useTranslationContext'
+
 // import { useSession } from 'next-auth/react'
 
 interface IUserInfo {
@@ -21,6 +25,13 @@ interface IUserInfo {
 
 
 const Settings = () => {
+  const { language } = useTranslation()
+  const [t, setTranslated] = React.useState<IPageContent | null>(null)
+
+  React.useEffect(() => {
+    setTranslated(DashboardSettingsContent[language])
+  }, [language])
+
   const session = useSession()
   const user = session.data?.user
   const [step, setStep] = React.useState<"home" | "security" | "profile">('home')
@@ -106,36 +117,36 @@ const Settings = () => {
       {step === "home" && (
         <>
           <div className="p-5 mb-6 bg-white rounded-md">
-            <h4 className='mb-4 font-semibold'>General</h4>
+            <h4 className='mb-4 font-semibold'>{t?.general || "General"}</h4>
             <div onClick={() => setStep('profile')} className="w-fit cursor-pointer flex flex-col gap-1 p-4 rounded-md shadow-md min-w-[200px] bg-primary text-white">
-              <p className='font-semibold'>Profile Information</p>
-              <p className='text-xs'>Click to update your profile Information</p>
+              <p className='font-semibold'>{t?.profile || "Profile Information"}</p>
+              <p className='text-xs'>{t?.update_profile || "Click to update your profile Information"}</p>
             </div>
           </div>
           <div className="p-5 mb-6 bg-white rounded-md">
-            <h4 className='mb-4 font-semibold'>Verification</h4>
+            <h4 className='mb-4 font-semibold'>{t?.verification || "Verification"}</h4>
             <Link href={'/dashboard/kyc'} className="w-fit cursor-pointer flex flex-col gap-1 p-4 rounded-md shadow-md min-w-[200px] bg-primary text-white">
-              <p className='font-semibold'>Update KYC</p>
+              <p className='font-semibold'>{t?.update_kyc || "Update KYC"}</p>
               <p className='text-xs'>
-                Upload your KYC documents to verify your identity
+                {t?.upload_kyc_docs || "Upload your KYC documents to verify your identity"}
               </p>
             </Link>
           </div>
           <div className="p-5 mb-6 bg-white rounded-md">
-            <h4 className='mb-4 font-semibold'>Security</h4>
+            <h4 className='mb-4 font-semibold'>{t?.security || "Security"}</h4>
             <div onClick={() => setStep('security')} className="w-fit cursor-pointer flex flex-col gap-1 p-4 rounded-md shadow-md min-w-[200px] bg-primary text-white">
-              <p className='font-semibold'>Change Password</p>
+              <p className='font-semibold'>{t?.change_password || "Change Password"}</p>
               <p className='text-xs'>
-                Click to update your password
+                {t?.change_password_link || "Click to update your password"}
               </p>
             </div>
           </div>
           <div className="p-5 mb-6 bg-white rounded-md">
             <h4 className='mb-4 font-semibold'>Promotions</h4>
             <Link href={'/dashboard/referral'} className="w-fit cursor-pointer flex flex-col gap-1 p-4 rounded-md shadow-md min-w-[200px] bg-primary text-white">
-              <p className='font-semibold'>Refer and Earn</p>
+              <p className='font-semibold'>{t?.promotions_desc || "Refer and Earn"}</p>
               <p className='text-xs'>
-                Click to get your referral link
+                {t?.promotions_link || "click to get your referral link"}
               </p>
             </Link>
           </div>
@@ -147,27 +158,27 @@ const Settings = () => {
             <div className="flex flex-col flex-1 max-w-lg gap-4 p-5 bg-white rounded-md">
               <h4 className='flex items-center gap-4 mb-4 font-semibold'>
                 <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep("home")} size={"1.3rem"} />
-                Profile Information
+                {t?.profile_info || "Profile Information"}
               </h4>
-              <p className='mb-4 text-sm'>Update your profile information</p>
+              <p className='mb-4 text-sm'>{t?.profile_info_desc || "Update your profile information"}</p>
               <div className="flex flex-col w-full gap-4">
                 <div className="flex flex-col gap-4">
-                  <p className='text-xs'>First Name</p>
+                  <p className='text-xs'>{t?.first_name || "First Name"}</p>
                   <input value={userInfo?.first_name} onChange={(e) => setUserInfo({'first_name': e.target.value})} name='first_name' id='first_name' type="text" className='rounded-md placeholder:text-sm' placeholder='First Name' />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <p className='text-xs'>Last Name</p>
+                  <p className='text-xs'>{t?.last_name || "Last Name"}</p>
                   <input value={userInfo?.last_name} onChange={(e) => setUserInfo({'last_name': e.target.value})} name='last_name' id='last_name' type="text" className='rounded-md placeholder:text-sm' placeholder='Last Name' />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <p className='text-xs'>Email</p>
+                  <p className='text-xs'>{t?.email || "Email"}</p>
                   <input value={userInfo?.email} onChange={(e) => setUserInfo({'email': e.target.value})} name='email' id='email' type="email" className='rounded-md placeholder:text-sm' placeholder='Email' />
                 </div>
                 {/* <div className="flex flex-col gap-4">
                   <p className='text-xs'>Phone Number</p>
                   <input value={userInfo?.phone} onChange={(e) => setUserInfo({'phone': e.target.value})} name='phone' id='phone' type="text" className='rounded-md placeholder:text-sm' placeholder='Phone Number' />
                 </div> */}
-                <button disabled={updateUser?.isLoading} onClick={handleUpdateUser} className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary'>Submit</button>
+                <button disabled={updateUser?.isLoading} onClick={handleUpdateUser} className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary'>{t?.save || "Submit"}</button>
               </div>              
             </div>
           </div>
@@ -179,23 +190,23 @@ const Settings = () => {
             <div className="flex flex-col flex-1 max-w-lg gap-4 p-5 bg-white rounded-md">
               <h4 className='flex items-center gap-4 mb-4 font-semibold'>
                 <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep("home")} size={"1.3rem"} />
-                Update Password
+                {t?.update_password || "Update Password"}
               </h4>
-              <p className='mb-4 text-sm'>Update your password</p>
+              <p className='mb-4 text-sm'>{t?.update_password_desc || "Update your password"}</p>
               <div className="flex flex-col w-full gap-4">
                 <div className="flex flex-col gap-4">
-                  <p className='text-xs'>Old Password</p>
+                  <p className='text-xs'>{t?.old_password || "Old Password"}</p>
                   <input value={passwordState?.old_password} onChange={(e) => setPasswordState({'old_password': e.target.value})}  name='old_password' id='old_password' type="password" className='rounded-md placeholder:text-sm' placeholder='Old Password' />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <p className='text-xs'>New Password</p>
+                  <p className='text-xs'>{t?.new_password || "New Password"}</p>
                   <input value={passwordState?.password} onChange={(e) => setPasswordState({'password': e.target.value})}  name='new_password' id='new_password' type="password" className='rounded-md placeholder:text-sm' placeholder='New Password' />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <p className='text-xs'>Confirm Password</p>
+                  <p className='text-xs'>{t?.confirm_password || "Confirm Password"}</p>
                   <input value={passwordState?.confirm_password} onChange={(e) => setPasswordState({'confirm_password': e.target.value})}  name='confirm_password' id='confirm_password' type="password" className='rounded-md placeholder:text-sm' placeholder='Confirm Password' />
                 </div>
-                <button disabled={updatePassword?.isLoading} onClick={handleUpdatePassword} className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary'>Submit</button>
+                <button disabled={updatePassword?.isLoading} onClick={handleUpdatePassword} className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary'>{t?.save || "Submit"}</button>
               </div>              
             </div>
           </div>
