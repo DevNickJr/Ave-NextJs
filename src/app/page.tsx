@@ -20,128 +20,75 @@ import Face4Img from '@/assets/face4.png'
 import Face5Img from '@/assets/face5.png'
 import Face6Img from '@/assets/face6.jpg'
 import Face7Img from '@/assets/face7.png'
+import { useTranslation } from '@/hooks/useTranslationContext'
+import { LanguageData } from '@/interfaces/home'
+import { HomeData } from '@/dictionaries/home'
 
+const stepsImg = [
+  RegImg,
+  FundImg,
+  TradeImg,
+  MonitorImg,
+]
+
+const qualitiesImg = [
+  DiverseImg,
+  ArmImg,
+  ToolsImg,
+  SecurityImg,
+]
+
+const facesImg = [
+  Face1Img,
+  Face2Img,
+  Face3Img,
+  Face4Img,
+  Face5Img,
+  Face6Img,
+  Face7Img,
+]
 
 
 export default function Home() {
-  const [page, setPage] = useState(1)
-  const [data, setData] = useState<[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const num_per_page = 6
+  const { language } = useTranslation()
+  const [t, setTranslated] = useState<LanguageData | null>(null)
 
+  useEffect(() => {
+    setTranslated(HomeData[language])
+  }, [language])
 
-
-
-  // useEffect(() => {
-  //   const fetchScholarships = async () => {
-  //     setIsLoading(true)
-  //     try {
-  //       const res = await fetch('/api/translate')
-  //       const data = await res.json()
-
-  //       console.log({ res, data })
-
-  //       if (!res.ok) {
-  //         throw new Error(data?.message || 'An error Occured')
-  //       }
-  //       setData(data)
-  //     } catch (error) {
-  //       console.log({error})
-  //     }
-  //     setIsLoading(false)
-  //   }
-
-  //   fetchScholarships()
-  // }, [])
-
-  // console.log({ data })
+  // <h1>{translated?.products?.cart}</h1>
   
   return (
     <div className=''>
       <Header />
       <main className="">
-        <Hero />
-        {/* <section className='flex flex-col justify-center min-h-screen px-12 text-white bg-black/40'>
-          <Image src={CryptImage} alt="Auth Image" className='absolute top-0 left-0 w-full h-full -z-10' />
-          <div className='flex flex-col justify-center w-full h-full max-w-3xl gap-4 md:w-1/2'>
-            <h1 className='text-4xl font-semibold'>Invest for the Future in Stable Platform and Make Fast Money</h1>
-            <p className='text-lg'>Our goal is to provide our investors with a reliable source of high income, while minimizing any possible risks and offering a high-quality service.</p>
-            <button className='p-4 px-6 text-white rounded-md w-fit bg-primary'>Get Started</button>
-          </div>
-        </section> */}
-        {/* <section className='px-12 py-20 text-white lg:px-24 bg-backg'>
-          <div className="flex flex-col gap-8 mb-16 md:flex-row">
-            <div className='flex flex-col items-center flex-1 gap-3 mb-12 text-center md:items-start md:text-left'>
-              <h2 className='text-3xl font-semibold'>All About Us</h2>
-              <div className="flex flex-col gap-3">
-                <p className=''>Meet the Crypto Gurus - we&apos;re a bunch of wildly passionate finance wizards, masterminds of cryptocurrency, and die-hard innovators.</p>
-                <p>Our mission is to transform the cryptoverse into a dazzling universe where galactic returns await all adventurers.</p>
-                <p>In a time of mindless click-frenzies and sugar-coated promises, we bring you true crypto utopia!</p>
-              </div>
-            </div>
-            <div className="flex-1 bg-gray-100"> 
-              <Image src={CoinImage} alt="Auth Image" className='flex-1 object-cover w-full h-full max-h-[450px]' />
-            </div>
-          </div>
-          <div className="flex flex-col gap-8 md:flex-row">
-            <Image src={CryptImage} alt="Auth Image" className='flex-1 object-cover w-full h-full max-h-[450px]' />
-            <div className='flex flex-col items-center flex-1 gap-3 mb-12 text-center md:items-start md:text-left'>
-              <h2 className='text-3xl font-semibold'>We Bring together Marketplaces & Finance through the use of artificial intelligence AI</h2>
-              <div className="flex flex-col gap-3">
-                <p className=''>The ultimate goal of Roza Trades is to be the all-in-one solution and offer a wide array of services from market to finance..</p>
-                <p>Our clients – both corporate and private ones – will access all the services they need from a single platform. Blockchain technology and AI gives us the chance to make your finances grow faster and give better returns</p>
-              </div>
-            </div>
-          </div>
-        </section> */}
+        <Hero t={t} />
         <section className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
-            <h2 className='text-3xl font-semibold text-primary'>How It Works</h2>
-            <p className='max-w-lg text-sm md:text-base'>Get involved in our tremendous platform and Invest. We will utilize your money and give you profit in your wallet automatically.</p>
+            <h2 className='text-3xl font-semibold text-primary'>{t?.howItWorks.title || "How It Works"}</h2>
+            <p className='max-w-lg text-sm md:text-base'>{t?.howItWorks.content ||  "Get involved in our tremendous platform and Invest. We will utilize your money and give you profit in your wallet automatically."}</p>
           </div>
           <div className="grid gap-12 md:grid-cols-2">
-            <div data-aos="slide-up" className="flex items-center gap-4">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={RegImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className='font-semibold'>Register</p>
-                <p className='text-sm'>Create your account in minutes. Tell us about your trading experience, goals, and risk appetite to receive personalized recommendations</p>
-              </div>
-            </div>
-            <div data-aos="slide-up" className="flex items-center gap-4">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={FundImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className='font-semibold'>Fund Your Account</p>
-                <p className='text-sm'>Whether you&apos;re starting small or going big, TradeMaster accommodates your financial comfort level. Begin trading with an amount that suits your budget.</p>
-              </div>
-            </div>
-            <div data-aos="slide-up" className="flex items-center gap-4">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={TradeImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className='font-semibold'>Execute Trades</p>
-                <p className='text-sm'>Use our user-friendly interface to execute trades seamlessly across a wide range of assets, including stocks, forex, commodities, and cryptocurrencies..</p>
-              </div>
-            </div>
-            <div data-aos="slide-up" className="flex items-center gap-4">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={MonitorImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className='font-semibold'>Monitor & Adapt</p>
-                <p className='text-sm'>Stay on top of your trades with real-time market data and portfolio tracking. Adjust your strategies as market conditions change.</p>
-              </div>
-            </div>
+            {
+              t?.howItWorks?.steps.map((el, i) =>
+                <div key={i} data-aos="slide-up" className="flex items-center gap-4">
+                  <div className="flex-[0_0_48px] w-12 h-12 relative">
+                    <Image src={stepsImg[i]} alt='register' className='absolute w-full h-full' />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className='font-semibold'>{el.title}</p>
+                    <p className='text-sm'>{el.description}</p>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </section>
         <section className='px-12 py-20 text-white grad-to-right lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
-            <h2 className='text-3xl font-semibold'>Our Investment Plans</h2>
-            <p className='max-w-lg text-sm md:text-base'>Unlocking Investment Potential: Seamlessly Grow Your Wealth with Automated Profit Generation</p>
+            <h2 className='text-3xl font-semibold'>{t?.investmentPlans.title ||  "Our Investment Plans"}</h2>
+            <p className='max-w-lg text-sm md:text-base'>{t?.investmentPlans.content || "Unlocking Investment Potential: Seamlessly Grow Your Wealth with Automated Profit Generation"}</p>
           </div>
           <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row text-primary'>
             {
@@ -167,82 +114,34 @@ export default function Home() {
                     <span className=''>50 Coins</span>
                   </div>
                 </div>
-                <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>Invest Now</button>
+                <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>{t?.investmentPlans?.cta}</button>
               </div>
             )}
-            {/* <div className="flex flex-col gap-3 p-6 rounded-md shadow-md w-72 bg-[#0D0D0D]">
-              <span className='text-xs'>Pro</span>
-              <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
-              <div className="flex flex-col gap-1 text-[11px]">
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <GiCheckMark className="" />
-                  <span className=''>50 Coins</span>
-                </div>
-              </div>
-              <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>Invest Now</button>
-            </div> */}
           </div>
         </section>
         <section className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
-            <h2 className='text-3xl font-semibold text-primary'>What makes Avestock Trades stand out?</h2>
-            <p className='max-w-lg text-sm md:text-base'>Unveiling the Unique Qualities That Elevate Avestock Trades to Prominence in the Investment Landscape</p>
+            <h2 className='text-3xl font-semibold text-primary'>{t?.investmentPlans.title || "What makes Avestock Trades stand out?"}</h2>
+            <p className='max-w-lg text-sm md:text-base'>{t?.qualities?.title || "Unveiling the Unique Qualities That Elevate Avestock Trades to Prominence in the Investment Landscape"}</p>
           </div>
           <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
-            <div data-aos="slide-up" className="flex flex-col w-full gap-3 p-6 rounded-md shadow-md">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={ToolsImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <span className='text-lg font-semibold text-black'>Cutting-Edge Technology</span>
-              <span>                
-                Our advanced platform ensures a seamless investment experience—easy navigation, monitoring, and management, all at your fingertips.
-              </span>
-            </div>            
-            <div data-aos="slide-up" className="flex flex-col w-full gap-3 p-6 rounded-md shadow-md">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={ArmImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <span className='text-lg font-semibold text-black'>Expert Management</span>
-              <span>                
-                Led by seasoned experts, we strategically manage your investments, optimizing returns amidst market trends and risk management.
-              </span>
-            </div>            
-            <div data-aos="slide-up" className="flex flex-col w-full gap-3 p-6 rounded-md shadow-md">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={DiverseImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <span className='text-lg font-semibold text-black'>Diverse Options</span>
-              <span>                
-                Explore our diverse investment options, designed for various risk appetites and goals. Whether you&apos;re conservative or seeking higher returns, our portfolio caters to all.
-              </span>
-            </div>            
-            <div data-aos="slide-up" className="flex flex-col w-full gap-3 p-6 rounded-md shadow-md">
-              <div className="flex-[0_0_48px] w-12 h-12 relative">
-                <Image src={SecurityImg} alt='register' className='absolute w-full h-full' />
-              </div>
-              <span className='text-lg font-semibold text-black'>Security</span>
-              <span>                
-                Security tops our list. With robust measures, your personal and financial information is safeguarded, ensuring peace of mind throughout your investment journey.
-              </span>
-            </div>            
+            {
+              t?.qualities?.tools.map((el, i) =>
+                <div key={i} data-aos="slide-up" className="flex flex-col w-full gap-3 p-6 rounded-md shadow-md">
+                  <div className="flex-[0_0_48px] w-12 h-12 relative">
+                    <Image src={qualitiesImg[i]} alt='register' className='absolute w-full h-full' />
+                  </div>
+                  <span className='text-lg font-semibold text-black'>{el.title}</span>
+                  <span>{el.content}</span>
+                </div>
+              )
+            }        
           </div>
         </section>
         <section className='px-12 py-20 text-white lg:px-24 grad-to-right'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
-            <h2 className='text-3xl font-semibold'>Top 8 cryptocurrency, Subscribe and start earning</h2>
-            <p className='max-w-lg text-sm md:text-base'>Exploring the Leading 8 Cryptocurrencies: Subscribe Now to Ignite Your Earnings</p>
+            <h2 className='text-3xl font-semibold'>{t?.cryptocurrencies?.title || "Top 8 cryptocurrency, Subscribe and start earning"}</h2>
+            <p className='max-w-lg text-sm md:text-base'>{t?.cryptocurrencies?.content || "Exploring the Leading 8 Cryptocurrencies: Subscribe Now to Ignite Your Earnings"}</p>
           </div>
           <div className='grid gap-3 mb-8 md:grid-cols-2 lg:grid-cols-4'>
             <div data-aos="fade-in" className="flex flex-col w-full gap-3 p-6 text-white rounded-md shadow-md bg-primary">
@@ -289,59 +188,19 @@ export default function Home() {
         </section>
         <section  className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
-            <h2 className='text-3xl font-semibold text-primary'>What Our Customers Say</h2>
-            <p className='max-w-lg text-sm md:text-base'>Our customers from all over the world share their lovely words about us</p>
+            <h2 className='text-3xl font-semibold text-primary'>{t?.customerTestimonials?.title || "What Our Customers Say"}</h2>
+            <p className='max-w-lg text-sm md:text-base'>{t?.customerTestimonials?.content || "Our customers from all over the world share their lovely words about us"}</p>
           </div>
           <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row'>
-              <div data-aos='slide-right' className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
-                <Image src={Face1Img} alt='register' className='rounded-full w-28 h-28' />
-                <span className='text-lg font-medium'>Jane Mark</span>
-                <span>
-                  Choosing Avestock for my investments was a smart move. The platform&apos; user-friendly design combined with consistent returns has made it a top choice for me
-                </span>
-              </div>         
-              <div data-aos='slide-left' className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
-                <Image src={Face2Img} alt='register' className='rounded-full w-28 h-28' />
-                <span className='text-lg font-medium'>Mark White</span>
-                <span>
-                I&apos;ve been using Avestock for a while now, and their commitment to security and transparency has made me feel confident in my investments. It&apos; a reliable platform I can trust.
-                </span>
-              </div>         
-              <div data-aos='slide-right' className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
-                <Image src={Face3Img} alt='register' className='rounded-full w-28 h-28' />
-                <span className='text-lg font-medium'>Emily Howes</span>
-                <span>
-                  Being a service provider, Avestock has given me the exposure I needed. The marketplace is full of opportunities, and I&apos;ve expanded my business significantly through the platform
-                </span>
-              </div>         
-              <div data-aos='slide-left' className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
-                <Image src={Face4Img} alt='register' className='rounded-full w-28 h-28' />
-                <span className='text-lg font-medium'>Alex Ryan</span>
-                <span>
-                  I&apos;m impressed by how Avestock streamlines the investment process. The automated profit system is a game-changer, making my earnings hassle-free
-                </span>
-              </div>         
-              <div data-aos='slide-right' className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
-                <Image src={Face5Img} alt='register' className='rounded-full w-28 h-28' />
-                <span className='text-lg font-medium'>Fredrick Bussman</span>
-                <span>
-                  I&apos;ve been a part of the Avestock community for a while now, and I&apos;m thrilled with the consistent profits I&apos;ve seen. This platform delivers on its promises.
-                </span>
-              </div>         
-              <div data-aos='slide-left' className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
-                <Image src={Face6Img} alt='register' className='rounded-full w-28 h-28' />
-                <span className='text-lg font-medium'>Khan Zhor</span>
-                <span>
-                Avestock stands out for its excellent customer support. Whenever I had questions, their team was quick to respond and guide me. It&apos;s been a smooth journey
-                </span>
-              </div>         
-              <div data-aos='slide-right' className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
-                <Image src={Face7Img} alt='register' className='rounded-full w-28 h-28' />
-                <span className='text-lg font-medium'>Marvin Alen</span>
-                <span>
-                  As a startup owner, I found Avestock to be a valuable asset. The exposure my business gained through the platform&apos;s marketplace has been remarkable
-                </span>
-              </div>         
+            {
+              t?.customerTestimonials?.testimonials.map((el, i) =>
+                <div key={i} data-aos={i % 2 === 0 ? 'slide-right' : 'slide-left'} className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">
+                  <Image src={facesImg[i]} alt='register' className='rounded-full w-28 h-28' />
+                  <span className='text-lg font-medium'>{el.name}</span>
+                  <span>{el.testimonial}</span>
+                </div>
+              )
+            }
           </div>
         </section>
       </main>
