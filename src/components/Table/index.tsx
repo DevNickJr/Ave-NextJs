@@ -80,7 +80,7 @@ const Table = <T extends any>({ data, columns, className, colspan, title }: Prop
                   </div>
                 </th>
               </tr>
-              <tr className="bg-[#ECF5FF]">
+              <tr className="text-black bg-white">
                 {columns?.map((item, index) => (
                  <th key={index} scope="col" className="px-4 py-6 font-medium border whitespace-nowrap">{item?.label}</th>
                 ))}
@@ -88,7 +88,7 @@ const Table = <T extends any>({ data, columns, className, colspan, title }: Prop
             </thead>
             <tbody className="text-[#737B7B] text-xs md:text-sm">
               {data?.length > 0 ? (filtererdData || data)?.map((item, index) => (
-                <tr key={index} className={`text-xs ${index % 2 !== 0 && 'bg-[#ECF5FF]'}`}>
+                <tr key={index} className={`text-xs ${index % 2 !== 0 ? 'bg-white text-black' : "bg-white"}`}>
                   {columns?.map((column, index) => {
                     // console.log("column", column)
                     if (column?.extra && column?.custom) {

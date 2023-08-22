@@ -10,8 +10,6 @@ import { IPageContent } from '@/dictionaries/dashboard/withdraw'
 import { DashboardWithdrawContent } from '@/dictionaries/dashboard/withdraw'
 import { useTranslation } from '@/hooks/useTranslationContext'
 
-// import { useSession } from 'next-auth/react'
-
 
 const Withdrawal = () => {
   const { language } = useTranslation()

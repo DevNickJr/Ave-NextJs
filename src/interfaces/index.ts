@@ -14,6 +14,11 @@ export interface IChangePassword {
     confirm_password: string 
 }
 
+export interface IVerifyUser { 
+    _id: string
+    status: 'verified' | 'unverified' | 'suspended' | 'failed' | 'pending'
+}
+
 export type ILanguage = 'en' | 'es' | 'de'  | 'zh' | 'ko' | 'tr'
 export const languageCodes: ILanguage[] = ['en', 'es', 'de', 'zh', 'ko', 'tr']
 
@@ -30,12 +35,13 @@ export interface IUserRegister {
 }
 
 export interface IUser extends IUserRegister {
-    id?: string
+    _id?: string
     balance: number
     bonus: number
     total_deposit: number
     total_withdrawal: number
     status: string
+    is_admin: boolean
     document?: {
         front: string
         back: string
