@@ -1,14 +1,12 @@
 import NextAuthSesssionProvider from '@/providers/SesssionProvider';
 import QueryProvider from '@/providers/QueryProvider';
+import { TranslationProvider } from '@/providers/TranslationProvider';
 import './globals.css'
-import { Inter } from 'next/font/google'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
+// import { Inter } from 'next/font/google'
 // This component also contains tidio installation and aos initiallisation
 
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Avestock Trades',
@@ -24,11 +22,12 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
       <NextAuthSesssionProvider>
         <QueryProvider>
-          {children}
-
+          <TranslationProvider>
+            {children}
+          </TranslationProvider>
         </QueryProvider>
       </NextAuthSesssionProvider>
       </body>
