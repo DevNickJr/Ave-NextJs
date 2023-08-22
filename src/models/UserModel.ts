@@ -61,6 +61,11 @@ const UserSchema: Schema = new Schema<IUser>({
     back: String
     // required: true,
   },
+  is_admin: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 }, {
   timestamps: true
 });

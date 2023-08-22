@@ -16,6 +16,7 @@ declare module "next-auth" {
       total_withdrawal: number,
       status: string,
       document?: string
+      is_admin: boolean
     }
   }
 
@@ -31,5 +32,6 @@ declare module "next-auth" {
     total_withdrawal: number,
     status: string,
     document?: string
+    is_admin: boolean
   }
 }
