@@ -8,12 +8,14 @@ import { AiOutlineHome } from 'react-icons/ai'
 import { RiLuggageDepositLine } from 'react-icons/ri'
 import { BiMoneyWithdraw } from 'react-icons/bi'
 import { BsBarChart } from 'react-icons/bs'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 // import { useSession, signIn, signOut } from "next-auth/react"
 
 
 const SideNav = ({ }) => {
     const pathname = usePathname();
+    const { dispatch } = useAuthContext()
     // console.log({pathname})
 
   return (
@@ -53,7 +55,7 @@ const SideNav = ({ }) => {
             </div>
         </div>
         <div className='flex flex-col gap-10 pb-2 underline'>
-            <div onClick={() => signOut()} className={`py-2.5 pl-6 text-sm flex items-center gap-2 cursor-pointer`}>
+            <div onClick={() => dispatch({type: "LOGOUT", payload: ''})} className={`py-2.5 pl-6 text-sm flex items-center gap-2 cursor-pointer`}>
                 <MdLogout size={"1.3rem"} />
                 Logout
             </div>

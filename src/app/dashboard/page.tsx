@@ -38,7 +38,7 @@ const Home = () => {
     },
    })
 
-   console.log({ userDetails })
+  //  console.log({ userDetails })
 
   const columns: ITableColumn[] = [
     {
@@ -60,8 +60,12 @@ const Home = () => {
       custom: (val: string, meta: any) => {
         return  (
             <div className="flex items-center gap-3">
-                <button className='p-2 px-3 text-sm text-white bg-primary'>Deposit</button>
-                <button className='p-2 px-3 text-sm bg-white text-primary'>Withdraw</button>
+                <Link href={'/dashboard/deposit'}>
+                  <button className='p-2 px-3 text-sm text-white bg-primary'>Deposit</button>
+                </Link>
+                <Link href={'/dashboard/withdrawal'}>
+                  <button className='p-2 px-3 text-sm bg-white border text-primary border-primary'>Withdraw</button>
+                </Link>
             </div>
         )
       },
@@ -116,7 +120,7 @@ const Home = () => {
                 <div className="flex items-center justify-between gap-8">
                     <span>{t?.balance_title || "My Balance"}</span>
                 </div>
-                <p>${userDetails?.balance || '0.00'}</p>
+                <p className='text-lg font-bold'>${userDetails?.balance || '0.00'}</p>
                 <div className="flex items-center gap-6">
                 <Link href={'/dashboard/deposit'}>
                     <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.deposit || "Deposit"}</button>
@@ -133,7 +137,7 @@ const Home = () => {
             </div>
         </div>
         <div className=''>
-          <Table data={wallets || []} columns={columns} />
+          <Table title='Deposit Wallets' data={wallets || []} columns={columns} />
         </div>
     </main>
   )

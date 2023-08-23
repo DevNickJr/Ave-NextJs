@@ -2,6 +2,7 @@
     title: string;
     regular: string;
     earnings: string;
+    investment: string;
     invest: string;
     bonus: string;
     deposits: string;
@@ -23,6 +24,7 @@
       title: 'Account',
       regular: 'Regular Account',
       earnings: 'Total Earnings',
+      investment: 'Total Investment', 
       invest: 'Start Investment',
       bonus: 'Bonus',
       deposits: 'Total Deposits',
@@ -33,6 +35,7 @@
       title: 'Cuenta',
       regular: 'Cuenta regular',
       earnings: 'Ganancias totales',
+      investment: 'Inversión total',
       invest: 'Inversión inicial',
       bonus: 'Bono',
       deposits: 'Depósitos totales',
@@ -43,6 +46,7 @@
       title: 'Konto',
       regular: 'Reguläres Konto',
       earnings: 'Gesamteinnahmen',
+      investment: 'Gesamt Investition',
       invest: 'Startinvestition', 
       bonus: 'Bonus',
       deposits: 'Gesamteinlagen',
@@ -53,6 +57,7 @@
       title: '帐户',
       regular: '常规帐户',
       earnings: '总收益',
+      investment: '总投资',
       invest: '开始投资',
       bonus: '奖金',
       deposits: '总存款',
@@ -63,6 +68,7 @@
       title: '계정',
       regular: '정기 계정',
       earnings: '총 수익',
+      investment: '총 투자',
       invest: '투자 시작',
       bonus: '보너스',
       deposits: '총 예금액',
@@ -73,6 +79,7 @@
       title: 'Hesap',
       regular: 'Düzenli Hesap',
       earnings: 'Toplam Kazanç',
+      investment: 'Toplam Yatırım',
       invest: 'Yatırıma Başla',
       bonus: 'Bonus',
       deposits: 'Toplam Mevduat',

@@ -5,11 +5,25 @@ import { IPageContent } from '@/dictionaries/dashboard/accounts'
 import { DashboardAccountContent } from '@/dictionaries/dashboard/accounts'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
+import { apiGetUser } from '@/services/AuthService'
+import useFetch from '@/hooks/useFetch'
 
 
 const Account = () => {
   const context = useAuthContext()
   const user = context?.user
+
+  const { data: userDetails, refetch: refetchUser } = useFetch({ 
+    api: apiGetUser, 
+    key: ['userDetails'],
+    enabled: !!context?.isLoggedIn,
+    param: {
+      id: user?._id
+    },
+   })
+
+
+   console.log({ userDetails })
 
   // const session = useSession()
 
@@ -26,25 +40,27 @@ const Account = () => {
     <main className='relative p-4 overflow-y-auto md:p-6'>
         <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Account"}</h2>
         <div className='flex flex-col gap-4 mb-12 lg:flex-row'>
-            <div className="flex flex-col flex-1 gap-4 p-5 text-sm bg-white rounded-md shadow-md">
-                <span>{t?.regular || "Regular Account"}</span>
-                <p>${user?.balance || '0.00'}</p>
-                <span>{t?.earnings || "Total Earnings"}</span>
-                <p>${user?.balance || '0.00'}</p>
+            <div className="flex flex-col flex-1 gap-4 p-5 text-sm font-bold bg-white rounded-md shadow-md">
+                <span className='font-bold text-primary'>{t?.regular || "Regular Account"}</span>
+                <p>${userDetails?.balance || '0.00'}</p>
+                <span className='font-bold text-primary'>{t?.earnings || "Total Earnings"}</span>
+                <p>${userDetails?.total_earnings || '0.00'}</p>
+                <span className='font-bold text-primary'>{t?.investment || "Total Investment"}</span>
+                <p>${userDetails?.total_investment || '0.00'}</p>
                 <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.invest || "Start Investment"}</button>
             </div>
         </div>
         <div className='grid gap-4 mb-12 text-sm font-semibold sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:flex-row'>
           <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
-            <p className='text-lg'>${user?.bonus || '0.00'}</p>
+            <p className='text-lg'>${userDetails?.bonus || '0.00'}</p>
             <p>{t?.bonus ||"Bonus"}</p>
           </div>
           <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
-            <p className='text-lg'>${user?.total_deposit || '0.00'}</p>
+            <p className='text-lg'>{userDetails?.total_deposit || '0'}</p>
             <p>{t?.deposits || "Total Deposit"}</p>
           </div>
           <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
-            <p className='text-lg'>${user?.total_withdrawal || '0.00'}</p>
+            <p className='text-lg'>{userDetails?.total_withdrawal || '0'}</p>
             <p>{t?.withdrawals || "Total Withdrawal"}</p>
           </div>
           <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">

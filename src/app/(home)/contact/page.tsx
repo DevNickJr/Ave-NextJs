@@ -13,6 +13,7 @@ import Loader from '@/components/Loader';
 import { IPageContent } from '@/dictionaries/contact'
 import { ContactContent } from '@/dictionaries/contact'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import Logo2 from '@/assets/pic1.jpg'
 
 
 const initialState: IFeedback = {
@@ -60,7 +61,7 @@ const ContactUs = () => {
         <section className="flex flex-col gap-3 px-12 py-20 pt-20 pb-20 bg-white lg:px-24 section md:flex-row">
             <div className="flex flex-col justify-between w-full gap-4 md:flex-row md:gap-12">
                 <div className="flex flex-col flex-1 gap-4">
-                    <Image src={ContactImg} alt="" className="w-full h-40 max-w-sm mb-8" />
+                    <Image src={Logo2} alt="" className="w-full h-40 max-w-sm mb-8 rounded-md grad-to-right" />
                     <div>
                         <h3 className="mb-3 text-xl font-bold text-gray-800 font-argentinum">{t?.address?.title || "Office Addres"}s</h3>
                         <p className="text-sm text-[#6D6D6D] font-medium">Office Address:<br /> 13B, Mambila Street<br /> Off Aso Drive Maitama, FCT-Abuja, Nigeria</p>

@@ -13,6 +13,7 @@ import { BsBarChart } from 'react-icons/bs'
 import Logo from "@/assets/logo.svg"
 import Image from 'next/image'
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 // import { useSession, signIn, signOut } from "next-auth/react"
 
@@ -20,6 +21,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 const SideNav = ({ }) => {
     const pathname = usePathname();
     // console.log({pathname})
+    const { dispatch } = useAuthContext()
 
   return (
     <div className='no-scrollbar hidden sm:flex flex-col justify-between grad-to-bottom max-h-screen overflow-hidden h-screen min-w-[240px] w-60 pb-4 grad-to-right text-white'>
@@ -58,7 +60,7 @@ const SideNav = ({ }) => {
             </div>
         </div>
         <div className='flex flex-col gap-10 pb-2 underline'>
-            <div onClick={() => signOut()} className={`py-2.5 pl-6 text-sm flex items-center gap-2 cursor-pointer`}>
+            <div onClick={() => dispatch({type: "LOGOUT", payload: ''})} className={`py-2.5 pl-6 text-sm flex items-center gap-2 cursor-pointer`}>
                 <MdLogout size={"1.3rem"} />
                 Logout
             </div>

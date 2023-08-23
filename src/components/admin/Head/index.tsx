@@ -1,12 +1,15 @@
 'use client'
+import { useAuthContext } from '@/hooks/useAuthContext'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 import { RxCaretDown } from 'react-icons/rx'
 
 const AdminHead = () => {
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
+
+  const { dispatch, user } = useAuthContext()
 
 
   return (
@@ -29,7 +32,7 @@ const AdminHead = () => {
                     Settings
                   </span>
                 </Link> */}
-                <div onClick={() => signOut()} className='pb-2'>
+                <div onClick={() => dispatch({type: "LOGOUT", payload: ''})} className='pb-2'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
                     Logout
                   </span>

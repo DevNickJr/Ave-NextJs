@@ -60,7 +60,7 @@ export const AuthContext = createContext<IAuthContextProvider>(initAuthContext)
 export const authReducer = (state: IAuthContext, action: IAction) => {
     switch (action.type) {
         case "LOGIN":
-            console.log("action.payload", action.payload)
+            // console.log("action.payload", action.payload)
             localStorage.setItem("user", JSON.stringify({
                 isLoggedIn: true,
                 user: action.payload

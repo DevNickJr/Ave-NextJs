@@ -65,7 +65,7 @@ const Table = <T extends any>({ data, columns, className, colspan, title }: Prop
   // const search = debounce(handleFilter, 1000)
 
   return (
-      <div className="overflow-hidden">
+      <div className="overflow-hidden font-medium">
         {/* <div className="flex items-center w-full gap-8 mb-8">
          <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="search" className="my-2 w-full -black/20 md:pl-4 p-2 py-2.5 rounded-lg border-2 outline-none" />
          <Button onClick={handleFilter} className="text-white px-4 sm:px-8 py-2.5 rounded-lg">Search</Button>
@@ -86,7 +86,7 @@ const Table = <T extends any>({ data, columns, className, colspan, title }: Prop
                 ))}
               </tr>
             </thead>
-            <tbody className="text-[#737B7B] text-xs md:text-sm">
+            <tbody className="text-[#737B7B] text-xs md:text-sm font-medium">
               {data?.length > 0 ? (filtererdData || data)?.map((item, index) => (
                 <tr key={index} className={`text-xs ${index % 2 !== 0 ? 'bg-white text-black' : "bg-white"}`}>
                   {columns?.map((column, index) => {

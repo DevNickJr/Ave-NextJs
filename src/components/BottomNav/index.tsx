@@ -12,7 +12,7 @@ import { BsBarChart } from 'react-icons/bs'
 const BottomNav = () => {
   const pathname = usePathname()
 
-  console.log('path', pathname)
+  // console.log('path', pathname)
 
   return (
     <>

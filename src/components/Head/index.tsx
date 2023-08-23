@@ -1,4 +1,5 @@
 'use client'
+import { useAuthContext } from '@/hooks/useAuthContext'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { ILanguage, languageCodes } from '@/interfaces'
 import { signOut, useSession } from 'next-auth/react'
@@ -45,8 +46,10 @@ const languages = [
 ]
 
 const Head = () => {
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
+
+  const { dispatch, user } = useAuthContext()
   const { language, setLanguage } = useTranslation()
 
 
@@ -87,7 +90,7 @@ const Head = () => {
                     Settings
                   </span>
                 </Link>
-                <div onClick={() => signOut()} className='pb-2'>
+                <div onClick={() => dispatch({type: "LOGOUT", payload: ''})} className='pb-2'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
                     Logout
                   </span>
