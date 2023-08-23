@@ -1,15 +1,19 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { AiOutlineHome } from 'react-icons/ai'
-import { MdOutlineDashboard, MdOutlineSearch, MdOutlineArticle } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
+import { FiUsers } from 'react-icons/fi'
+import { LiaWalletSolid } from 'react-icons/lia'
+import { RiLuggageDepositLine } from 'react-icons/ri'
+import { BiMoneyWithdraw } from 'react-icons/bi'
+import { BsBarChart } from 'react-icons/bs'
+import { IoIosOptions } from 'react-icons/io'
 
 
 const BottomNav = () => {
   const pathname = usePathname()
 
-  console.log('path', pathname)
+  // console.log('path', pathname)
 
   return (
     <>
@@ -18,37 +22,37 @@ const BottomNav = () => {
           <ul className='flex items-center justify-between w-full gap-2 text-xs font-medium text-dark-light md:gap-4 lg:gap-7'>
             <li className={`flex-1 ${pathname==="/admin" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/admin" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <AiOutlineHome className='text-xl' />
+                    <FiUsers className='text-xl' />
                     Users
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/admin/wallets" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/admin/wallets" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineSearch className='text-xl' />
+                    <LiaWalletSolid className='text-xl' />
                     Wallets
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/admin/trades" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/admin/trades" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineArticle className='text-xl' />
+                    <BsBarChart className='text-xl' />
                     Trades
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/admin/deposit" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/admin/deposit" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineArticle className='text-xl' />
+                    <RiLuggageDepositLine className='text-xl' />
                     Deposits
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/admin/withdrawal" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/admin/withdrawal" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineDashboard className='text-xl' />
+                    <BiMoneyWithdraw className='text-xl' />
                     Withdraws
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/admin/plans" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/admin/plans" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineDashboard className='text-xl' />
+                    <IoIosOptions className='text-xl' />
                     Plans
                 </Link>
             </li>

@@ -2,13 +2,14 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MdOutlineDashboardCustomize, MdLogout, MdOutlineFeedback } from 'react-icons/md'
-import { RiTeamLine, RiQuestionnaireLine } from 'react-icons/ri'
-import { GiCrownedSkull } from 'react-icons/gi'
-import { BsFillPersonFill } from 'react-icons/bs'
-import { TiNews } from 'react-icons/ti'
-import { FaAward } from 'react-icons/fa'
-import { AiTwotoneGold, AiOutlineHome, AiOutlineCopyrightCircle } from 'react-icons/ai'
+import { MdLogout } from 'react-icons/md'
+import { RiTeamLine } from 'react-icons/ri'
+import { FiUsers } from 'react-icons/fi'
+import { LiaWalletSolid } from 'react-icons/lia'
+import { RiLuggageDepositLine } from 'react-icons/ri'
+import { BiMoneyWithdraw } from 'react-icons/bi'
+import { IoIosOptions } from 'react-icons/io'
+import { BsBarChart } from 'react-icons/bs'
 import Logo from "@/assets/logo.svg"
 import Image from 'next/image'
 import { useSession, signIn, signOut } from "next-auth/react"
@@ -31,27 +32,27 @@ const SideNav = ({ }) => {
             </div>
             <div className='flex flex-col gap-2 pt-12 pb-2'>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${(pathname === '/admin') && 'font-bold'}`} href="/admin">
-                    <MdOutlineDashboardCustomize size={"1.3rem"} />
+                    <FiUsers size={"1.3rem"} />
                     Manage Users
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("wallets") && 'font-bold'}`} href={"/admin/wallets"}>
-                    <GiCrownedSkull size={"1.3rem"} />
+                    <LiaWalletSolid size={"1.3rem"} />
                     Manage Wallets
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("trades") && 'font-bold'}`} href={"/admin/trades"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <BsBarChart size={"1.3rem"} />
                     Manage Trades
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("deposit") && 'font-bold'}`} href={"/admin/deposit"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <RiLuggageDepositLine size={"1.3rem"} />
                     Manage Deposit
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("withdrawal") && 'font-bold'}`} href={"/admin/withdrawal"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <BiMoneyWithdraw size={"1.3rem"} />
                     Manage Withdrawal
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("plans") && 'font-bold'}`} href={"/admin/plans"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <IoIosOptions size={"1.3rem"} />
                     Manage Plans
                 </Link>
             </div>

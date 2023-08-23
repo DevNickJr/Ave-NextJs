@@ -2,10 +2,12 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MdOutlineDashboardCustomize, MdLogout } from 'react-icons/md'
-import { RiTeamLine } from 'react-icons/ri'
-import { GiCrownedSkull } from 'react-icons/gi'
+import { MdOutlineDashboardCustomize, MdLogout, MdSettings } from 'react-icons/md'
 import { signOut } from "next-auth/react"
+import { AiOutlineHome } from 'react-icons/ai'
+import { RiLuggageDepositLine } from 'react-icons/ri'
+import { BiMoneyWithdraw } from 'react-icons/bi'
+import { BsBarChart } from 'react-icons/bs'
 
 // import { useSession, signIn, signOut } from "next-auth/react"
 
@@ -25,27 +27,27 @@ const SideNav = ({ }) => {
             </div>
             <div className='flex flex-col gap-2 pt-12 pb-2'>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${(pathname === '/admin') && 'font-bold'}`} href="/dashboard">
-                    <MdOutlineDashboardCustomize size={"1.3rem"} />
+                    <AiOutlineHome size={"1.3rem"} />
                     Home
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("accounts") && 'font-bold'}`} href={"/dashboard/accounts"}>
-                    <GiCrownedSkull size={"1.3rem"} />
+                    <MdOutlineDashboardCustomize size={"1.3rem"} />
                     Account
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("invest") && 'font-bold'}`} href={"/dashboard/invest"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <BsBarChart size={"1.3rem"} />
                     Invest
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("deposit") && 'font-bold'}`} href={"/dashboard/deposit"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <RiLuggageDepositLine size={"1.3rem"} />
                     Deposit
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("withdrawal") && 'font-bold'}`} href={"/dashboard/withdrawal"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <BiMoneyWithdraw size={"1.3rem"} />
                     Withdrawal
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("settings") && 'font-bold'}`} href={"/dashboard/settings"}>
-                    <RiTeamLine size={"1.3rem"} />
+                    <MdSettings size={"1.3rem"} />
                     Settings
                 </Link>
             </div>

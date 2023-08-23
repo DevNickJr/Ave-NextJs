@@ -2,8 +2,11 @@
 import React from 'react'
 import Link from 'next/link'
 import { AiOutlineHome } from 'react-icons/ai'
-import { MdOutlineDashboard, MdOutlineSearch, MdOutlineArticle } from 'react-icons/md'
+import { MdOutlineDashboard } from 'react-icons/md'
 import { usePathname } from 'next/navigation'
+import { RiLuggageDepositLine } from 'react-icons/ri'
+import { BiMoneyWithdraw } from 'react-icons/bi'
+import { BsBarChart } from 'react-icons/bs'
 
 
 const BottomNav = () => {
@@ -24,25 +27,25 @@ const BottomNav = () => {
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/accounts" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/accounts" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineSearch className='text-xl' />
+                    <MdOutlineDashboard className='text-xl' />
                     Account
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/invest" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/invest" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineArticle className='text-xl' />
+                    <BsBarChart className='text-xl' />
                     Invest
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/deposit" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/deposit" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineDashboard className='text-xl' />
+                    <RiLuggageDepositLine className='text-xl' />
                     Deposit
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/withdrawal" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/withdrawal" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
-                    <MdOutlineDashboard className='text-xl' />
+                    <BiMoneyWithdraw className='text-xl' />
                     Withdraw
                 </Link>
             </li>
