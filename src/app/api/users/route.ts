@@ -19,7 +19,7 @@ export async function GET(req: Request, res: NextApiResponse) {
         // } 
       
         
-        const users = await UserModel.find({}).lean();
+        const users = await UserModel.find({}).sort({ createdAt: -1 }).lean();
     
         // console.log({users})
 

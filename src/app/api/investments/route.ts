@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
         //   return res.status(401).json({ message: "You must be signed in to access this" });
         // } 
       
-        const invest = await InvestModel.find({}).lean();
+        const invest = await InvestModel.find({}).sort({ createdAt: -1 }).lean();
     
         // console.log({invest})
 

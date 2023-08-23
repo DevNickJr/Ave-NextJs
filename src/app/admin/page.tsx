@@ -16,6 +16,8 @@ const Admin = () => {
   // const { data } = useSession()
   const { data: users, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IUser[]>({api: apiGetUsers, key: ['users'] })
 
+  console.log( { users  })
+
   const verifyUser = useMutation<IVerifyUser, any>(apiVerifyUser, {
     onSuccess: (data) => {
       // console.log(data)

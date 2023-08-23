@@ -24,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
           return NextResponse.json({ message: 'ID is required' }, { status: 400 });
         }
 
-        const deposits = await DepositModel.find({ userId: id }).lean();
+        const deposits = await DepositModel.find({ userId: id }).sort({ createdAt: -1 }).lean();
 
         if (!deposits) {
           return NextResponse.json({ message: 'deposits not found' }, { status: 400 });

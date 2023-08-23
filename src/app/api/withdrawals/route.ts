@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
         // } 
       
         
-        const withdrawal = await WithdrawalModel.find({}).lean();
+        const withdrawal = await WithdrawalModel.find({}).sort({ createdAt: -1 }).lean();
     
         // console.log({withdrawal})
 

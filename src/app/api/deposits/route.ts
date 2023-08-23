@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
         // } 
       
         
-        const deposit = await DepositModel.find({}).lean();
+        const deposit = await DepositModel.find({}).sort({ createdAt: -1 }).lean();
     
         // console.log({deposit})
 

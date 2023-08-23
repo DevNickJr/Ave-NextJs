@@ -25,7 +25,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         }
 
         console.log("reaches here 1")
-        const withdrawals = await WithdrawalModel.find({ userId: id }).lean();
+        const withdrawals = await WithdrawalModel.find({ userId: id }).sort({ createdAt: -1 }).lean();
 
         console.log("reaches here")
 
