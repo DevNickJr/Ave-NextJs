@@ -4,11 +4,14 @@ import { useSession } from 'next-auth/react'
 import { IPageContent } from '@/dictionaries/dashboard/accounts'
 import { DashboardAccountContent } from '@/dictionaries/dashboard/accounts'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 
 const Account = () => {
-  const session = useSession()
-  const user = session.data?.user
+  const context = useAuthContext()
+  const user = context?.user
+
+  // const session = useSession()
 
   const { language } = useTranslation()
   const [t, setTranslated] = React.useState<IPageContent | null>(null)

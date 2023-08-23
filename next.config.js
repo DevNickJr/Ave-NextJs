@@ -1,15 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // i18n: {
-    //     locales: ['en-US', 'fr', 'nl-NL'],
-    //     defaultLocale: 'en-US',
-    //   },
-    i18n: {
-        locales: ['default', 'en', 'de', 'fr'],
-        defaultLocale: 'default',
-        localeDetection: false,
-    },
-    trailingSlash: true,
+
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'firebasestorage.googleapis.com',
+            port: '',
+            pathname: '/v0/b/aves-defbd.appspot.com/**',
+          },
+        ],
+      },
+
 }
 
 module.exports = nextConfig

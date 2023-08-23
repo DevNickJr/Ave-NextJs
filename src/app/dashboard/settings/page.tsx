@@ -13,6 +13,7 @@ import { apiGetUser } from '@/services/AuthService'
 import { IPageContent } from '@/dictionaries/dashboard/settings'
 import { DashboardSettingsContent } from '@/dictionaries/dashboard/settings'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 // import { useSession } from 'next-auth/react'
 
@@ -32,8 +33,11 @@ const Settings = () => {
     setTranslated(DashboardSettingsContent[language])
   }, [language])
 
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
+  const context = useAuthContext()
+  const user = context?.user
+
   const [step, setStep] = React.useState<"home" | "security" | "profile">('home')
   const router = useRouter()
   const [userInfo, setUserInfo] = React.useReducer((state: IUserInfo, newState: Partial<IUserInfo>): IUserInfo => ({ ...state, ...newState }), {

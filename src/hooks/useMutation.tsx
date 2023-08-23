@@ -29,7 +29,7 @@ const useMutations = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?:
           //   }
         },
         onSuccess: (data, variables, context) => {
-            console.log("successful", data)
+            // console.log("successful", data)
             if (showSuccessMessage) {
               // toast.success(data?.message);
               toast.success("Successful !");

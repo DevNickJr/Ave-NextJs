@@ -4,6 +4,7 @@ import SideNav from '@/components/SideNav'
 import Head from '@/components/Head'
 import AuthHOC from '@/HOC/AuthHOC'
 import BottomNav from '@/components/BottomNav'
+import ContextAuthHOC from '@/HOC/ContextAuthHOC'
 
 const Layout = ({ children }: { children: React.ReactNode }) => { 
 
@@ -19,4 +20,4 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default AuthHOC(Layout)
+export default ContextAuthHOC(Layout)

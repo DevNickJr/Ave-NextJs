@@ -1,6 +1,7 @@
 import NextAuthSesssionProvider from '@/providers/SesssionProvider';
 import QueryProvider from '@/providers/QueryProvider';
 import { TranslationProvider } from '@/providers/TranslationProvider';
+import { AuthContextProvider } from '@/providers/AuthProvider';
 import './globals.css'
 // import { Inter } from 'next/font/google'
 // This component also contains tidio installation and aos initiallisation
@@ -24,11 +25,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
       <NextAuthSesssionProvider>
+        <AuthContextProvider>
         <QueryProvider>
           <TranslationProvider>
             {children}
           </TranslationProvider>
         </QueryProvider>
+        </AuthContextProvider>
       </NextAuthSesssionProvider>
       </body>
       <script src="//code.tidio.co/xmkv5uj01vnyzvbec65ti8tmhdaoylfc.js" async></script>

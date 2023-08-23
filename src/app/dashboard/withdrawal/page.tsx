@@ -9,6 +9,7 @@ import React from 'react'
 import { IPageContent } from '@/dictionaries/dashboard/withdraw'
 import { DashboardWithdrawContent } from '@/dictionaries/dashboard/withdraw'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 
 const Withdrawal = () => {
@@ -20,8 +21,11 @@ const Withdrawal = () => {
   }, [language])
 
 
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
+  const context = useAuthContext()
+  const user = context?.user
+
   const [step, setStep] = React.useState(1)
   const [amount, setAmount] = React.useState('')
   const [wallet, setWallet] = React.useState('')

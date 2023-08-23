@@ -6,6 +6,7 @@ import useCopy from '@/hooks/useCopy'
 import { IPageContent } from '@/dictionaries/dashboard/refer'
 import { DashboardReferContent } from '@/dictionaries/dashboard/refer'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 
 const Refer = () => {
@@ -16,8 +17,11 @@ const Refer = () => {
     setTranslated(DashboardReferContent[language])
   }, [language])
 
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
+  const context = useAuthContext()
+  const user = context?.user
+
   const router = useRouter()
   const { copy } = useCopy()
 

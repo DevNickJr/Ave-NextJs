@@ -10,6 +10,7 @@ import { formatDate } from '@/utils/dateFunc'
 import { IPageContent } from '@/dictionaries/dashboard/invest'
 import { DashboardInvestContent } from '@/dictionaries/dashboard/invest'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 const Invest = () => {
   const { language } = useTranslation()
@@ -19,8 +20,12 @@ const Invest = () => {
     setTranslated(DashboardInvestContent[language])
   }, [language])
 
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
+
+  const context = useAuthContext()
+  const user = context?.user
+
   const [modalOpen, setModalOpen] = React.useState(false)
   const [amount, setAmount] = React.useState('')
   const [investment, setInvestment] = React.useState<IPlan | null>(null)

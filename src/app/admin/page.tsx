@@ -36,7 +36,7 @@ const Admin = () => {
     verifyUser.mutate({ _id: id, status: 'failed' }) 
   }
 
-  console.log({users})
+  // console.log({users})
 
   const columns: ITableColumn[] = [
     {

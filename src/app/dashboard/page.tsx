@@ -10,11 +10,13 @@ import { apiGetUser } from '@/services/AuthService'
 import { IPageContent } from '@/dictionaries/dashboard/home'
 import { DashboardHomeContent } from '@/dictionaries/dashboard/home'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 // import { useSession } from 'next-auth/react'
 
 
 const Home = () => {
+  const context = useAuthContext()
   const { language } = useTranslation()
   const [t, setTranslated] = React.useState<IPageContent | null>(null)
 
@@ -22,22 +24,19 @@ const Home = () => {
     setTranslated(DashboardHomeContent[language])
   }, [language])
 
+  const user = context?.user
 
-  const session = useSession()
-  const user = session.data?.user
   
   const { data: wallets, error, isLoading, isFetching, remove, fetchStatus } = useFetch<IWallet[]>({api: apiGetWallets, key: ['wallets'] })
 
   const { data: userDetails, refetch: refetchUser } = useFetch({ 
     api: apiGetUser, 
     key: ['userDetails'],
+    enabled: !!context?.isLoggedIn,
     param: {
       id: user?._id
     },
    })
-
-  console.log({ userDetails })
-
 
   const columns: ITableColumn[] = [
     {

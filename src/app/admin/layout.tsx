@@ -7,29 +7,34 @@ import BottomNav from '@/components/admin/BottomNav'
 import { useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import { notFound, useRouter } from 'next/navigation'
+import ContextAuthHOC from '@/HOC/ContextAuthHOC'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => { 
-  const { data } = useSession()
+  const context = useAuthContext()
+  const user = context?.user
+
+  // const { data } = useSession()
   const router = useRouter()
 
 
   React.useEffect(() => {
-    if (!data?.user?.is_admin) {
+    if (!user?.is_admin) {
       toast.error('You are not authorized to view this page')
       return router.push("/dashboard")
     }
-  }, [data, router])
+  }, [user, router])
 
-  if (data?.user?.is_admin) {
-      return (
-        <div className='flex w-full h-screen overflow-hidden'>
-          <SideNav />
-          <div className="relative flex-1 pb-10 overflow-hidden overflow-y-auto bg-black/5">
-            <Head />
-            {children}
-          </div>
-          <BottomNav />
+  if (user?.is_admin) {
+    return (
+      <div className='flex w-full h-screen overflow-hidden'>
+        <SideNav />
+        <div className="relative flex-1 pb-10 overflow-hidden overflow-y-auto bg-black/5">
+          <Head />
+          {children}
         </div>
+        <BottomNav />
+      </div>
     )
   } else {
     return (
@@ -41,4 +46,4 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   
 }
 
-export default AuthHOC(AdminLayout)
+export default ContextAuthHOC(AdminLayout)

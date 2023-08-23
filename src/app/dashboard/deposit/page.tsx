@@ -10,6 +10,7 @@ import { BiLeftArrow } from 'react-icons/bi'
 import { IPageContent } from '@/dictionaries/dashboard/deposit'
 import { DashboardDepositContent } from '@/dictionaries/dashboard/deposit'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 const Deposit = () => {
   const { language } = useTranslation()
@@ -19,9 +20,11 @@ const Deposit = () => {
     setTranslated(DashboardDepositContent[language])
   }, [language])
 
+  const context = useAuthContext()
+  const user = context?.user
 
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
   const [step, setStep] = React.useState(1)
   const [choice, setChioce] = React.useState('')
   const [amount, setAmount] = React.useState('')

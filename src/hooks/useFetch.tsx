@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { AxiosResponse } from 'axios'
+import { type } from 'os'
 
 interface IProps<T> {
     api: (a?: any, b?: any) =>  Promise<AxiosResponse<T, any>>
@@ -9,26 +10,20 @@ interface IProps<T> {
     key: string[]
     onSuccess?: (a: any) => void
     requireAuth?: boolean
-    select?: (a: any) => T
+    select?: (a: any) => T,
+    enabled?: boolean
 }
 
-const useFetch = <T,>({ api, param, key, onSuccess, requireAuth, select, ...rest }: IProps<T>) => {
-  const { data: session } = useSession()
-
+const useFetch = <T,>({ api, param, key, onSuccess, requireAuth, select, enabled, ...rest }: IProps<T>) => {
 
     const { data, error, isLoading, isSuccess, isFetching, remove, refetch, fetchStatus } = useQuery({
         queryKey: [...key],
+        enabled: typeof enabled === 'undefined' ? true : !!enabled,
         queryFn: () => requireAuth ? api('session?.user?.token.access', param) : api(param),
         // queryFn: () => requireAuth ? api(session?.user?.token.access, param) : api(param),
         select: select || ((d: any): T => d?.data),
         ...rest
     })
-
-    // useEffect(() => {
-    //     return () => {
-    //       if (clear) remove()
-    //     }
-    // }, [clear])
 
     useEffect(() => {
         if (onSuccess && isSuccess && data) {

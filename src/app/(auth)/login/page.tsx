@@ -9,6 +9,9 @@ import Loader from '@/components/Loader'
 import { IPageContent } from '@/dictionaries/login'
 import { LoginContent } from '@/dictionaries/login'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { apiLogin } from '@/services/AuthService'
+import useMutation from '@/hooks/useMutation'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 const initialState: IUserLogin = {
   email: '',
@@ -19,36 +22,39 @@ const initialState: IUserLogin = {
 const Login = () => {
   const { language } = useTranslation()
   const [t, setTranslated] = useState<IPageContent | null>(null)
+  const context = useAuthContext()
 
   useEffect(() => {
     setTranslated(LoginContent[language])
   }, [language])
 
-  const [active, setActive] = React.useState<'student' | 'staff'>('student')
   const [loading, setLoading] = React.useState(false)
   const [user, dispatch] = useReducer((state: IUserLogin, action: ILoginReducerAction) => {
     return { ...state, [action.type]: action.payload }
 }, initialState)
-
-// const { mutate } = useMutation<IUserLogin, any>(
-//   apiLogin,
-//   {
-//     onSuccess: () => {
-//       console.log({ active })
-//         toast.success("Logged in Successfully")
-//         if (active === 'student') {
-//           return router.push('/dashboard')
-//         }
-//         router.push('/staff')
-//     },
-//     onError: (error: any) => {
-//         toast.error(error?.message || "An error occured")
-//     }
-//   }
-// )
+const router = useRouter()
 
 
-  const router = useRouter()
+const loginMutation = useMutation<IUserLogin, any>(
+  apiLogin,
+  {
+    onSuccess: (data) => {
+        console.log("data", data)
+        context.dispatch({ type: "LOGIN", payload: data})
+        toast.success("Logged in Successfully")
+        return router.push('/dashboard')
+    },
+    onError: (error: any) => {
+        toast.error(error?.message || "An error occured")
+    }
+  }
+)
+
+const handleLoginMutation = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  e.preventDefault()
+  loginMutation.mutate(user)
+}
+
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
@@ -69,10 +75,7 @@ const Login = () => {
         console.log("res", res)
 
         if (!res?.error) {
-          if (active === 'student') {
-            return router.push('/dashboard')
-          }
-          return router.push('/staff')
+          return router.push('/dashboard')
         }
         
         throw new Error(res?.error)
@@ -85,12 +88,12 @@ const Login = () => {
 
   return (
     <div className='bg-white md:pl-24'>
-      {loading && <Loader />}
+      {(loading || loginMutation?.isLoading) && <Loader />}
       <div className="flex flex-col items-center gap-4 mt-16 mb-12">
           <h1 className='text-2xl font-bold'>{t?.title || "Welcome Back!"}</h1>
           <p className='text-sm'>{t?.content || "Sign in to continue to Avestock"}</p>
       </div>
-      <form onSubmit={handleLogin} action="" className="max-w-l">
+      <form onSubmit={handleLoginMutation} action="" className="max-w-l">
         <div className='grid gap-4 mb-2'>
             <div className='flex flex-col gap-2 text-xs'>
               <label htmlFor="name">{t?.email || "Email Address"}</label>

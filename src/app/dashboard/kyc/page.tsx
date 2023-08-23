@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import { IPageContent } from '@/dictionaries/dashboard/kyc'
 import { DashboardKycContent } from '@/dictionaries/dashboard/kyc'
 import { useTranslation } from '@/hooks/useTranslationContext'
+import { useAuthContext } from '@/hooks/useAuthContext'
 // import { useSession } from 'next-auth/react'
 
 const documents = [
@@ -34,8 +35,11 @@ const documents = [
 
 
 const Deposit = () => {
-  const session = useSession()
-  const user = session.data?.user
+  // const session = useSession()
+  // const user = session.data?.user
+  const context = useAuthContext()
+  const user = context?.user
+
   const [step, setStep] = React.useState(1)
   const [choice, setChioce] = React.useState('')
   const [paymentMethod, setPaymentMethod] = React.useState('')
