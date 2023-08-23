@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
         
         const invest = await InvestModel.find({}).lean();
     
-        console.log({invest})
+        // console.log({invest})
 
         return NextResponse.json(invest, { status: 200 });
     

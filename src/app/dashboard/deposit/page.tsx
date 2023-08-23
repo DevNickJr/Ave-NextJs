@@ -11,6 +11,10 @@ import { IPageContent } from '@/dictionaries/dashboard/deposit'
 import { DashboardDepositContent } from '@/dictionaries/dashboard/deposit'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
+import Image from 'next/image'
+import useImage from '@/hooks/useImage'
+import { toast } from 'react-toastify'
+import GentleLoader from '@/components/GentleLoader'
 
 const Deposit = () => {
   const { language } = useTranslation()
@@ -23,6 +27,8 @@ const Deposit = () => {
   const context = useAuthContext()
   const user = context?.user
 
+  
+  
   // const session = useSession()
   // const user = session.data?.user
   const [step, setStep] = React.useState(1)
@@ -30,6 +36,7 @@ const Deposit = () => {
   const [amount, setAmount] = React.useState('')
   const [proof, setProof] = React.useState('')
   const [paymentMethod, setPaymentMethod] = React.useState('')
+  const { url, uploadImage, error: errorImage, loading } = useImage()
 
   const { data: wallets, error, isLoading, isFetching, remove, fetchStatus } = useFetch<IWallet[]>({api: apiGetWallets, key: ['wallets'] })
   
@@ -49,12 +56,15 @@ const Deposit = () => {
   })
 
   const handleDeposit = () => {
+    if (!url) {
+      return toast.info("Please upload proof of payment")
+    }
     depositMutation.mutate({
       email: user?.email!,      
       userId: user?._id!,
       wallet: paymentMethod,
       amount: +amount,
-      proof: 'image_to_firebase',      
+      proof: url,      
     })
   }
   // const { data } = useSession()
@@ -62,6 +72,9 @@ const Deposit = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+      {
+        (loading || depositMutation?.isLoading) && <GentleLoader />
+      }
       <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Deposit"}</h2>
       {step === 1 && (
         <>
@@ -120,8 +133,8 @@ const Deposit = () => {
                 choice && 
                   <div className='flex flex-col gap-4'>
                     <p>{t?.click_to_copy || "Click the icon below to copy the wallet address or scan the QR-code and procced to payment"}</p>
-                    <div className="w-48 h-48 bg-gray-100">
-                      {wallets?.find(wallet => wallet.name === choice)?.qr_code}
+                    <div className="w-48 h-48 mx-auto bg-gray-100">
+                      <Image alt={`qr code`} src={wallets?.find(wallet => wallet.name === choice)?.qr_code || ''} width={100} height={100} className='w-48 h-48 bg-cover' />
                     </div>
                     <div className="w-full p-2 text-center rounded-md">
                       {wallets?.find(wallet => wallet.name === choice)?.address}
@@ -155,8 +168,8 @@ const Deposit = () => {
               </select>
               <div className='flex flex-col gap-4'>
                 <p>{t?.bank_transfer || "Make a transfer or deposit to the details below"}</p>
-                <div className="w-48 h-48 bg-gray-100">
-                  {wallets?.find(wallet => wallet.name === choice)?.qr_code}
+                <div className="w-48 h-48 mx-auto bg-gray-100">
+                  <Image alt={`qr code`} src={wallets?.find(wallet => wallet.name === choice)?.qr_code || ''} width={100} height={100} className='w-48 h-48 bg-cover' />
                 </div>
                 <div className="w-full p-2 text-center rounded-md">
                   {wallets?.find(wallet => wallet.name === choice)?.address}
@@ -185,7 +198,7 @@ const Deposit = () => {
                   <option key={wallet.name} value={wallet.name}>{wallet.name}</option>
                 )}
               </select>
-              <input type="file" className='rounded-md' placeholder='Upload' />
+              <input onChange={e => uploadImage(e.target.files![0])} type="file" className='rounded-md' placeholder='Upload' />
           <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleDeposit}>{t?.submit || "Submit"}</button>
             </div>
             <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">

@@ -24,11 +24,14 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
           return NextResponse.json({ message: 'ID is required' }, { status: 400 });
         }
 
+        console.log("reaches here 1")
         const withdrawals = await WithdrawalModel.find({ userId: id }).lean();
 
-        if (!withdrawals) {
-          return NextResponse.json({ message: 'withdrawal not found' }, { status: 400 });
-        }
+        console.log("reaches here")
+
+        // if (!withdrawals) {
+        //   return NextResponse.json({ message: 'withdrawals not found' }, { status: 400 });
+        // }
               
 
         return NextResponse.json(withdrawals, { status: 200 });

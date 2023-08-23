@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
         
         const withdrawal = await WithdrawalModel.find({}).lean();
     
-        console.log({withdrawal})
+        // console.log({withdrawal})
 
         return NextResponse.json(withdrawal, { status: 200 });
     

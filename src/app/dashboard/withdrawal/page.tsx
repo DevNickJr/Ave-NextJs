@@ -10,6 +10,8 @@ import { IPageContent } from '@/dictionaries/dashboard/withdraw'
 import { DashboardWithdrawContent } from '@/dictionaries/dashboard/withdraw'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
+import { BiLeftArrow } from 'react-icons/bi'
+import GentleLoader from '@/components/GentleLoader'
 
 
 const Withdrawal = () => {
@@ -32,7 +34,7 @@ const Withdrawal = () => {
 
   const { data: withdrawals, error: withdrawalsError, isLoading: withdrawalsLoading, refetch } = useFetch<IWithdrawal[]>({api: apiGetUserWithdrawals, param: user?._id, key: ['userWithdrawals'] })
 
-  // console.log({ withdrawals})
+  console.log({ withdrawals})
 
   const withdrawalMutation = usePost<IWithdrawal, any>(apiWithdrawal, {
     onSuccess: (data) => {
@@ -57,13 +59,16 @@ const Withdrawal = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+      {
+        withdrawalMutation.isLoading && <GentleLoader />
+      }
       <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Withdrawal"}</h2>
       {step === 1 && (
         <>
           <div className='grid gap-4 mb-6 md:grid-cols-2 lg:grid-cols-3'>
-            <div onClick={() => setStep(2)} className="cursor-pointer flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
-              <p>$0.00</p>
-              <p>{t?.bonus || "Bonus"}</p>
+            <div onClick={() => setStep(2)} className="cursor-pointer flex flex-col gap-1 p-4 bg-primary text-white rounded-md shadow-md min-w-[200px]">
+              <p className='font-semibold'>{t?.subtitle || "Withdraw Funds"}</p>
+              <p className='text-xs'>{t?.subtitle_text || "click to initiate withdrawal"}</p>
             </div>
           </div>
           <div className="p-5 bg-white rounded-md">
@@ -92,16 +97,13 @@ const Withdrawal = () => {
       )}
       {step === 2 && (
         <>
+          <h4 className='flex items-center gap-4 mb-4 font-semibold'>
+              <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
+            </h4>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
               <input onChange={(e) => setAmount(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.amount || 'Enter Amount'} />
-              <input onChange={(e) => setWallet(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.wallet || 'Enter Wallet'} />
-              {/* <select className='p-3 rounded-md' name="" id="">
-                <option value="">Choose a payment method</option>
-                <option value="">Bitcoin</option>
-                <option value="">Ethereum</option>
-              </select> */}
-              <input type="file" className='rounded-md' placeholder='Upload' />
+              <input onChange={(e) => setWallet(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.wallet || 'Enter BTC Wallet'} />
           <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleWithdrawal}>{t?.submit || "Submit"}</button>
             </div>
             <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">

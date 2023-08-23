@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
         
         const wallet = await WalletModel.find({}).lean();
     
-        console.log({wallet})
+        // console.log({wallet})
 
         return NextResponse.json(wallet, { status: 200 });
     

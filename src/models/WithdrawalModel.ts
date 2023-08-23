@@ -19,12 +19,12 @@ const WithdrawalSchema: Schema = new Schema<IWithdrawal>({
     required: true,
   },
   // proof: {
-  //   type: String,
+    // type: String,
   //   required: true,
   // },
   status: {
     type: String,
-    required: true,
+    enum: ["processing", "approved", "denied"],
     default: "processing"
   },
 }, {

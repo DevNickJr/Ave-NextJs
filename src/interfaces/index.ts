@@ -19,6 +19,21 @@ export interface IVerifyUser {
     status: 'verified' | 'unverified' | 'suspended' | 'failed' | 'pending'
 }
 
+export interface IApproveWithdrawal { 
+    _id: string
+    status: 'approved' | 'denied' | 'processing'
+}
+
+export interface IApproveDeposit { 
+    _id: string
+    status: 'approved' | 'denied' | 'processing'
+}
+
+export interface IHandleInvest { 
+    _id: string
+    status: 'active' | 'paused' | 'completed'
+}
+
 export type ILanguage = 'en' | 'es' | 'de'  | 'zh' | 'ko' | 'tr'
 export const languageCodes: ILanguage[] = ['en', 'es', 'de', 'zh', 'ko', 'tr']
 

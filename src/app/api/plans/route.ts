@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
         
         const plan = await PlanModel.find({}).lean();
     
-        console.log({plan})
+        // console.log({plan})
 
         return NextResponse.json(plan, { status: 200 });
     

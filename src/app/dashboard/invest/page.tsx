@@ -11,6 +11,8 @@ import { IPageContent } from '@/dictionaries/dashboard/invest'
 import { DashboardInvestContent } from '@/dictionaries/dashboard/invest'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
+import GentleLoader from '@/components/GentleLoader'
+import { toast } from 'react-toastify'
 
 const Invest = () => {
   const { language } = useTranslation()
@@ -39,27 +41,46 @@ const Invest = () => {
       console.log(data)
       setAmount('')
       refetch()
+      toast.success('Investment Successful')
       setModalOpen(false)
     },
     onError: (error) => {
+      toast.error(error?.response?.data?.message || 'Something went wrong')
       console.log(error)
     }   
   })
 
-  console.log( { investments  })
+  // console.log( { investments  })
   // const { data } = useSession()
   const columns: ITableColumn[] = [
     {
       name: 'amount',
-      label: 'Amount',
+      label: 'Amount($)',
     },
     {
       name: 'plan',
       label: "Plan",
+      extra: true,
+      custom: (val: string, meta: any) => {
+        const plan = plans?.find((plan) => plan._id === val)
+        return  (
+            <p>{plan?.name || val} Plan</p>
+        )
+      }
     },
     {
       name: 'status',
       label: 'Status',
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return (
+          <p className={`px-2 py-1 text-xs rounded-md font-bold ${val === 'paused'
+                ? 'text-yellow-500'
+                : val === 'active'
+                ? 'text-green-500'
+                : 'text-red-500'}`}>{val === "paused" ? "..." : val }</p>
+        )
+    },
     },
     {
       name: 'createdAt',
@@ -87,12 +108,15 @@ const Invest = () => {
       userId: user?._id!,
       email: user?.email!,
       amount: +amount,
-      plan: investment?.name!,
+      plan: investment?._id!,
     })
   }
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+      {
+        investMutation?.isLoading && <GentleLoader />
+      }
       <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Live Investments"}</h2>
       <div className='mb-6'>
         <Table title={t?.investment || 'Investments'} data={investments || []} columns={columns} />
@@ -114,7 +138,7 @@ const Invest = () => {
             </div>
         ))}
       </div>
-      <div className={`fixed top-0 h-full right-0 w-full bg-black py-4 shadow-md z-30 transition-all ${modalOpen ? "translate-x-0 bg-black/40 " : 'translate-x-full'}`}>
+      <div className={`fixed top-0 h-full right-0 w-full py-4 shadow-md z-30 transition-all ${modalOpen ? "translate-x-0 bg-white/10 " : 'translate-x-full'}`}>
         <div className={`fixed top-0 h-full right-0 w-full max-w-sm bg-white py-4 shadow-md z-30 transition-all ${modalOpen ? "translate-x-0" : 'translate-x-full'}`}>
         <div className="flex flex-col gap-2 py-4">
           <div className="flex justify-between gap-4 border-b border-black itesm-center">

@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
         
         const deposit = await DepositModel.find({}).lean();
     
-        console.log({deposit})
+        // console.log({deposit})
 
         return NextResponse.json(deposit, { status: 200 });
     

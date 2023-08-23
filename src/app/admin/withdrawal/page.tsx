@@ -1,10 +1,13 @@
 'use client'
+import GentleLoader from '@/components/GentleLoader'
 import Table from '@/components/Table'
 import useFetch from '@/hooks/useFetch'
-import { IWithdrawal, ITableColumn } from '@/interfaces'
-import { apiGetWithdrawals } from '@/services/AdminService'
+import useMutation from '@/hooks/useMutation'
+import { IWithdrawal, ITableColumn, IWallet, IApproveWithdrawal } from '@/interfaces'
+import { apiAprroveWithdrawal, apiGetWithdrawals } from '@/services/AdminService'
 import { formatDate } from '@/utils/dateFunc'
 import React from 'react'
+import { toast } from 'react-toastify'
 // import { useSession } from 'next-auth/react'
 
 
@@ -12,7 +15,25 @@ const Withdrawal = () => {
   // const { data } = useSession()
   const { data: withdrawals, error, isLoading, isFetching, remove, refetch, fetchStatus } = useFetch<IWithdrawal[]>({api: apiGetWithdrawals, key: ['Adminwithdrawals'] })
 
-  console.log( { withdrawals  })
+  const approveWithdraw = useMutation<IApproveWithdrawal, any>(apiAprroveWithdrawal, {
+    onSuccess: (data) => {
+      // console.log(data)
+      toast.success('Operation Successful')
+      refetch()
+    },
+    onError: (error) => {
+      // console.log(error)
+      toast.error('An error occured')
+    }   
+  })
+
+  const approveWithdrawHandler = (id: string) => {
+    approveWithdraw.mutate({ _id: id, status: 'approved' })
+  }
+
+  const denyWithdrawalHandler = (id: string) => {
+    approveWithdraw.mutate({ _id: id, status: 'denied' }) 
+  }
 
    const columns: ITableColumn[] = [
     {
@@ -34,6 +55,12 @@ const Withdrawal = () => {
     {
       name: 'status',
       label: 'Status',
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <p className={`font-medium ${val === 'processing' ? 'text-yellow-500' : val === 'approved' ? 'text-green-500' : 'text-red-500'}`}>{val}</p>
+        )
+      }
     },
     {
       name: 'createdAt',
@@ -50,16 +77,21 @@ const Withdrawal = () => {
       }
     },
     {
-      name: 'Action',
+      name: 'action',
       label: 'Action',
       options: {
         filter: false,
         sort: false,
       },
       extra: true,
-      custom: (val: string, meta: any) => {
+      custom: (val: string, meta: IWallet) => {
+        // console.log({ val, meta })
+
         return  (
-            <button className='btn btn-primary'>View</button>
+            <div className='flex items-center space-x-2'>
+              <button onClick={() => approveWithdrawHandler(meta?._id!)} className='text-white bg-primary px-2 py-1.5 rounded-md'>Approve</button>
+              <button onClick={() => denyWithdrawalHandler(meta?._id!)} className='border-red-200 border px-2 py-1.5 rounded-md text-red-500'>Deny</button>
+            </div>
         )
       }
     }
@@ -68,6 +100,9 @@ const Withdrawal = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+      {
+        (approveWithdraw?.isLoading) && <GentleLoader />
+      }
         <h2 className='mb-6 text-lg font-semibold'>Admin Dashboard - Withdrawal</h2>
         <div className='mb-6'>
           <Table data={withdrawals || []} columns={columns} colspan={8} />

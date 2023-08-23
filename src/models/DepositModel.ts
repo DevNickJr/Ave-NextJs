@@ -25,6 +25,7 @@ const DepositSchema: Schema = new Schema<IDeposit>({
   },
   status: {
     type: String,
+    enum: ['processing', 'approved', 'denied'],
     default: 'processing'
   },
 }, {

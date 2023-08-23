@@ -1,7 +1,7 @@
 'use client'
 import Table from '@/components/Table'
 import useFetch from '@/hooks/useFetch'
-import usePost from '@/hooks/useMutation'
+import useMutation from '@/hooks/useMutation'
 import { IUser, ITableColumn, IPlan, IChangePassword, IVerifyUser } from '@/interfaces'
 import { apiGetUsers, apiUpdatePlan, apiVerifyUser } from '@/services/AdminService'
 import { apiChangePassword } from '@/services/AuthService'
@@ -16,7 +16,7 @@ const Admin = () => {
   // const { data } = useSession()
   const { data: users, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IUser[]>({api: apiGetUsers, key: ['users'] })
 
-  const verifyUser = usePost<IVerifyUser, any>(apiVerifyUser, {
+  const verifyUser = useMutation<IVerifyUser, any>(apiVerifyUser, {
     onSuccess: (data) => {
       // console.log(data)
       toast.success('Operation Successful')

@@ -1,19 +1,45 @@
 'use client'
+import GentleLoader from '@/components/GentleLoader'
 import Table from '@/components/Table'
 import useFetch from '@/hooks/useFetch'
-import { ITableColumn, IInvest } from '@/interfaces'
-import { apiGetInvestments } from '@/services/AdminService'
+import useMutations from '@/hooks/useMutation'
+import { ITableColumn, IInvest, IHandleInvest } from '@/interfaces'
+import { apiGetInvestments, apiHandleInvest } from '@/services/AdminService'
 import { formatDate } from '@/utils/dateFunc'
 import React from 'react'
+import { toast } from 'react-toastify'
 // import { useSession } from 'next-auth/react'
 
 
 const Trades = () => {
   // const { data } = useSession()
-  const { data: investments, error, isLoading, isFetching, remove, refetch, fetchStatus } = useFetch<IInvest[]>({api: apiGetInvestments, key: ['investments'] })
+  const { data: investments, error, isLoading, isFetching, remove, refetch, fetchStatus } = useFetch<IInvest[]>({api: apiGetInvestments, key: ['Admininvestments'] })
 
-  console.log( { investments  })
-  
+  // console.log( { investments  })
+
+   const approveInvestMutation = useMutations<IHandleInvest, any>(apiHandleInvest, {
+    onSuccess: (data) => {
+      // console.log(data)
+      toast.success('Operation Successful')
+      refetch()
+    },
+    onError: (error) => {
+      // console.log(error)
+      toast.error('An error occured')
+    }   
+  })
+
+  const approveInvestHandler = (id: string) => {
+    approveInvestMutation.mutate({ _id: id, status: 'active' })
+  }
+
+  const pauseInvestHandler = (id: string) => {
+    approveInvestMutation.mutate({ _id: id, status: 'paused' }) 
+  }
+  const completeInvestHandler = (id: string) => {
+    approveInvestMutation.mutate({ _id: id, status: 'completed' }) 
+  }
+
   const columns: ITableColumn[] = [
     {
       name: 'email',
@@ -30,6 +56,12 @@ const Trades = () => {
     {
       name: 'status',
       label: 'Status',
+      extra: true,
+      custom: (val: string, meta: IInvest) => {
+        return  (
+            <p className={`font-medium ${val === 'completed' ? 'text-yellow-500' : val === 'active' ? 'text-green-500' : 'text-red-500'}`}>{val}</p>
+        )
+      }
     },
     {
       name: 'createdAt',
@@ -53,9 +85,14 @@ const Trades = () => {
         sort: false,
       },
       extra: true,
-      custom: (val: string, meta: any) => {
+      custom: (val: string, meta: IInvest) => {
+
         return  (
-            <button className='btn btn-primary'>View</button>
+            <div className='flex items-center space-x-2'>
+              <button onClick={() => pauseInvestHandler(meta?._id!)} className='border-red-200 border px-2 py-1.5 rounded-md text-red-500'>Pause</button>
+              <button onClick={() => approveInvestHandler(meta?._id!)} className='text-white bg-primary px-2 py-1.5 rounded-md'>Resume</button>
+              <button onClick={() => completeInvestHandler(meta?._id!)} className='border-green-200 border px-2 py-1.5 rounded-md text-green-500'>Mark Complete</button>
+            </div>
         )
       }
     }
@@ -63,6 +100,9 @@ const Trades = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+       {
+        (approveInvestMutation?.isLoading) && <GentleLoader />
+      }
         <h2 className='mb-6 text-lg font-semibold'>Admin Dashboard - Trades</h2>
         <div className='mb-6'>
           <Table data={investments || []} columns={columns} colspan={8} />

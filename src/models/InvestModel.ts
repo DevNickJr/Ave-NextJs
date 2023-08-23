@@ -21,7 +21,8 @@ const InvestSchema: Schema = new Schema<IInvest>({
   },
   status: {
     type: String,
-    default: 'processing'
+    default: 'active',
+    enum: ['active', 'paused', 'completed']
   },
 }, {
   timestamps: true

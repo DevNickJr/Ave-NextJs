@@ -5,6 +5,8 @@ import useMutation from '@/hooks/useMutation'
 import { IPlan } from '@/interfaces'
 import { apiGetPlans, apiUpdatePlan } from '@/services/AdminService'
 import useFetch from '@/hooks/useFetch'
+import GentleLoader from '@/components/GentleLoader'
+import { toast } from 'react-toastify'
 // import { useSession } from 'next-auth/react'
 
 
@@ -22,14 +24,15 @@ const Plans = () => {
   const updatePlanMutation = useMutation<IPlan, any>(apiUpdatePlan, {
     onSuccess: (data) => {
       refetch()
-      console.log(data)
+      toast.success('Plan Updated Successfully')
+      console.log({updatedata: data})
     },
     onError: (error) => {
       console.log(error)
     }   
   })
 
-  console.log( { plans  })
+  // console.log( { plans  })
 
   const handleUpdate = (plan: IPlan) => {
     updatePlanMutation.mutate(plan)
@@ -99,6 +102,9 @@ const Plans = () => {
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+      {
+        updatePlanMutation.isLoading && <GentleLoader />
+      }
         <h2 className='mb-6 text-lg font-semibold'>Plans Admin</h2>
         <div className="flex flex-col gap-4">
           {
