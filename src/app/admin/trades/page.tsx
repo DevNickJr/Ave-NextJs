@@ -19,13 +19,13 @@ const Trades = () => {
 
    const approveInvestMutation = useMutations<IHandleInvest, any>(apiHandleInvest, {
     onSuccess: (data) => {
-      // console.log(data)
+      console.log(data)
       toast.success('Operation Successful')
       refetch()
     },
     onError: (error) => {
       // console.log(error)
-      toast.error('An error occured')
+      toast.error(error?.response?.data?.message || 'Something went wrong')
     }   
   })
 

@@ -4,6 +4,7 @@ import InvestModel from '@/models/InvestModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { IInvest } from '@/interfaces';
+import UserModel from "@/models/UserModel";
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +19,6 @@ export async function GET(req: NextRequest) {
         //   return res.status(401).json({ message: "You must be signed in to access this" });
         // } 
       
-        
         const invest = await InvestModel.find({}).lean();
     
         // console.log({invest})
@@ -53,9 +53,31 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ message: 'Please fill in all fields' }, { status: 400 });
       }
 
-      const invest = await InvestModel.create(body);
+      const user = await UserModel.findById(body.userId ? body.userId : '');
 
-      if (!invest) throw new Error('Post Failed')
+      if (!user) {
+          return NextResponse.json({ message: 'User not found' }, { status: 400 });
+      }
+
+      if (user.balance < body.amount) {
+          return NextResponse.json({ message: 'Insufficient balance' }, { status: 400 });
+      }
+
+      user.balance = user.balance - body.amount;
+      user.total_investment = user.total_investment + body.amount;
+
+      const [userUpdate, invest] = await Promise.all([
+          user.save(),
+          await InvestModel.create(body)
+      ]);
+
+      // const invest = await InvestModel.create(body);
+
+      // await user.save();
+
+
+      if (!invest) throw new Error('Investment Failed')
+
 
       return NextResponse.json(invest, { status: 200 });
 

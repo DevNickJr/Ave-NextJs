@@ -3,6 +3,7 @@ import dbConnect from '@/lib/dbConnection';
 import InvestModel from '@/models/InvestModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
+import { IHandleInvest, IInvest } from "@/interfaces";
 
 
 // ----------------------------------------------------------------------
@@ -23,20 +24,89 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       return NextResponse.json({ message: 'ID is required' }, { status: 400 });
     }
 
-    const body: {
-        status: string
-    } = await req.json()
+    const body: IHandleInvest = await req.json()
 
+    if (!body || !body.status) {
+      return NextResponse.json({ message: 'Status is required' }, { status: 400 });
+    }
     
+    
+    if (body.status === 'paused') {
+      const start = Date.now();
 
-    const invest = await InvestModel.findByIdAndUpdate(id, body, { new: true }).lean();
+      const invest = await InvestModel.findById(id);
 
-    if (!invest) {
+      if (!invest) {
+        return NextResponse.json({ message: 'Investment not found' }, { status: 400 });
+      }
+
+      if (invest.status === 'paused') {
+        return NextResponse.json({ message: 'Investment already paused' }, { status: 400 });
+      } else if (invest.status === 'completed') {
+        return NextResponse.json({ message: 'Investment already Completed' }, { status: 400 });
+      }
+
+      invest.status =  body.status,
+      invest.pause = {
+        start,
+        status: true,
+        total: invest.pause?.total || 0
+      }
+
+     await invest.save()
+
+     return NextResponse.json(invest, { status: 200 });
+
+    } else if (body.status === 'active') {
+ 
+      const invest = await InvestModel.findById(id);
+
+      if (invest.status === 'active') { 
+        return NextResponse.json({ message: 'Investment already Active' }, { status: 400 });
+      } else if (invest.status === 'completed') {
+        return NextResponse.json({ message: 'Investment already Completed' }, { status: 400 });
+      }
+
+      if (!invest) {
+        return NextResponse.json({ message: 'Investment not found' }, { status: 400 });
+      }
+
+      const start = invest.pause?.start
+      const total = invest.pause?.total
+
+      if (!start) {
+        return NextResponse.json({ message: 'Start Pause Time error' }, { status: 400 });
+      }
+
+      const difference =  Date.now() - start
+
+      const newTotal = total ? total + difference : difference
+
+      invest.pause = {
+        status: false,
+        start: 0,
+        total: newTotal + invest.pause?.total
+      }
+
+      invest.status = body.status
+
+      await invest.save()
+      return NextResponse.json(invest, { status: 200 });
+
+    } else if (body.status === 'completed') {
+      const invest = await InvestModel.findByIdAndUpdate(id, {
+        status: body.status,
+      }, { new: true }).lean();
+      
+      if (!invest) {
       return NextResponse.json({ message: 'failed to perform invest operation' }, { status: 400 });
     }
       
 
-    return NextResponse.json(invest, { status: 200 });
+      return NextResponse.json(invest, { status: 200 });
+    }
+
+    return NextResponse.json({ message: 'Status Error' }, { status: 400 });
 
   } catch (error) {
     console.error(error);

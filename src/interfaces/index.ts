@@ -57,6 +57,9 @@ export interface IUser extends IUserRegister {
     total_withdrawal: number
     status: string
     is_admin: boolean
+    total_investment?: number
+    total_earnings?: number
+    total_referral?: number
     document?: {
         front: string
         back: string
@@ -163,6 +166,11 @@ export interface IInvest {
     plan: string;
     status?: string;
     createdAt?: string;
+    pause?: {
+        status: boolean;
+        start: number;
+        total: number;
+    }
 }
 
 export interface IWithdrawal {

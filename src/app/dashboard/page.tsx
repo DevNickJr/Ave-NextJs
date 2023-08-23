@@ -84,7 +84,7 @@ const Home = () => {
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
       <div className="flex items-center gap-2 mb-6">
-        <h2 className='text-lg font-semibold'>{t?.title || "Welcome"}, {user?.last_name} {user?.first_name}</h2>  
+        <h2 className='text-lg font-semibold'>{t?.title || "Welcome"}, {userDetails?.last_name} {userDetails?.first_name}</h2>  
         {
           userDetails?.status == "verified" ? (
             <span className='px-2 py-1 text-xs text-white bg-green-500 rounded-full'>{t?.status[1] || "verified"}</span>
@@ -114,7 +114,7 @@ const Home = () => {
                 <div className="flex items-center justify-between gap-8">
                     <span>{t?.balance_title || "My Balance"}</span>
                 </div>
-                <p>${user?.balance || '0.00'}</p>
+                <p>${userDetails?.balance || '0.00'}</p>
                 <div className="flex items-center gap-6">
                 <Link href={'/dashboard/deposit'}>
                     <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.deposit || "Deposit"}</button>

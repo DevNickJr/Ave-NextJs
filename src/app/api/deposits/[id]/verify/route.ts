@@ -3,6 +3,8 @@ import dbConnect from '@/lib/dbConnection';
 import DepositModel from '@/models/DepositModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
+import { IApproveDeposit, IDeposit } from "@/interfaces";
+import UserModel from "@/models/UserModel";
 
 
 // ----------------------------------------------------------------------
@@ -23,20 +25,72 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       return NextResponse.json({ message: 'ID is required' }, { status: 400 });
     }
 
-    const body: {
-        status: string
-    } = await req.json()
+    const body: IApproveDeposit = await req.json()
 
-    
-
-    const deposit = await DepositModel.findByIdAndUpdate(id, body, { new: true }).lean();
-
-    if (!deposit) {
-      return NextResponse.json({ message: 'failed to perform deposit operation' }, { status: 400 });
+    if (!body || !body.status) {
+      return NextResponse.json({ message: 'Status is required' }, { status: 400 });
     }
-      
+    
+    if (body.status === 'denied') {
 
-    return NextResponse.json(deposit, { status: 200 });
+      // const deposit = await DepositModel.findByIdAndUpdate(id, body, { new: true }).lean();
+      const deposit = await DepositModel.findById(id);
+
+      if (!deposit) {
+        return NextResponse.json({ message: 'Deposit not found' }, { status: 400 });
+      }
+
+      if (deposit.status === 'approved') {
+        return NextResponse.json({ message: 'Deposit already approved' }, { status: 400 });
+      } else if (deposit.status === 'denied') {
+        return NextResponse.json({ message: 'Deposit already denied' }, { status: 400 });
+      }
+
+      deposit.status = 'denied';
+      await deposit.save();
+  
+
+      return NextResponse.json(deposit, { status: 200 });
+
+    } else if (body.status === 'approved') {
+
+      const deposit = await DepositModel.findById(id);
+
+      if (!deposit) {
+        return NextResponse.json({ message: 'Deposit not found' }, { status: 400 });
+      }
+
+      if (deposit.status === 'approved') {
+        return NextResponse.json({ message: 'Deposit already approved' }, { status: 400 });
+      } else if (deposit.status === 'denied') {
+        return NextResponse.json({ message: 'Deposit already denied' }, { status: 400 });
+      }
+
+      const user = await UserModel.findById(deposit.userId || '');
+
+      if (!user) {
+        return NextResponse.json({ message: 'User Not Found.. Failed to update user balance' }, { status: 400 });
+      }
+
+      user.balance += deposit.amount;
+      user.total_deposit = user.total_deposit + 1;
+      deposit.status = 'approved';
+
+      // perform two mongoose operations at once
+
+      const [updatedUser, updatedDeposit] = await Promise.all([
+        user.save(),
+        deposit.save()
+      ]);
+
+      if (!updatedUser || !updatedDeposit) {
+        return NextResponse.json({ message: 'Failed to update user balance' }, { status: 400 });
+      }
+  
+      return NextResponse.json(updatedDeposit, { status: 200 });
+    }
+
+    return NextResponse.json({ message: 'Invalid status' }, { status: 400 });
 
   } catch (error) {
     console.error(error);

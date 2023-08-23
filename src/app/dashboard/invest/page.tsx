@@ -33,7 +33,7 @@ const Invest = () => {
   const [investment, setInvestment] = React.useState<IPlan | null>(null)
 
   const { data: plans, error, isLoading, isFetching, remove, fetchStatus } = useFetch<IPlan[]>({api: apiGetPlans, key: ['plans'] })
-
+  
   const { data: investments, error: investmentError, isLoading: investMentLoading, refetch } = useFetch<IInvest[]>({api: apiGetUserInvestments, param: user?._id , key: ['investments'] })
 
   const investMutation = usePost<IInvest, any>(apiInvest, {
@@ -131,7 +131,7 @@ const Invest = () => {
                 <p className='text-sm'>{t?.range || "Investment Range"}: ${plan.minimum} - ${plan.maximum}</p>
               </div>
               <div className="p-3 px-12 border-b">{t?.duration || "Duration"}: {plan.duration} {t?.days || "Days"}</div>
-              <div className="p-3 px-12 border-b">{t?.roi || "ROI"}: {plan.roi} {t?.days || "Days"}</div>
+              <div className="p-3 px-12 border-b">{t?.roi || "ROI"}: {plan.roi}%</div>
               <div className="p-3 px-12 border-b">{t?.principal || "Principal Return after completion"}</div>
               <div className="p-3 px-12 border-b">{t?.withdraw || "Withdraw Principal at any time 10% fee will be charged"}</div>
               <button className="w-3/4 p-2 mx-auto my-2 text-white rounded-md cursor-pointer bg-primary" onClick={() => handleInvest(plan)}>{t?.invest_now || "Invest Now"}</button>

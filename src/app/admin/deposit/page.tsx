@@ -25,7 +25,7 @@ const AdminDeposit = () => {
     },
     onError: (error) => {
       // console.log(error)
-      toast.error('An error occured')
+      toast.error(error?.response?.data?.message || "An Error Occurred!");
     }   
   })
 

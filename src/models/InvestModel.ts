@@ -24,6 +24,19 @@ const InvestSchema: Schema = new Schema<IInvest>({
     default: 'active',
     enum: ['active', 'paused', 'completed']
   },
+  pause: {
+    status: {
+      type: Boolean,
+      default: false
+    },
+    start: {
+      type: Number,
+    },
+    total: {
+      type: Number,
+      default: 0
+    }
+  },
 }, {
   timestamps: true
 });

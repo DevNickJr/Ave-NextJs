@@ -46,6 +46,21 @@ const UserSchema: Schema = new Schema<IUser>({
     default: 0
     // required: true,
   },
+  total_investment: {
+    type: Number,
+    default: 0
+    // required: true,
+  },
+  total_earnings: {
+    type: Number,
+    default: 0
+    // required: true,
+  },
+  total_referral: {
+    type: Number,
+    default: 0
+    // required: true,
+  },
   total_withdrawal: {
     type: Number,
     default: 0
