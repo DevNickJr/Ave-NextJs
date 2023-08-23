@@ -38,6 +38,8 @@ const Home = () => {
     },
    })
 
+   console.log({ userDetails })
+
   const columns: ITableColumn[] = [
     {
       name: 'name',

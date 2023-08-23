@@ -4,6 +4,7 @@ import WithdrawalModel from '@/models/WithdrawalModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { IWithdrawal } from '@/interfaces';
+import UserModel from "@/models/UserModel";
 
 // ----------------------------------------------------------------------
 
@@ -53,9 +54,19 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ message: 'Please fill in all fields' }, { status: 400 });
       }
 
-      const withdrawal = await WithdrawalModel.create(body);
+      const user = await UserModel.findById(body.userId ? body.userId : '');
 
-      if (!withdrawal) throw new Error('Post Failed')
+      if (!user) {
+          return NextResponse.json({ message: 'User not found' }, { status: 400 });
+      }
+
+      if ((user.balance < body.amount) && (user.total_earnings < body.amount)) {
+        return NextResponse.json({ message: 'Insufficient balance' }, { status: 400 });
+      }
+      
+      const withdrawal = await WithdrawalModel.create(body)
+
+      if (!withdrawal) throw new Error('Withdrawal Request Failed')
 
       return NextResponse.json(withdrawal, { status: 200 });
 

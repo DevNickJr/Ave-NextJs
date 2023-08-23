@@ -59,11 +59,14 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ message: 'User not found' }, { status: 400 });
       }
 
-      if (user.balance < body.amount) {
-          return NextResponse.json({ message: 'Insufficient balance' }, { status: 400 });
+      if (user.balance >= body.amount) {
+        user.balance = user.balance - body.amount;
+      } else if (user.total_earnings >= body.amount) {
+        user.total_earnings = user.total_earnings - body.amount;
+      } else {
+        return NextResponse.json({ message: 'Insufficient balance' }, { status: 400 });
       }
 
-      user.balance = user.balance - body.amount;
       user.total_investment = user.total_investment + body.amount;
 
       const [userUpdate, invest] = await Promise.all([

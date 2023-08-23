@@ -20,7 +20,6 @@ export const apiLogin =  (data: IUserLogin) => {
 }
 
 export const apiGetUser =  ({ id }: { id: string }) => {
-    console.log("id", id)
     return BaseService.get<IUser>(`/users/${id}`)
 }
 

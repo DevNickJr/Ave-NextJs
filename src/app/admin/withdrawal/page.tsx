@@ -22,7 +22,7 @@ const Withdrawal = () => {
       refetch()
     },
     onError: (error) => {
-      // console.log(error)
+      console.log(error)
       toast.error(error?.response?.data?.message || "An Error Occurred!");
     }   
   })

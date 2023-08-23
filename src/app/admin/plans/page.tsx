@@ -28,6 +28,7 @@ const Plans = () => {
       console.log({updatedata: data})
     },
     onError: (error) => {
+      toast.error(error?.response?.data?.message || 'An error occured')
       console.log(error)
     }   
   })

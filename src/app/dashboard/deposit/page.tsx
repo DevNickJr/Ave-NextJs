@@ -47,10 +47,12 @@ const Deposit = () => {
   const depositMutation = usePost<IDeposit, any>(apiDeposit, {
     onSuccess: (data) => {
       console.log(data)
+      toast.success("Deposit Request Sent Successfully")
       refetch()
       setStep(1)
     },
     onError: (error) => {
+      toast.error(error?.response?.data?.message || "Error sending deposit request")
       console.log(error)
     }   
   })

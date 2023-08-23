@@ -12,6 +12,7 @@ import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
 import { BiLeftArrow } from 'react-icons/bi'
 import GentleLoader from '@/components/GentleLoader'
+import { toast } from 'react-toastify'
 
 
 const Withdrawal = () => {
@@ -34,15 +35,17 @@ const Withdrawal = () => {
 
   const { data: withdrawals, error: withdrawalsError, isLoading: withdrawalsLoading, refetch } = useFetch<IWithdrawal[]>({api: apiGetUserWithdrawals, param: user?._id, key: ['userWithdrawals'] })
 
-  console.log({ withdrawals})
+  // console.log({ withdrawals})
 
   const withdrawalMutation = usePost<IWithdrawal, any>(apiWithdrawal, {
     onSuccess: (data) => {
       console.log(data)
+      toast.success('Withdrawal Request Sent Successfully')
       refetch()
       setStep(1)
     },
     onError: (error) => {
+      toast.error(error?.response?.data?.message || "An Error Occurred!");
       console.log(error)
     }   
   })

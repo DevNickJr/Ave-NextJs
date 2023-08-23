@@ -16,7 +16,7 @@ const Admin = () => {
   // const { data } = useSession()
   const { data: users, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IUser[]>({api: apiGetUsers, key: ['users'] })
 
-  console.log( { users  })
+  // console.log( { users  })
 
   const verifyUser = useMutation<IVerifyUser, any>(apiVerifyUser, {
     onSuccess: (data) => {
@@ -26,7 +26,7 @@ const Admin = () => {
     },
     onError: (error) => {
       // console.log(error)
-      toast.error('An error occured')
+      toast.error(error?.response?.data?.message || 'An error occured')
     }   
   })
 

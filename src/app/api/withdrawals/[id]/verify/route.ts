@@ -75,10 +75,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
         return NextResponse.json({ message: 'User not found.. Failed to update User Balance' }, { status: 400 });
       }
 
-      if (user.total_earnings > withdrawal.amount) {
+      if (user.total_earnings >= withdrawal.amount) {
         user.total_earnings -= withdrawal.amount;
       } 
-      else if (user.balance > withdrawal.amount) {
+      else if (user.balance >= withdrawal.amount) {
         user.balance -= withdrawal.amount;
       } else {
         return NextResponse.json({ message: 'Insufficient Balance' }, { status: 400 });

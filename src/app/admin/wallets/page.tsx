@@ -19,7 +19,7 @@ const Wallets = () => {
 
   const { data: wallets, error, isLoading, isFetching, remove, refetch, fetchStatus } = useFetch<IWallet[]>({api: apiGetWallets, key: ['wallets'] })
 
-  console.log("wallets", {wallets})
+  // console.log("wallets", {wallets})
 
   const { url, uploadImage, error: errorImage, loading } = useImage()
 

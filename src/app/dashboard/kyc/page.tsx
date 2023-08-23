@@ -13,6 +13,7 @@ import { IPageContent } from '@/dictionaries/dashboard/kyc'
 import { DashboardKycContent } from '@/dictionaries/dashboard/kyc'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
+import GentleLoader from '@/components/GentleLoader'
 // import { useSession } from 'next-auth/react'
 
 const documents = [
@@ -63,6 +64,7 @@ const Deposit = () => {
       router.push('/dashboard')
     },
     onError: (error) => {
+      toast.error(error?.response?.data?.message || 'Error sending KYC Verification Request')
       console.log(error)
     }   
   })
@@ -78,10 +80,13 @@ const Deposit = () => {
     }
   }
 
-  console.log({ user })
+  // console.log({ user })
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
+      {
+        (kycVerifcation?.isLoading) && <GentleLoader />
+      }
       {
         (uploadingFront || uploadingBack) && 
         <div className="absolute top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-white bg-opacity-50">
