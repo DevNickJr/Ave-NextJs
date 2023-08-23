@@ -81,6 +81,10 @@ const UserSchema: Schema = new Schema<IUser>({
     default: false,
     required: true,
   },
+  referral_id: {
+    type: String,
+    // required: true,
+  },
 }, {
   timestamps: true
 });

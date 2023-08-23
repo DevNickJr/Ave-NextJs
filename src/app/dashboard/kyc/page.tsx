@@ -14,6 +14,7 @@ import { DashboardKycContent } from '@/dictionaries/dashboard/kyc'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
 import GentleLoader from '@/components/GentleLoader'
+import { BsDashCircleFill } from 'react-icons/bs'
 // import { useSession } from 'next-auth/react'
 
 const documents = [
@@ -109,15 +110,15 @@ const Deposit = () => {
             <h4 className='mb-4 font-semibold'>{t?.verification_steps || "Verification Steps"}</h4>
             <div className="flex flex-col gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 rounded-full"></div>
+                <BsDashCircleFill className={"text-primary font-bold"} />
                 <p>{t?.step_1 || "Prepare Your Documents"}</p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 rounded-full"></div>
+                <BsDashCircleFill className={"text-primary font-bold"} />
                 <p>{t?.step_2 || "Upload Your Documents"}</p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 rounded-full"></div>
+                <BsDashCircleFill className={"text-primary font-bold"} />
                 <p>{t?.step_3 || "Wait to be Verified"}</p>
               </div>
             </div>
@@ -126,15 +127,15 @@ const Deposit = () => {
             <h4 className='mb-4 font-semibold'>{t?.important || "Important Notes"}</h4>
             <div className="flex flex-col gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 rounded-full"></div>
+                <BsDashCircleFill className={"text-primary font-bold"} />
                 <p>{t?.note_1 || "Ensure the uploaded documents are valid and not expired."}</p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 rounded-full"></div>
+                <BsDashCircleFill className={"text-primary font-bold"} />
                 <p>{t?.note_2 || "Documents should be in a standard format (JPEG, PNG, PDF, etc.)."}</p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 border-2 rounded-full"></div>
+                <BsDashCircleFill className={"text-primary font-bold"} />
                 <p>{t?.note_3 || "We take your privacy seriously. Your documents will be securely stored and used solely for verification purposes."}</p>
               </div>
             </div>

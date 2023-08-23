@@ -3,6 +3,7 @@ import dbConnect from '@/lib/dbConnection';
 import User from '@/models/UserModel';
 import { NextResponse } from 'next/server';
 import { IUser } from '@/interfaces';
+import { nanoid } from 'nanoid'
 
 
 const bcrypt = require('bcrypt');
@@ -51,11 +52,13 @@ export async function POST(req: Request, res: NextApiResponse) {
         //     email: body.email,
         //     password: hashedPassword,
         // })
+        const referral_id = nanoid(10)
 
         const user = await User.create({
             ...body,
             email: body.email,
             password: hashedPassword,
+            referral_id
         });
 
         const { password, ...rest } = user.toObject();

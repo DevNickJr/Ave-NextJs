@@ -63,7 +63,8 @@ export interface IUser extends IUserRegister {
     document?: {
         front: string
         back: string
-    }
+    },
+    referral_id?: string
 }
 
 export interface IVerifyKYC {

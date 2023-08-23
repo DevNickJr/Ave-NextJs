@@ -68,6 +68,9 @@ const Register = () => {
 
   const [loading, setLoading] = React.useState(false)
   const [user, dispatch] = useReducer((state: IUserRegister, action: IRegistereducerAction) => {
+    if (action.type === 'terms') {
+      return { ...state, [action.type]: action.payload === 'true' ? true : false }
+    }
     return { ...state, [action.type]: action.payload }
 }, initialState)
 
@@ -77,9 +80,7 @@ const registerMutation = useMutation<IUserRegister, any>(
     apiRegister,
     {
       onSuccess: (data) => {
-          // queryClient.invalidateQueries('user')
-          // sessionStorage.setItem('email', user.email)
-          // console.log({ data })
+          toast.success("Registered Successfully.. You'd be redirected to the login page")
           console.log({ message: "Registered Successfully", data })
           router.push('/login')
           
@@ -184,8 +185,8 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
                 <input required value={user?.confirm_password} onChange={(e) => dispatch({ type: "confirm_password", payload: e.target.value})}  type="password" name="confirm_password" id="confirm_password" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Confrim Password' />
               </div> */}
               <div className="flex items-center gap-3">
-                <input type="checkbox" name="terms" id="terms" checked={String(user?.terms) === "true"} onChange={(e) => dispatch({ type: "terms", payload: String(!user?.terms) })}  />
-                <p className='text-xs'>{t?.privacy || "I agree to Polar Profits Terms & Conditions and Privacy Policy"}</p>
+                <input className='cursor-pointer' type="checkbox" name="terms" id="terms" checked={user?.terms} onChange={(e) => dispatch({ type: "terms", payload: String(!user?.terms ? "true": "false") })}  />
+                <label htmlFor='terms' className='text-xs cursor-pointer'>{t?.privacy || "I agree to Polar Profits Terms & Conditions and Privacy Policy"}</label>
               </div>
               <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 text-sm font-bold text-white rounded-md bg-primary'>
                 {t?.register || "Sign Up"}
