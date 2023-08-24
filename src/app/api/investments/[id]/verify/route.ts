@@ -113,7 +113,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       }
       
       // remove from total investment and add to balance
-      user.balance = user.balance + invest.amount
+      user.total_earnings = user.balance + invest.amount
       user.total_investment = user.total_investment - invest.amount
 
       // mark investment as completed

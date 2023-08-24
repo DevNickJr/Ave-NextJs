@@ -27,6 +27,7 @@ import useFetch from '@/hooks/useFetch'
 import { IPlan } from '@/interfaces'
 import { apiGetPlans } from '@/services/AdminService'
 
+
 const stepsImg = [
   RegImg,
   FundImg,
@@ -62,13 +63,32 @@ export default function Home() {
     setTranslated(HomeData[language])
   }, [language])
 
-  // <h1>{translated?.products?.cart}</h1>
+  // const googleTranslateElementInit = () => {
+  //   new window.google.translate.TranslateElement(
+  //     {
+  //       pageLanguage: "en",
+  //       autoDisplay: false
+  //     },
+  //     "google_translate_element"
+  //   );
+  // };
+  // useEffect(() => {
+  //   var addScript = document.createElement("script");
+  //   addScript.setAttribute(
+  //     "src",
+  //     "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  //   );
+  //   document.body.appendChild(addScript);
+  //   window.googleTranslateElementInit = googleTranslateElementInit;
+  // }, []);
+
   
   return (
     <div className=''>
       <Header />
       <main className="">
         <Hero t={t} />
+        {/* <div id="google_translate_element"></div> */}
         <section className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
             <h2 className='text-3xl font-semibold text-primary'>{t?.howItWorks.title || "How It Works"}</h2>
@@ -95,7 +115,7 @@ export default function Home() {
             <h2 className='text-3xl font-semibold'>{t?.investmentPlans.title ||  "Our Investment Plans"}</h2>
             <p className='max-w-lg text-sm md:text-base'>{t?.investmentPlans.content || "Unlocking Investment Potential: Seamlessly Grow Your Wealth with Automated Profit Generation"}</p>
           </div>
-          <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row text-primary'>
+          <div className='flex flex-col flex-wrap items-center justify-center gap-5 mb-8 md:flex-row text-primary'>
             {
                plans?.map((el, i) => 
               <div key={i} data-aos="slide-up" className="flex flex-col gap-3 p-6 border rounded-md shadow-lg shadow-black w-72 border-primary">
@@ -202,7 +222,7 @@ export default function Home() {
             <h2 className='text-3xl font-semibold text-primary'>{t?.customerTestimonials?.title || "What Our Customers Say"}</h2>
             <p className='max-w-lg text-sm md:text-base'>{t?.customerTestimonials?.content || "Our customers from all over the world share their lovely words about us"}</p>
           </div>
-          <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row'>
+          <div className='flex flex-col flex-wrap items-center justify-center gap-5 mb-8 md:flex-row'>
             {
               t?.customerTestimonials?.testimonials.map((el, i) =>
                 <div key={i} data-aos={i % 2 === 0 ? 'slide-right' : 'slide-left'} className="flex flex-col items-center w-full max-w-sm gap-3 p-6 text-center rounded-md">

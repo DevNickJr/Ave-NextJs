@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
       <div className='flex w-full h-screen overflow-hidden'>
         <SideNav />
-        <div className="relative flex-1 pb-10 overflow-hidden overflow-y-auto bg-black/5">
+        <div className="relative flex-1 pb-10 overflow-hidden overflow-y-auto">
           <Head />
           {children}
         </div>

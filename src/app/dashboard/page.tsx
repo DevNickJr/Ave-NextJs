@@ -11,7 +11,10 @@ import { IPageContent } from '@/dictionaries/dashboard/home'
 import { DashboardHomeContent } from '@/dictionaries/dashboard/home'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
-
+import { IPageContent as IPageContentAccount } from '@/dictionaries/dashboard/accounts'
+import { DashboardAccountContent } from '@/dictionaries/dashboard/accounts'
+import { RiLuggageDepositLine, RiMoneyDollarBoxFill } from 'react-icons/ri'
+import { BiEnvelope, BiSolidRocket } from 'react-icons/bi'
 // import { useSession } from 'next-auth/react'
 
 
@@ -23,6 +26,13 @@ const Home = () => {
   React.useEffect(() => {
     setTranslated(DashboardHomeContent[language])
   }, [language])
+
+  const [tAccount, setTranslatedAccount] = React.useState<IPageContentAccount | null>(null)
+
+  React.useEffect(() => {
+    setTranslatedAccount(DashboardAccountContent[language])
+  }, [language])
+
 
   const user = context?.user
 
@@ -114,26 +124,78 @@ const Home = () => {
             </div>
           )
         }
+
         <div className='flex flex-col gap-4 mb-12 lg:flex-row'>
-            <div className="flex flex-col flex-1 gap-4 p-5 text-sm bg-white rounded-md shadow-md">
-                <div className="flex items-center justify-between gap-8">
-                    <span>{t?.balance_title || "My Balance"}</span>
-                </div>
-                <p className='text-lg font-bold'>${userDetails?.balance || '0.00'}</p>
-                <div className="flex items-center gap-6">
-                <Link href={'/dashboard/deposit'}>
-                    <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.deposit || "Deposit"}</button>
+          <div className="flex flex-col flex-1 gap-4 p-5 text-sm font-bold bg-white rounded-md shadow-md">
+              <span className='font-bold text-primary'>{tAccount?.regular || "Regular Account"}</span>
+              <p>${userDetails?.balance || '0.00'}</p>
+              <span className='font-bold text-primary'>{tAccount?.earnings || "Total Earnings"}</span>
+              <p>${userDetails?.total_earnings || '0.00'}</p>
+              <span className='font-bold text-primary'>{tAccount?.investment || "Total Investment"}</span>
+              <p>${userDetails?.total_investment || '0.00'}</p>
+              <span className='font-bold text-primary'>{tAccount?.bonus ||"Bonus"}</span>
+              <p>${userDetails?.bonus || '0.00'}</p>
+              <Link href={"/dashboard/invest"} className='flex items-center justify-center p-2 px-3 text-sm text-white bg-primary'>{tAccount?.invest || "Start Investment"}</Link>
+          </div>
+        </div>
+        <div className='grid grid-cols-3 gap-4 mb-12 text-sm font-semibold'>
+          <Link className='flex flex-col items-center justify-center gap-1 p-2 px-3 text-sm text-white shadow-md lex bg-primary' href={'/dashboard/deposit'}>
+            <RiMoneyDollarBoxFill className="text-4xl" />
+            <span className='text-xs'>
+              {t?.deposit || "Deposit"}
+          </span>
+          </Link>
+          <Link className='flex flex-col items-center justify-center gap-1 p-2 px-3 text-sm bg-white border shadow-md text-primary border-primary'  href={'/dashboard/invest'}>
+          <BiSolidRocket className="text-4xl" />
+          <span className='text-xs'>
+             {t?.invest || "Invest"}
+          </span>
+          </Link>
+          <Link className='flex flex-col items-center justify-center gap-1 p-2 px-3 text-sm text-white shadow-md lex bg-primary' href={'/dashboard/withdrawal'}>
+          <RiLuggageDepositLine className="text-4xl" />
+          <span className='text-xs'>
+              {t?.withdraw || "Withdraw"}
+          </span>
+          </Link>
+        </div>
+        <div className='grid grid-cols-2 gap-4 mb-12 text-sm font-semibold sm:grid-cols-2 md:grid-cols-3 sm:flex-row'>
+          {/* <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
+            <p className='text-lg'>${userDetails?.bonus || '0.00'}</p>
+            <p>{tAccount?.bonus ||"Bonus"}</p>
+          </div> */}
+          <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md">
+            <p className='text-lg'>{userDetails?.total_deposit || '0'}</p>
+            <p className='text-xs'>{tAccount?.deposits || "Total Deposit"}</p>
+          </div>
+          <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md">
+            <p className='text-lg'>{userDetails?.total_withdrawal || '0'}</p>
+            <p className='text-xs'>{tAccount?.withdrawals || "Total Withdrawal"}</p>
+          </div>
+          <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md">
+            <p className='text-lg'>0</p>
+            <p className='text-xs'>{tAccount?.referrals || "Total Referral"}</p>
+          </div>
+        </div>
+        <div className='flex flex-col gap-4 mb-12 lg:flex-row'>
+          {/* <div className="flex flex-col flex-1 gap-4 p-5 text-sm bg-white rounded-md shadow-md">
+              <div className="flex items-center justify-between gap-8">
+                  <span>{t?.balance_title || "My Balance"}</span>
+              </div>
+              <p className='text-lg font-bold'>${userDetails?.balance || '0.00'}</p>
+              <div className="flex items-center gap-6">
+              <Link href={'/dashboard/deposit'}>
+                  <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.deposit || "Deposit"}</button>
+              </Link>
+              </div>
+          </div> */}
+          <div className="flex flex-col flex-1 gap-8 p-5 text-sm bg-white rounded-md shadow-md">
+              <p className='text-lg lg:max-w-[220px]'>{t?.referral_title || "Invite Friends & get extra income!"}</p>
+              <div className="flex items-center gap-6">
+                <Link href={'/dashboard/referral'}>
+                <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.refer || "Earn More"}</button>
                 </Link>
-                </div>
-            </div>
-            <div className="flex flex-col flex-1 gap-8 p-5 text-sm bg-white rounded-md shadow-md">
-                <p className='text-lg lg:max-w-[220px]'>{t?.referral_title || "Invite Friends & get extra income!"}</p>
-                <div className="flex items-center gap-6">
-                  <Link href={'/dashboard/referral'}>
-                  <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.refer || "Earn More"}</button>
-                  </Link>
-                </div>
-            </div>
+              </div>
+          </div>
         </div>
         <div className=''>
           <Table title={t?.table_title || 'Deposit Wallets'} data={wallets || []} columns={columns} />

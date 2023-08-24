@@ -3,6 +3,7 @@ import QueryProvider from '@/providers/QueryProvider';
 import { TranslationProvider } from '@/providers/TranslationProvider';
 import { AuthContextProvider } from '@/providers/AuthProvider';
 import './globals.css'
+import { useEffect } from 'react';
 // import { Inter } from 'next/font/google'
 // This component also contains tidio installation and aos initiallisation
 
@@ -23,7 +24,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className=''>
       <NextAuthSesssionProvider>
         <AuthContextProvider>
         <QueryProvider>

@@ -9,6 +9,7 @@
     refer: string;
     table_title: string;
     withdraw: string;
+    invest: string;
     currency: string;
     action: string;
   }
@@ -34,6 +35,7 @@
       refer: 'Earn More',
       table_title: 'Deposit Wallets',
       withdraw: 'Withdraw',
+      invest: 'Invest',
       currency: 'Currency',
       action: 'Action',
     },
@@ -48,6 +50,7 @@
       refer: 'Ganar más',
       table_title: 'Billeteras de depósito',
       withdraw: 'Retirar',
+      invest: 'Invertir',
       currency: 'Moneda',
       action: 'Acción',
     },
@@ -62,6 +65,7 @@
       refer: 'Verdienen Sie mehr',
       table_title: 'Einzahlungsbrieftaschen',
       withdraw: 'Abheben',
+      invest: 'Investieren',
       currency: 'Währung',
       action: 'Aktion',
     },
@@ -76,6 +80,7 @@
       refer: '赚更多',
       table_title: '存款钱包',
       withdraw: '撤回',
+      invest: '投资',
       currency: '货币',
       action: '行动',
     },
@@ -90,6 +95,7 @@
       refer: '더 많이 벌기',
       table_title: '입금 지갑',
       withdraw: '철수',
+      invest: '투자',
       currency: '통화',
       action: '동작',
     },
@@ -104,6 +110,7 @@
       refer: 'Daha fazla kazan',
       table_title: 'Depozito Cüzdanları',
       withdraw: 'Para çekmek',
+      invest: 'Yatırım',
       currency: 'Para birimi',
       action: 'Aksiyon',
     },
