@@ -5,11 +5,22 @@ import { toast } from 'react-toastify';
 import { BiLocationPlus, BiPhone } from 'react-icons/bi';
 import { MdOutlineEmail } from 'react-icons/md';
 // import Loader from '../Loader'
-
+import { useTranslation } from '@/hooks/useTranslationContext'
+import { ILanguage, languageCodes } from '@/interfaces'
+import { IPageContent } from '@/dictionaries/header'
+import { HeaderContent } from '@/dictionaries/header'
 
 const Footer = () => {
   const [email, setEmail] = React.useState('')
   const [loading, setLoading] = React.useState(false)
+
+  const { language, setLanguage } = useTranslation()
+
+  const [t, setTranslated] = React.useState<IPageContent | null>(null)
+
+  React.useEffect(() => {
+      setTranslated(HeaderContent[language])
+    }, [language])
 
   const handleSubmit = () => {
     setLoading(true)
@@ -28,36 +39,36 @@ const Footer = () => {
           <h3 className='font-semibold text-center text-primary'>Avestock 2023</h3>
           <nav className="items-center hidden sm:flex gap-x-14 md:gap-4 lg:gap-7">
             <ul className='flex items-center gap-3 text-sm md:gap-4 lg:gap-7 opacity-80'>
-              <li><Link href="/" className={`text-green font-medium`}>Home</Link></li>
-              <li><Link href="/about" className={`text-green font-medium`}>About</Link></li>
-              <li><Link href="/" className={`text-green font-medium`}>Contact</Link></li>
-              <li><Link href="/login" className={`text-green font-medium`}>Login</Link></li>
-              <li><Link href="/register" className={`text-green font-medium`}>Register</Link></li>
+              <li><Link href="/" className={`text-green font-medium`}>{t?.home || "Home"}</Link></li>
+              <li><Link href="/about" className={`text-green font-medium`}>{t?.about || "ABOUT"}</Link></li>
+              <li><Link href="/" className={`text-green font-medium`}>{t?.contact || "Contact"}</Link></li>
+              <li><Link href="/login" className={`text-green font-medium`}>{t?.login || "Login"}</Link></li>
+              <li><Link href="/register" className={`text-green font-medium`}>{t?.register || "register"}</Link></li>
             </ul>
           </nav>
         </div>
         <div className='justify-between px-8 md:px-10 lg:px-24 sm:flex sm:w-11/12'>
           <div className='flex justify-between gap-8 mb-8 lg:gap-32'>
             <div>
-              <h4 className='text-sm font-medium mb-7 text-primary'>Other pages</h4>
+              <h4 className='text-sm font-medium mb-7 text-primary'>{t?.other_page || "Other pages"}</h4>
               <ul className='flex flex-col gap-6 text-xs text-footer-gray'>
                 <li>
-                  <Link href={"/faqs"}>FAQ</Link>
+                  <Link href={"/faqs"}>{t?.faq || "FAQ"}</Link>
                   </li>
                 <li>
                   <Link href={"/terms"}>
-                    Terms of service
+                    {t?.terms || "Terms of service"}
                   </Link>
                 </li>
                 <li>
                   <Link href={"/privacy"}>
-                    Privacy policy
+                    {t?.privacy || "Privacy policy"}
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className='text-sm font-medium mb-7 text-primary'>Contact Info</h4>
+              <h4 className='text-sm font-medium mb-7 text-primary'>{t?.contact_us || "Contact Info"}</h4>
               <ul className='flex flex-col gap-6 text-xs text-footer-gray'>
                 <li className='flex items-center gap-3'> 
                   <BiLocationPlus />
@@ -75,12 +86,12 @@ const Footer = () => {
             </div>
           </div>
           <div className='mb-8'>
-            <h4 className='mb-2 font-medium text-25 text-primary'>Stay Updated</h4>
-            <span className='text-xs text-footer-gray'>Keep a close watch on your favourite Currencies</span>
+            <h4 className='mb-2 font-medium text-25 text-primary'>{t?.up_to_date || "Stay Updated"}</h4>
+            <span className='text-xs text-footer-gray'>{t?.close_watch ||"Keep a close watch on your favourite Currencies"}</span>
             <div onClick={handleSubmit} className='flex text-xs mt-7'>
               <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder='Enter your email' className='w-full p-2 px-3 text-xs border-2 border-r-0 rounded-tl-md rounded-bl-md border-gray' />
               <button type={'submit'} className='rounded-tr-md rounded-br-md py-1.5 px-5 text-xs bg-primary text-white'>
-                Submit
+                {t?.submit || "Submit"}
               </button>
             </div>
           </div>

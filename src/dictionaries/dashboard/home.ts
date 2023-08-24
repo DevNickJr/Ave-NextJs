@@ -7,6 +7,10 @@
     deposit: string;
     referral_title: string;
     refer: string;
+    table_title: string;
+    withdraw: string;
+    currency: string;
+    action: string;
   }
   
   interface ITranslations {
@@ -28,6 +32,10 @@
       deposit: 'Deposit',
       referral_title: 'Invite Friends & get extra income!',
       refer: 'Earn More',
+      table_title: 'Deposit Wallets',
+      withdraw: 'Withdraw',
+      currency: 'Currency',
+      action: 'Action',
     },
     es: {
       title: 'Bienvenido',
@@ -38,6 +46,10 @@
       deposit: 'Depositar',
       referral_title: '¡Invita a tus amigos y obtén ingresos adicionales!',
       refer: 'Ganar más',
+      table_title: 'Billeteras de depósito',
+      withdraw: 'Retirar',
+      currency: 'Moneda',
+      action: 'Acción',
     },
     de: {
       title: 'Willkommen',
@@ -48,6 +60,10 @@
       deposit: 'Hinterlegen',
       referral_title: 'Laden Sie Freunde ein und erhalten Sie zusätzliches Einkommen!',
       refer: 'Verdienen Sie mehr',
+      table_title: 'Einzahlungsbrieftaschen',
+      withdraw: 'Abheben',
+      currency: 'Währung',
+      action: 'Aktion',
     },
     zh: {
       title: '欢迎',
@@ -58,6 +74,10 @@
       deposit: '存款',
       referral_title: '邀请朋友并获得额外收入！',
       refer: '赚更多',
+      table_title: '存款钱包',
+      withdraw: '撤回',
+      currency: '货币',
+      action: '行动',
     },
     ko: {
       title: '환영합니다',
@@ -68,6 +88,10 @@
       deposit: '예금',
       referral_title: '친구를 초대하고 추가 수입을 올리세요!',
       refer: '더 많이 벌기',
+      table_title: '입금 지갑',
+      withdraw: '철수',
+      currency: '통화',
+      action: '동작',
     },
     tr: {
       title: 'Hoşgeldiniz',
@@ -78,6 +102,10 @@
       deposit: 'Yatırma',
       referral_title: 'Arkadaşlarınızı davet edin ve ek gelir elde edin!',
       refer: 'Daha fazla kazan',
+      table_title: 'Depozito Cüzdanları',
+      withdraw: 'Para çekmek',
+      currency: 'Para birimi',
+      action: 'Aksiyon',
     },
   }
       

@@ -4,8 +4,11 @@ import { useTranslation } from '@/hooks/useTranslationContext'
 import { ILanguage, languageCodes } from '@/interfaces'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { RxCaretDown } from 'react-icons/rx'
+import { IPageContent } from '@/dictionaries/dashboard/header'
+import { HeaderContent } from '@/dictionaries/dashboard/header'
 
 const languages = [
   {
@@ -15,35 +18,35 @@ const languages = [
   },
   {
     id: 2,
-    name: 'Spanish',
+    name: 'Español', // Spanish
     code: 'es',
   },
   {
     id: 3,
-    name: 'French',
-    code: 'fr',
+    name: 'Chinese - 中文', // Chinese
+    code: 'zh',
   },
   {
     id: 4,
-    name: 'German',
+    name: 'Deutsch', // German
     code: 'de',
   },
   // {
   //   id: 5,
-  //   name: 'Italian',
+  //   name: 'Italiano', // Italian
   //   code: 'it',
   // },
   {
     id: 6,
-    name: 'Korean',
+    name: 'Korean - 한국어', // Korean
     code: 'ko',
   },
   {
     id: 7,
-    name: 'Turkish',
+    name: 'Türkçe', // Turkish
     code: 'tr',
   },
-]
+];
 
 const Head = () => {
   // const session = useSession()
@@ -51,13 +54,24 @@ const Head = () => {
 
   const { dispatch, user } = useAuthContext()
   const { language, setLanguage } = useTranslation()
+  const [t, setTranslated] = React.useState<IPageContent | null>(null)
+  
+  React.useEffect(() => {
+      setTranslated(HeaderContent[language])
+    }, [language])
 
+  const router = useRouter()
+
+  const handleLogout = () => {
+    dispatch({type: "LOGOUT", payload: null})
+    router.push('/login')
+}
 
 
   return (
     <div className='sticky top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 text-black bg-white shadow overflow-visibl sm:py-4 md:px-6'>
         {/* <input type="text" placeholder='Search' className='border border-gray-300 rounded-full px-4 min-w-[100px] md:w-96' /> */}
-        <h1 className='font-semibold text-primary'>Dashboard</h1>
+        <h1 className='font-semibold text-primary'>{t?.dashboard || "Dashboard"}</h1>
         <div className='flex items-center justify-between gap-2'>
           {/* <div className="w-4 h-4 bg-gray-200 rounded-full" /> */}
           <div className='flex items-center gap-2 text-xs'>
@@ -87,12 +101,12 @@ const Head = () => {
               <div className='absolute right-0 flex-col hidden gap-2 bg-white shadow-md top-6 group-hover:flex'>
                 <Link href={`/dashboard/settings`} className='py-2 border-b-2 cursor-pointer'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
-                    Settings
+                    {t?.settings || "Settings"}
                   </span>
                 </Link>
-                <div onClick={() => dispatch({type: "LOGOUT", payload: ''})} className='pb-2'>
+                <div onClick={handleLogout} className='pb-2'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
-                    Logout
+                    {t?.logout || "Logout"}
                   </span>
                 </div>
               </div>

@@ -43,7 +43,7 @@ const Home = () => {
   const columns: ITableColumn[] = [
     {
       name: 'name',
-      label: 'Currency',
+      label: t?.currency || 'Currency',
     },
     // {
     //   name: 'full_name',
@@ -51,7 +51,7 @@ const Home = () => {
     // },
     {
       name: 'option',
-      label: 'Action',
+      label: t?.action || 'Action',
       options: {
         filter: true,
         sort: true,
@@ -61,10 +61,10 @@ const Home = () => {
         return  (
             <div className="flex items-center gap-3">
                 <Link href={'/dashboard/deposit'}>
-                  <button className='p-2 px-3 text-sm text-white bg-primary'>Deposit</button>
+                  <button className='p-2 px-3 text-sm text-white bg-primary'>{t?.deposit || "Deposit"}</button>
                 </Link>
                 <Link href={'/dashboard/withdrawal'}>
-                  <button className='p-2 px-3 text-sm bg-white border text-primary border-primary'>Withdraw</button>
+                  <button className='p-2 px-3 text-sm bg-white border text-primary border-primary'>{t?.withdraw || "Withdraw"}</button>
                 </Link>
             </div>
         )
@@ -137,7 +137,7 @@ const Home = () => {
             </div>
         </div>
         <div className=''>
-          <Table title='Deposit Wallets' data={wallets || []} columns={columns} />
+          <Table title={t?.table_title || 'Deposit Wallets'} data={wallets || []} columns={columns} />
         </div>
     </main>
   )

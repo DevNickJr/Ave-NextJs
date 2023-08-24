@@ -7,10 +7,22 @@ import { usePathname } from 'next/navigation'
 import { RiLuggageDepositLine } from 'react-icons/ri'
 import { BiMoneyWithdraw } from 'react-icons/bi'
 import { BsBarChart } from 'react-icons/bs'
+import { useTranslation } from '@/hooks/useTranslationContext'
+import { IPageContent } from '@/dictionaries/dashboard/header'
+import { HeaderContent } from '@/dictionaries/dashboard/header'
 
 
 const BottomNav = () => {
   const pathname = usePathname()
+
+  
+  const { language } = useTranslation()
+
+  const [t, setTranslated] = React.useState<IPageContent | null>(null)
+
+  React.useEffect(() => {
+      setTranslated(HeaderContent[language])
+    }, [language])
 
   // console.log('path', pathname)
 
@@ -22,31 +34,31 @@ const BottomNav = () => {
             <li className={`flex-1 ${pathname==="/dashboard" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
                     <AiOutlineHome className='text-xl' />
-                    Home
+                    {t?.home || "Home"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/accounts" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/accounts" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
                     <MdOutlineDashboard className='text-xl' />
-                    Account
+                    {t?.account || "account"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/invest" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/invest" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
                     <BsBarChart className='text-xl' />
-                    Invest
+                    {t?.invest || "invest"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/deposit" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/deposit" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
                     <RiLuggageDepositLine className='text-xl' />
-                    Deposit
+                    {t?.deposit || "deposit"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/withdrawal" ? "text-primary font-bold" : "text-white/90"}`}>
                 <Link href="/dashboard/withdrawal" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
                     <BiMoneyWithdraw className='text-xl' />
-                    Withdraw
+                    {t?.withdraw || "withdraw"}
                 </Link>
             </li>
           </ul>

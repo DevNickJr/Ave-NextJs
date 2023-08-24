@@ -2,14 +2,21 @@
 import { useAuthContext } from '@/hooks/useAuthContext'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { RxCaretDown } from 'react-icons/rx'
 
 const AdminHead = () => {
   // const session = useSession()
   // const user = session.data?.user
+  const router = useRouter()
 
   const { dispatch, user } = useAuthContext()
+  const handleLogout = () => {
+    dispatch({type: "LOGOUT", payload: null})
+    router.push('/login')
+}
+
 
 
   return (
@@ -32,7 +39,7 @@ const AdminHead = () => {
                     Settings
                   </span>
                 </Link> */}
-                <div onClick={() => dispatch({type: "LOGOUT", payload: ''})} className='pb-2'>
+                <div onClick={handleLogout} className='pb-2'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
                     Logout
                   </span>

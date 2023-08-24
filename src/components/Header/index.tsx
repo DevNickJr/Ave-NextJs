@@ -9,7 +9,8 @@ import Logo1 from '@/assets/logo1.png'
 import Logo2 from '@/assets/logo3.png'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { ILanguage, languageCodes } from '@/interfaces'
-
+import { IPageContent } from '@/dictionaries/header'
+import { HeaderContent } from '@/dictionaries/header'
 const languages = [
   {
     id: 1,
@@ -18,42 +19,47 @@ const languages = [
   },
   {
     id: 2,
-    name: 'Spanish',
+    name: 'Español', // Spanish
     code: 'es',
   },
   {
     id: 3,
-    name: 'French',
-    code: 'fr',
+    name: 'Chinese - 中文', // Chinese
+    code: 'zh',
   },
   {
     id: 4,
-    name: 'German',
+    name: 'Deutsch', // German
     code: 'de',
   },
   // {
   //   id: 5,
-  //   name: 'Italian',
+  //   name: 'Italiano', // Italian
   //   code: 'it',
   // },
   {
     id: 6,
-    name: 'Korean',
+    name: 'Korean - 한국어', // Korean
     code: 'ko',
   },
   {
     id: 7,
-    name: 'Turkish',
+    name: 'Türkçe', // Turkish
     code: 'tr',
   },
-]
-
+];
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const pathname = usePathname()
   // use translation context to change language
   const { language, setLanguage } = useTranslation()
+
+  const [t, setTranslated] = React.useState<IPageContent | null>(null)
+
+  React.useEffect(() => {
+      setTranslated(HeaderContent[language])
+    }, [language])
 
   return (
     <>
@@ -64,11 +70,11 @@ const Header = () => {
         </Link>
         <nav className="items-center hidden md:flex gap-x-14 md:gap-4 lg:gap-7">
           <ul className='flex flex-col items-center text-sm font-medium md:flex-row text-dark-light gap-7 md:gap-4 lg:gap-7'>
-            <li><Link href="/" className={`pb-1.5 px-1 font-medium ${pathname==="/" && "text-primary border-b-2 border-primary"}`}>Home</Link></li>
-            <li><Link href="/about" className={`pb-1.5 px-1 font-medium ${pathname==="/about" && "text-primary border-b-2 border-primary"}`}>About</Link></li>
-            <li><Link href="/contact" className={`pb-1.5 px-1 font-medium ${pathname==="/contact" && "text-primary border-b-2 border-primary"}`}>Contact</Link></li>
-            <li><Link href="/login" className={`pb-1.5 px-1 font-medium ${pathname==="/login" && "text-primary border-b-2 border-primary"}`}>Login</Link></li>
-            <li><Link href="/register" className={`pb-1.5 px-1 font-medium ${pathname==="/register" && "text-primary border-b-2 border-primary"}`}>Register</Link></li>
+            <li><Link href="/" className={`pb-1.5 px-1 font-medium ${pathname==="/" && "text-primary border-b-2 border-primary"}`}>{t?.home || 'Home'}</Link></li>
+            <li><Link href="/about" className={`pb-1.5 px-1 font-medium ${pathname==="/about" && "text-primary border-b-2 border-primary"}`}>{t?.about || "About"}</Link></li>
+            <li><Link href="/contact" className={`pb-1.5 px-1 font-medium ${pathname==="/contact" && "text-primary border-b-2 border-primary"}`}>{t?.contact || "Contact"}</Link></li>
+            <li><Link href="/login" className={`pb-1.5 px-1 font-medium ${pathname==="/login" && "text-primary border-b-2 border-primary"}`}>{t?.login || "Login"}</Link></li>
+            <li><Link href="/register" className={`pb-1.5 px-1 font-medium ${pathname==="/register" && "text-primary border-b-2 border-primary"}`}>{t?.register || "Register"}</Link></li>
             {/* {!user ? 
             <li><Link href="/login" className={`border-b-2 pb-1.5 px-1 font-medium`}>Login</Link></li>
             :
@@ -103,11 +109,11 @@ const Header = () => {
         <div className={`md:hidden shadow fixed top-0 left-0 w-5/6 min-h-screen h-screen grad-to-right text-white px-4 py-2 md:px-10 z-30  ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-300`}>
           <nav className="flex flex-col gap-16 p-4 px-8 pt-40 mb-8 text-lg md:hidden">
             <ul className='flex flex-col text-sm font-medium text-dark-light gap-7 md:gap-4 lg:gap-7'>
-              <li><Link href="/" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/" && "text-primary border-b-2 border-primary"}`}>Home</Link></li>
-              <li><Link href="/about" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/about" && "text-primary border-b-2 border-primary"}`}>About</Link></li>
-              <li><Link href="/contact" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/contact" && "text-primary border-b-2 border-primary"}`}>Contact</Link></li>
-              <li><Link href="/login" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/login" && "text-primary border-b-2 border-primary"}`}>Login</Link></li>
-              <li><Link href="/register" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/register" && "text-primary border-b-2 border-primary"}`}>Register</Link></li>
+              <li><Link href="/" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/" && "text-primary border-b-2 border-primary"}`}>{t?.home || 'Home'}</Link></li>
+              <li><Link href="/about" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/about" && "text-primary border-b-2 border-primary"}`}>{t?.about || 'About'}</Link></li>
+              <li><Link href="/contact" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/contact" && "text-primary border-b-2 border-primary"}`}>{t?.contact || 'Contact'}</Link></li>
+              <li><Link href="/login" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/login" && "text-primary border-b-2 border-primary"}`}>{t?.login || 'Login'}</Link></li>
+              <li><Link href="/register" className={`text-lg pb-1.5 px-1 font-medium ${pathname==="/register" && "text-primary border-b-2 border-primary"}`}>{t?.register || "Register"}</Link></li>
             </ul>
           </nav>
         </div>

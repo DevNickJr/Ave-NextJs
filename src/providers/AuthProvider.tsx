@@ -4,7 +4,7 @@ import { ReactNode, Reducer, createContext, useEffect, useReducer } from "react"
 
 interface IAuthContext {
     isLoggedIn: boolean
-    user: IUser
+    user: IUser | null
 }
 
 const init: IUser = {
@@ -39,7 +39,7 @@ const initialState: IAuthContext = user ? JSON.parse(user) : {
 
 interface IAction {
     type: "LOGIN" | "LOGOUT"
-    payload: any
+    payload: IUser | null
 }
 
 interface IAuthContextProvider extends IAuthContext {

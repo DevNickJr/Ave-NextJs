@@ -20,9 +20,9 @@ const initialState: IUserLogin = {
 
 
 const Login = () => {
+  const context = useAuthContext()
   const { language } = useTranslation()
   const [t, setTranslated] = useState<IPageContent | null>(null)
-  const context = useAuthContext()
 
   useEffect(() => {
     setTranslated(LoginContent[language])
@@ -42,7 +42,6 @@ const loginMutation = useMutation<IUserLogin, any>(
         console.log("data", data)
         context.dispatch({ type: "LOGIN", payload: data})
         toast.success("Logged in Successfully.")
-        toast.success("You'd be redirected to the dashboard")
         return router.push('/dashboard')
     },
     showErrorMessage: true,

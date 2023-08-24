@@ -7,6 +7,7 @@ import BottomNav from '@/components/BottomNav'
 import ContextAuthHOC from '@/HOC/ContextAuthHOC'
 
 const Layout = ({ children }: { children: React.ReactNode }) => { 
+  
 
   return (
       <div className='flex w-full h-screen overflow-hidden'>

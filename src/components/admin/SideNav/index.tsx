@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { MdLogout } from 'react-icons/md'
 import { RiTeamLine } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
@@ -22,6 +22,14 @@ const SideNav = ({ }) => {
     const pathname = usePathname();
     // console.log({pathname})
     const { dispatch } = useAuthContext()
+
+    const router = useRouter()
+
+    const handleLogout = () => {
+        dispatch({type: "LOGOUT", payload: null})
+        router.push('/login')
+    }
+    
 
   return (
     <div className='no-scrollbar hidden sm:flex flex-col justify-between grad-to-bottom max-h-screen overflow-hidden h-screen min-w-[240px] w-60 pb-4 grad-to-right text-white'>
@@ -60,7 +68,7 @@ const SideNav = ({ }) => {
             </div>
         </div>
         <div className='flex flex-col gap-10 pb-2 underline'>
-            <div onClick={() => dispatch({type: "LOGOUT", payload: ''})} className={`py-2.5 pl-6 text-sm flex items-center gap-2 cursor-pointer`}>
+            <div onClick={handleLogout} className={`py-2.5 pl-6 text-sm flex items-center gap-2 cursor-pointer`}>
                 <MdLogout size={"1.3rem"} />
                 Logout
             </div>
