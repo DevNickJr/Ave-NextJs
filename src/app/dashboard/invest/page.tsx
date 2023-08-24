@@ -14,6 +14,8 @@ import { useAuthContext } from '@/hooks/useAuthContext'
 import GentleLoader from '@/components/GentleLoader'
 import { toast } from 'react-toastify'
 import RealTimeProfitDisplay from '@/components/RealTimeProfitDisplay'
+import { MdClose } from 'react-icons/md'
+import { apiGetUser } from '@/services/AuthService'
 
 const Invest = () => {
   const { language } = useTranslation()
@@ -35,7 +37,16 @@ const Invest = () => {
 
   const { data: plans, error, isLoading, isFetching, remove, fetchStatus } = useFetch<IPlan[]>({api: apiGetPlans, key: ['plans'] })
   
-  const { data: investments, error: investmentError, isLoading: investMentLoading, refetch } = useFetch<IInvest[]>({api: apiGetUserInvestments, param: user?._id , key: ['investments'] })
+  const { data: userDetails, refetch: refetchUser } = useFetch({ 
+    api: apiGetUser, 
+    key: ['userDetails'],
+    param: {
+      id: user?._id
+    },
+   })
+
+  const { data: investments, error: investmentError, isLoading: investMentLoading, refetch } = useFetch<IInvest[]>({api: apiGetUserInvestments, param: user?._id, key: ['investments'] })
+
 
   const investMutation = usePost<IInvest, any>(apiInvest, {
     onSuccess: (data) => {
@@ -75,7 +86,7 @@ const Invest = () => {
       extra: true,
       custom: (val: string, meta: any) => {
         return (
-          <p className={`px-2 py-1 text-xs rounded-md font-bold ${val === 'paused'
+          <p className={`px-2 py-1 text-xs rounded-md font-bold ${val === 'completed'
                 ? 'text-yellow-500'
                 : val === 'active'
                 ? 'text-green-500'
@@ -144,9 +155,29 @@ const Invest = () => {
   }
 
   const handleInvestSubmit = () => {
+    if (!amount) {
+      toast.error('Please enter amount')
+      return
+    }
+
+    if (+amount < investment?.minimum!) {
+      toast.error('Amount is less than minimum')
+      return
+    }
+
+    if (+amount > investment?.maximum!) {
+      toast.error('Amount is greater than maximum')
+      return
+    }
+
+    if (+amount > (userDetails?.balance! + userDetails?.total_earnings!)) {
+      toast.error('Insufficient balance')
+      return
+    }
+    
     investMutation.mutate({
       userId: user?._id!,
-      email: user?.email!,
+      email: userDetails?.email!,
       amount: +amount,
       plan: investment?._id!,
     })
@@ -181,14 +212,14 @@ const Invest = () => {
       <div className={`fixed top-0 h-full right-0 w-full py-4 shadow-md z-30 transition-all ${modalOpen ? "translate-x-0 bg-white/10 " : 'translate-x-full'}`}>
         <div className={`fixed top-0 h-full right-0 w-full max-w-sm bg-white py-4 shadow-md z-30 transition-all ${modalOpen ? "translate-x-0" : 'translate-x-full'}`}>
         <div className="flex flex-col gap-2 py-4">
-          <div className="flex justify-between gap-4 border-b border-black itesm-center">
-            <h2 className='px-4 py-2 text-2xl font-semibold'>{investment?.name} {t?.plan || "Plan"}</h2>
-            <span className='flex items-center justify-center p-4 cursor-pointer' onClick={() => setModalOpen(false)}>X</span>
+          <div className="flex items-center justify-between gap-4 px-4 py-2 border-b border-black">
+            <h2 className='text-2xl font-semibold'>{investment?.name} {t?.plan || "Plan"}</h2>
+            <MdClose className='text-xl cursor-pointer' onClick={() => setModalOpen(false)} />
           </div>
           <div className="flex flex-col max-w-xs gap-4 px-4 mt-2">
             <div className="flex items-center justify-between gap-6 p-3 font-semibold text-white rounded-md bg-primary">
               <span>{t?.wallet_balance || "Wallet Balance"}</span>
-            <span>${user?.balance}</span>
+            <span>${userDetails?.balance}</span>
             </div>
             <div className="flex items-center justify-between gap-6 px-3 text-xs">
               <span>{t?.minimum || "Minimum Deposit"}</span>
@@ -199,7 +230,7 @@ const Invest = () => {
               <span>${investment?.maximum}</span>
             </div>
             <div className="flex items-center justify-between gap-6 text-sm">
-              <input value={amount} onChange={(e) => setAmount(e.target.value)} type="text" name="" id="" placeholder={t?.amount || 'Enter Amount'} className='w-full p-3 border border-black rounded-md' />
+              <input value={amount} onChange={(e) => setAmount(e.target.value)} type="text" name="" id="" placeholder={t?.amount || 'Enter Amount'} min={investment?.minimum} max={investment?.maximum} className='w-full p-3 border border-black rounded-md' />
             </div>
           </div>
           <button onClick={handleInvestSubmit} className='p-2 px-4 mt-3 ml-4 text-white rounded-md w-fit bg-primary'>{t?.invest || "Invest"}</button>

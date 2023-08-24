@@ -32,7 +32,6 @@ const Home = () => {
   const { data: userDetails, refetch: refetchUser } = useFetch({ 
     api: apiGetUser, 
     key: ['userDetails'],
-    enabled: !!context?.isLoggedIn,
     param: {
       id: user?._id
     },
@@ -88,7 +87,7 @@ const Home = () => {
   ]
 
   return (
-    <main className='relative p-4 overflow-y-auto md:p-6'>
+    <main className='relative p-4 overflow-y-auto md:p-6 bg-black/5'>
       <div className="flex items-center gap-2 mb-6">
         <h2 className='text-lg font-semibold'>{t?.title || "Welcome"}, {userDetails?.last_name} {userDetails?.first_name}</h2>  
         {

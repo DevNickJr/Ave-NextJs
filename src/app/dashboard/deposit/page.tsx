@@ -2,7 +2,7 @@
 import React from 'react'
 import useFetch from '@/hooks/useFetch'
 import { apiDeposit, apiGetUserDeposits, apiGetWallets } from '@/services/UserService'
-import { IDeposit, IWallet } from '@/interfaces'
+import { IBank, IDeposit, IWallet } from '@/interfaces'
 import { useSession } from 'next-auth/react'
 import usePost from '@/hooks/useMutation'
 import { formatDate } from '@/utils/dateFunc'
@@ -15,6 +15,9 @@ import Image from 'next/image'
 import useImage from '@/hooks/useImage'
 import { toast } from 'react-toastify'
 import GentleLoader from '@/components/GentleLoader'
+import { apiGetBanks } from '@/services/AdminService'
+import useCopyToClipboard from '@/hooks/useCopy'
+import { MdCopyAll } from 'react-icons/md'
 
 const Deposit = () => {
   const { language } = useTranslation()
@@ -33,12 +36,18 @@ const Deposit = () => {
   // const user = session.data?.user
   const [step, setStep] = React.useState(1)
   const [choice, setChioce] = React.useState('')
+  const [bankChoice, setBankChioce] = React.useState('')
   const [amount, setAmount] = React.useState('')
   const [proof, setProof] = React.useState('')
   const [paymentMethod, setPaymentMethod] = React.useState('')
   const { url, uploadImage, error: errorImage, loading } = useImage()
+  const { copy } = useCopyToClipboard()
+
+
 
   const { data: wallets, error, isLoading, isFetching, remove, fetchStatus } = useFetch<IWallet[]>({api: apiGetWallets, key: ['wallets'] })
+
+  const { data: banks } = useFetch<IBank[]>({api: apiGetBanks, key: ['AdminBanks'] })
   
   const { data: deposits, error: depositsError, isLoading: depositsLoading, refetch } = useFetch<IDeposit[]>({api: apiGetUserDeposits, param: user?._id, key: ['userDeposits'] })
 
@@ -138,8 +147,9 @@ const Deposit = () => {
                     <div className="w-48 h-48 mx-auto bg-gray-100">
                       <Image alt={`qr code`} src={wallets?.find(wallet => wallet.name === choice)?.qr_code || ''} width={100} height={100} className='w-48 h-48 bg-cover' />
                     </div>
-                    <div className="w-full p-2 text-center rounded-md">
+                    <div className="flex items-center justify-center w-full gap-2 p-2 text-center rounded-md">
                       {wallets?.find(wallet => wallet.name === choice)?.address}
+                      <MdCopyAll onClick={() => copy(wallets?.find(wallet => wallet.name === choice)?.address || '')} className='text-xl cursor-pointer text-primary' />
                     </div>
                     <p>
                      {t?.exact_crypto || " Make sure you send the exact amount of BTC as indicated above, otherwise your deposit will not be credited to your account."}
@@ -162,22 +172,44 @@ const Deposit = () => {
           </h4>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
-              <select onChange={(e) => setChioce(e.target.value)} name="" id="">
+              <select onChange={(e) => setBankChioce(e.target.value)} name="" id="">
                 <option value="">{t?.choose_bank || "Choose a Bank"}</option>
-                {wallets?.map(wallet => 
-                  <option key={wallet.name} value={wallet.name}>{wallet.name}</option>
+                {banks?.map(bank => 
+                  <option key={bank._id} value={bank._id}>{bank.name}</option>
                 )}
               </select>
+          {bankChoice &&
               <div className='flex flex-col gap-4'>
                 <p>{t?.bank_transfer || "Make a transfer or deposit to the details below"}</p>
-                <div className="w-48 h-48 mx-auto bg-gray-100">
-                  <Image alt={`qr code`} src={wallets?.find(wallet => wallet.name === choice)?.qr_code || ''} width={100} height={100} className='w-48 h-48 bg-cover' />
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span>Recipient</span>
+                  {banks?.find(bank => bank._id === bankChoice)?.recipient}
                 </div>
-                <div className="w-full p-2 text-center rounded-md">
-                  {wallets?.find(wallet => wallet.name === choice)?.address}
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span>Account Number</span>
+                  <div className="flex items-center justify-center gap-2">
+                    {banks?.find(bank => bank._id === bankChoice)?.number}
+                    <MdCopyAll onClick={() => copy(banks?.find(bank => bank._id === bankChoice)?.number || '')} className='text-xl cursor-pointer text-primary' />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span>Account Type</span>
+                  {banks?.find(bank => bank._id === bankChoice)?.type}
+                </div>
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span>Bank</span>
+                  {banks?.find(bank => bank._id === bankChoice)?.name}
+                </div>
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span>Branch</span>
+                  {banks?.find(bank => bank._id === bankChoice)?.branch}
+                </div>
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span>Reernce</span>
+                  {banks?.find(bank => bank._id === bankChoice)?.reference}
                 </div>
                 <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={() => setStep(4)}>{t?.next || "Next"}</button>
-              </div>
+              </div>}
                   
             </div>
             <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
