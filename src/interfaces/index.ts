@@ -139,6 +139,16 @@ export interface IWallet {
     qr_code: string;
 }
 
+export interface IBank {
+    _id?: string;
+    recipient: string;
+    number: string;
+    type: string;
+    name: string;
+    branch: string;
+    reference: string;
+}
+
 export interface IPlan {
     _id?: string;
     name: string;

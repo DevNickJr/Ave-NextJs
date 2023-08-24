@@ -1,4 +1,4 @@
-import { IUser, IPassword, IWallet, IDeposit, IWithdrawal, IPlan, IInvest, IVerifyUser, IApproveWithdrawal, IApproveDeposit, IHandleInvest } from '@/interfaces'
+import { IUser, IPassword, IWallet, IDeposit, IWithdrawal, IPlan, IInvest, IVerifyUser, IApproveWithdrawal, IApproveDeposit, IHandleInvest, IBank } from '@/interfaces'
 import BaseService from "./BaseService"
 import { AxiosResponse } from 'axios'
 
@@ -14,6 +14,9 @@ export const apiUpdatePlan = (data: IPlan): Promise<AxiosResponse<IPlan, any>> =
 
 export const apiUpdateWallet = (data: IWallet, { id }: { id: string }): Promise<AxiosResponse<IWallet, any>> => {
     return BaseService.patch(`/wallets/${data._id}`, data)
+}
+export const apiUpdateBank = (data: IBank, { id }: { id: string }): Promise<AxiosResponse<IBank, any>> => {
+    return BaseService.patch(`/banks/${data._id}`, data)
 }
 
 export const apiGetInvestments = (): Promise<AxiosResponse<IInvest[], any>> => {
@@ -38,6 +41,10 @@ export const apiGetPlans = (): Promise<AxiosResponse<IPlan[], any>> => {
 
 export const apiGetWallets = (): Promise<AxiosResponse<IWallet[], any>> => {
     return BaseService.get(`/wallets`)
+}
+
+export const apiGetBanks = (): Promise<AxiosResponse<IBank[], any>> => {
+    return BaseService.get(`/banks`)
 }
 
 export const apiGetUserWithdrawals = (id: string): Promise<AxiosResponse<IWithdrawal[], any>> => {

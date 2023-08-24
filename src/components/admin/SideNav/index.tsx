@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { MdLogout } from 'react-icons/md'
-import { RiTeamLine } from 'react-icons/ri'
+import { RiBankFill, RiTeamLine } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
 import { LiaWalletSolid } from 'react-icons/lia'
 import { RiLuggageDepositLine } from 'react-icons/ri'
@@ -48,6 +48,10 @@ const SideNav = ({ }) => {
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("wallets") && 'font-bold'}`} href={"/admin/wallets"}>
                     <LiaWalletSolid size={"1.3rem"} />
                     Manage Wallets
+                </Link>
+                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("banks") && 'font-bold'}`} href={"/admin/banks"}>
+                    <RiBankFill size={"1.3rem"} />
+                    Manage banks
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("trades") && 'font-bold'}`} href={"/admin/trades"}>
                     <BsBarChart size={"1.3rem"} />
