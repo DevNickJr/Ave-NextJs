@@ -35,6 +35,7 @@ const Wallets = () => {
       refetch()
     },
     onError: (error) => {
+      toast.error(error?.response?.data?.message || "error updating wallet")
       console.log(error)
     }   
   })

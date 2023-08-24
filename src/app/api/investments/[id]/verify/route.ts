@@ -4,6 +4,7 @@ import InvestModel from '@/models/InvestModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { IHandleInvest, IInvest } from "@/interfaces";
+import UserModel from "@/models/UserModel";
 
 
 // ----------------------------------------------------------------------
@@ -94,16 +95,38 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       return NextResponse.json(invest, { status: 200 });
 
     } else if (body.status === 'completed') {
-      const invest = await InvestModel.findByIdAndUpdate(id, {
-        status: body.status,
-      }, { new: true }).lean();
-      
+
+      const invest = await InvestModel.findById(id);
+
+      const user = await UserModel.findById(invest.userId || '')
+
       if (!invest) {
-      return NextResponse.json({ message: 'failed to perform invest operation' }, { status: 400 });
-    }
+        return NextResponse.json({ message: 'Investment not found' }, { status: 400 });
+      }
+
+      if (!user) {
+        return NextResponse.json({ message: 'Investment User not found' }, { status: 400 });
+      }
+
+      if (invest.status === 'completed') {
+        return NextResponse.json({ message: 'Investment already Completed' }, { status: 400 });
+      }
       
+      // remove from total investment and add to balance
+      user.balance = user.balance + invest.amount
+      user.total_investment = user.total_investment - invest.amount
+
+      // mark investment as completed
+      invest.status = body.status
+
+      const [userUpdate, investUpdate] = await Promise.all([user.save(), invest.save()])
+
+      if (!userUpdate || !investUpdate) {
+        return NextResponse.json({ message: 'Investment Update Error' }, { status: 400 });
+      }
 
       return NextResponse.json(invest, { status: 200 });
+
     }
 
     return NextResponse.json({ message: 'Status Error' }, { status: 400 });
