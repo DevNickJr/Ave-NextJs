@@ -23,6 +23,9 @@ import Face7Img from '@/assets/face7.png'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { LanguageData } from '@/interfaces/home'
 import { HomeData } from '@/dictionaries/home'
+import useFetch from '@/hooks/useFetch'
+import { IPlan } from '@/interfaces'
+import { apiGetPlans } from '@/services/AdminService'
 
 const stepsImg = [
   RegImg,
@@ -52,6 +55,8 @@ const facesImg = [
 export default function Home() {
   const { language } = useTranslation()
   const [t, setTranslated] = useState<LanguageData | null>(null)
+
+  const { data: plans, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IPlan[]>({api: apiGetPlans, key: ['AdminPlans'] })
 
   useEffect(() => {
     setTranslated(HomeData[language])
@@ -92,26 +97,32 @@ export default function Home() {
           </div>
           <div className='flex flex-col flex-wrap justify-center gap-5 mb-8 md:flex-row text-primary'>
             {
-               [0,1,2,3,4,5].map((el, i) => 
+               plans?.map((el, i) => 
               <div key={i} data-aos="slide-up" className="flex flex-col gap-3 p-6 border rounded-md shadow-lg shadow-black w-72 border-primary">
-                <span className='text-xs'>Standard</span>
-                <span className='mb-4 text-2xl font-semibold'>$24.99/mo</span>
+                <span className='text-xs'>{el.name}</span>
+                <div className='flex flex-col mb-4 text-2xl font-semibold leading-none'>${el.minimum}<span className='text-xs font-semibold'>min</span></div>
                 <div className="flex flex-col gap-1 text-[11px]">
                   <div className="flex items-center gap-2">
                     <GiCheckMark className="" />
-                    <span className=''>50 Coins</span>
+                    <span className=''>{el.roi}% ROI</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <GiCheckMark className="" />
-                    <span className=''>50 Coins</span>
+                    <span className=''>
+                      {el.minimum} - {el.maximum} USD
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <GiCheckMark className="" />
-                    <span className=''>50 Coins</span>
+                    <span className=''>
+                      {el.duration} days
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <GiCheckMark className="" />
-                    <span className=''>50 Coins</span>
+                    <span className=''>
+                      principal returned
+                    </span>
                   </div>
                 </div>
                 <button className='p-2 mt-2 text-sm font-bold text-black rounded-md bg-primary'>{t?.investmentPlans?.cta}</button>

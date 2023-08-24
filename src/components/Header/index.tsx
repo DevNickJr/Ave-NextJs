@@ -75,34 +75,43 @@ const Header = () => {
             <li><Link href="/contact" className={`pb-1.5 px-1 font-medium ${pathname==="/contact" && "text-primary border-b-2 border-primary"}`}>{t?.contact || "Contact"}</Link></li>
             <li><Link href="/login" className={`pb-1.5 px-1 font-medium ${pathname==="/login" && "text-primary border-b-2 border-primary"}`}>{t?.login || "Login"}</Link></li>
             <li><Link href="/register" className={`pb-1.5 px-1 font-medium ${pathname==="/register" && "text-primary border-b-2 border-primary"}`}>{t?.register || "Register"}</Link></li>
-            {/* {!user ? 
-            <li><Link href="/login" className={`border-b-2 pb-1.5 px-1 font-medium`}>Login</Link></li>
-            :
-            <li>
-              <div onClick={() => dispatch({type: "LOGOUT"})} className='px-1 font-medium cursor-pointer'>
-                 Logout
-              </div>
-            </li>
-            } */}
+            {/* <select 
+            value={language} 
+            onChange={(e) => {
+              const value: ILanguage = e.target.value as ILanguage
+              if (languageCodes.includes(value)) {
+                setLanguage(value)
+              }
+            }} 
+            className='hidden text-sm font-medium bg-transparent bg-white border-none outline-none cursor-pointer md:block w-28 text-dark-light gap-7 md:gap-4 lg:gap-7 focus:outline-none focus:ring-0 focus:border-transparent focus:ring-transparent focus:ring-offset-transparent'
+          >
+            {
+              languages.map((lang) => (
+                <option className='bg-white' key={lang.id} value={lang.code}>{lang.name}</option>
+              ))
+            }
+          </select> */}
           </ul>
         </nav>
-        <select 
-          value={language} 
-          onChange={(e) => {
-            const value: ILanguage = e.target.value as ILanguage
-            if (languageCodes.includes(value)) {
-              setLanguage(value)
+        <div className='flex items-center gap-2'>
+          <select 
+            value={language} 
+            onChange={(e) => {
+              const value: ILanguage = e.target.value as ILanguage
+              if (languageCodes.includes(value)) {
+                setLanguage(value)
+              }
+            }} 
+            className='text-sm font-medium bg-transparent bg-white border-none outline-none cursor-pointer w-28 text-dark-light gap-7 md:gap-4 lg:gap-7 focus:outline-none focus:ring-0 focus:border-transparent focus:ring-transparent focus:ring-offset-transparent'
+          >
+            {
+              languages.map((lang) => (
+                <option className='bg-white' key={lang.id} value={lang.code}>{lang.name}</option>
+              ))
             }
-          }} 
-          className='hidden text-sm font-medium bg-transparent border-none outline-none cursor-pointer md:block text-dark-light gap-7 md:gap-4 lg:gap-7 focus:outline-none focus:ring-0 focus:border-transparent focus:ring-transparent focus:ring-offset-transparent'
-        >
-          {
-            languages.map((lang) => (
-              <option key={lang.id} value={lang.code}>{lang.name}</option>
-            ))
-          }
-        </select>
-        <BiMenu onClick={() => setIsOpen(true)} className='relative z-50 text-3xl font-bold cursor-pointer md:hidden text-primary' />
+          </select>
+          <BiMenu onClick={() => setIsOpen(true)} className='relative z-50 text-3xl font-bold cursor-pointer md:hidden text-primary' />
+        </div>
         
       </header>
       <div onClick={() => setIsOpen(false)} className={`md:hidden shadow fixed top-0 left-0 w-full min-h-screen h-screen bg-black/10 px-4 py-2 md:px-10 z-30  ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-300`}>

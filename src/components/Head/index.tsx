@@ -83,7 +83,7 @@ const Head = () => {
                   setLanguage(value)
                 }
               }} 
-              className='hidden text-sm font-medium bg-transparent border-none outline-none cursor-pointer md:block text-dark-light gap-7 md:gap-4 lg:gap-7 focus:outline-none focus:ring-0 focus:border-transparent focus:ring-transparent focus:ring-offset-transparent'
+              className='w-24 text-sm font-medium bg-transparent border-none outline-none cursor-pointer md:block text-dark-light gap-7 md:gap-4 lg:gap-7 focus:outline-none focus:ring-0 focus:border-transparent focus:ring-transparent focus:ring-offset-transparent'
             >
               {
                 languages.map((lang) => (
