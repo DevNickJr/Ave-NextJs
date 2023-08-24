@@ -2,34 +2,37 @@
 import React, { useState, useEffect } from 'react';
 
 interface IRealTimeProfitDisplayProps {
-  startDate: Date;
+  startTime: number;
   initialProfit: number;
   percentageProfit: number;
   numberOfDays: number;
 }
 
-const RealTimeProfitDisplay = ({ startDate, initialProfit, percentageProfit, numberOfDays }: IRealTimeProfitDisplayProps) => {
+const RealTimeProfitDisplay = ({ startTime, initialProfit, percentageProfit, numberOfDays }: IRealTimeProfitDisplayProps) => {
 
+  console.log({
+    startTime,
+    initialProfit,
+    percentageProfit,
+    numberOfDays
+  })
   const [currentProfit, setCurrentProfit] = useState(100000);
   const percentageProfitPerSecond = percentageProfit / (numberOfDays * 24 * 60 * 60); 
 
   useEffect(() => {
     const interval = setInterval(() => {
-        const timeElapsedInSeconds = (Date.now() - startDate.getTime()) / 1000;
+        const timeElapsedInSeconds = (Date.now() - startTime) / 1000;
 
         const newProfit = (initialProfit * (percentageProfitPerSecond / 100)) * timeElapsedInSeconds;
         
         setCurrentProfit(initialProfit + newProfit);
-      }, 10000);
+      }, 5000);
 
     return () => clearInterval(interval); // Cleanup on unmount
-  }, [initialProfit, percentageProfitPerSecond, startDate]);
+  }, [initialProfit, percentageProfitPerSecond, startTime]);
 
   return (
-    <div className='fixed flex flex-col gap-6 top-24 right-24'>
-      <p>Initial Profit: ${initialProfit.toFixed(2)}</p>
-      <p>Current Profit: ${currentProfit.toFixed(2)}</p>
-    </div>
+      <p>${currentProfit.toFixed(2)}</p>
   );
 };
 

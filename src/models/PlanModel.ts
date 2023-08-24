@@ -20,7 +20,7 @@ const PlanSchema: Schema = new Schema<IPlan>({
     required: true,
   },
   roi: {
-    type: String,
+    type: Number,
     required: true,
   },
 }, {

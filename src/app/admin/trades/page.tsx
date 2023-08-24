@@ -1,10 +1,11 @@
 'use client'
 import GentleLoader from '@/components/GentleLoader'
+import RealTimeProfitDisplay from '@/components/RealTimeProfitDisplay'
 import Table from '@/components/Table'
 import useFetch from '@/hooks/useFetch'
 import useMutations from '@/hooks/useMutation'
-import { ITableColumn, IInvest, IHandleInvest } from '@/interfaces'
-import { apiGetInvestments, apiHandleInvest } from '@/services/AdminService'
+import { ITableColumn, IInvest, IHandleInvest, IPlan } from '@/interfaces'
+import { apiGetInvestments, apiGetPlans, apiHandleInvest } from '@/services/AdminService'
 import { formatDate } from '@/utils/dateFunc'
 import React from 'react'
 import { toast } from 'react-toastify'
@@ -14,7 +15,7 @@ import { toast } from 'react-toastify'
 const Trades = () => {
   // const { data } = useSession()
   const { data: investments, error, isLoading, isFetching, remove, refetch, fetchStatus } = useFetch<IInvest[]>({api: apiGetInvestments, key: ['Admininvestments'] })
-
+  const { data: plans } = useFetch<IPlan[]>({api: apiGetPlans, key: ['AdminPlans'] })
   // console.log( { investments  })
 
    const approveInvestMutation = useMutations<IHandleInvest, any>(apiHandleInvest, {
@@ -62,6 +63,45 @@ const Trades = () => {
             <p className={`font-medium ${val === 'completed' ? 'text-yellow-500' : val === 'active' ? 'text-green-500' : 'text-red-500'}`}>{val}</p>
         )
       }
+    },
+    {
+      name: 'profit',
+      label: 'Returns($)',
+      extra: true,
+      custom: (val: string, meta: IInvest) => {
+        // interface IRealTimeProfitDisplayProps {
+        //   startDate: Date;
+        //   initialProfit: number;
+        //   percentageProfit: number;
+        //   numberOfDays: number;
+        // }
+        const plan = plans?.find(plan => plan._id == meta?.plan)
+        console.log("plan exist", plan)
+        const date = new Date(meta?.createdAt!)
+        const startTime = date.getTime()
+        const initialProfit = meta.amount
+        console.log(val, meta)
+        return  (
+          <>
+           { 
+           meta.status === "paused" ? 
+            <p>FRONZEN</p>
+            :
+            meta?.status === "completed" ?
+            <p>
+              ${(meta.amount * plan?.roi!/100) + meta.amount}
+            </p>
+            :
+           <RealTimeProfitDisplay 
+              initialProfit={initialProfit} 
+              startTime={startTime} 
+              percentageProfit={Number(plan?.roi)!} 
+              numberOfDays={plan?.duration!} 
+            />
+            }
+          </>
+        )
+      },
     },
     {
       name: 'createdAt',

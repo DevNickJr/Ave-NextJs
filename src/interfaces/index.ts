@@ -145,7 +145,7 @@ export interface IPlan {
     minimum: number;
     maximum: number;
     duration: number;
-    roi: string;
+    roi: number;
 }
 
 export interface IDeposit {

@@ -13,6 +13,7 @@ import { useTranslation } from '@/hooks/useTranslationContext'
 import { useAuthContext } from '@/hooks/useAuthContext'
 import GentleLoader from '@/components/GentleLoader'
 import { toast } from 'react-toastify'
+import RealTimeProfitDisplay from '@/components/RealTimeProfitDisplay'
 
 const Invest = () => {
   const { language } = useTranslation()
@@ -80,7 +81,46 @@ const Invest = () => {
                 ? 'text-green-500'
                 : 'text-red-500'}`}>{val === "paused" ? "..." : val }</p>
         )
+      },
     },
+    {
+      name: 'profit',
+      label: 'Returns($)',
+      extra: true,
+      custom: (val: string, meta: IInvest) => {
+        // interface IRealTimeProfitDisplayProps {
+        //   startDate: Date;
+        //   initialProfit: number;
+        //   percentageProfit: number;
+        //   numberOfDays: number;
+        // }
+        const plan = plans?.find(plan => plan._id == meta?.plan)
+        console.log("plan exist", plan)
+        const date = new Date(meta?.createdAt!)
+        const startTime = date.getTime()
+        const initialProfit = meta.amount
+        console.log(val, meta)
+        return  (
+          <>
+           { 
+           meta.status === "paused" ? 
+            <p>FRONZEN</p>
+            :
+            meta?.status === "completed" ?
+            <p>
+              ${(meta.amount * plan?.roi!/100) + meta.amount}
+            </p>
+            :
+           <RealTimeProfitDisplay 
+              initialProfit={initialProfit} 
+              startTime={startTime} 
+              percentageProfit={Number(plan?.roi)!} 
+              numberOfDays={plan?.duration!} 
+            />
+            }
+          </>
+        )
+      },
     },
     {
       name: 'createdAt',

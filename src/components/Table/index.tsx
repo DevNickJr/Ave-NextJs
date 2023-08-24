@@ -74,7 +74,7 @@ const Table = <T extends any>({ data, columns, className, colspan, title }: Prop
           <table className="min-w-full text-sm font-light text-left border-none rounded-t-lg table-auto">
             <thead className="font-normal rounded-t">
               <tr className="rounded-t-lg bg-primary"> 
-                <th colSpan={colspan || 4} className="border-none rounded-t-lg">
+                <th colSpan={colspan || 8} className="border-none rounded-t-lg">
                   <div className="flex items-center justify-between gap-4 px-4 py-6 text-white rounded-t-lg md:gap-8 bg-primary">
                     <span>{title || 'Wallet'}</span>
                   </div>
