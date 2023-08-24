@@ -88,7 +88,7 @@ const Hero = ({ t }: IProps) => {
 
   return (
     <div className='box-border relative w-full overflow-hidden text-white bg-center bg-cover lg:h-screen'>
-        <div className="box-border relative top-0 left-0 z-0 w-full h-full opacity-0">
+        <div className="box-border relative top-0 left-0 z-0 w-full h-full pb-16 opacity-0 pt-28 md:pt-40">
       <div className={`box-border top-0 left-0 w-full h-full carousel-item active`}>
         <>
           {
@@ -103,12 +103,12 @@ const Hero = ({ t }: IProps) => {
             )
           }
         </>
-      <div className="backdrop-blur-[1.5px] bg-black/60 w-full h-full flex flex-col md:flex-row justify-center items-center text-xl md:text-3xl box-border pt-28 pb-16 md:pt-40">
+      <div className="backdrop-blur-[1.5px] bg-black/60 w-full h-full flex flex-col md:flex-row justify-center items-center text-xl md:text-3xl box-border">
         <div className='flex flex-col items-center justify-center flex-1 gap-4 p-8 pt-0 md:items-start'>
           <h1 className='mb-3 text-4xl font-extrabold text-center text-white capitalize md:text-left sm:text-4xl lg:text-6xl'>{t?.hero?.slides[0]?.title}</h1>
           <p className='text-sm text-center text-gray-400 md:text-left lg:text-lg'>{t?.hero?.slides[0]?.text}</p>
 
-          <button data-aos="slide-up" className='p-4 px-6 mt-2 text-sm text-white rounded-full md:rounded-md w-fit bg-primary'>{t?.hero?.cta || "Get Started"}</button>
+          <button className='p-4 px-6 mt-2 text-sm text-white rounded-full md:rounded-md w-fit bg-primary'>{t?.hero?.cta || "Get Started"}</button>
         </div>
         <div className="relative flex-1 w-full h-full p-8 lg:flex">
           <Image src={InvestImg} alt="" className="object-cover w-full h-full" />
@@ -118,7 +118,7 @@ const Hero = ({ t }: IProps) => {
       </div>
     </div>          
       {carouselData.map((item, index) => (
-          <div key={index} ref={carouselRef} className="box-border absolute top-0 left-0 z-0 w-full h-full min-h-">
+          <div key={index} ref={carouselRef} className="box-border absolute top-0 left-0 z-0 w-full h-full pb-16 min-h- pt-28 md:pt-40 ">
             <div ref={(el: HTMLDivElement) => (carouselInnerRef.current[index] = el)} className={`box-border top-0 left-0 w-full h-full carousel-item ${index===0 && "active"}`}>
               <>
                 {
@@ -133,12 +133,11 @@ const Hero = ({ t }: IProps) => {
                   )
                 }
               </>
-              <div className="backdrop-blur-[1.5px] bg-black/60 w-full h-full flex flex-col md:flex-row justify-center items-center text-xl md:text-3xl box-border pt-28 pb-16 md:pt-40">
+              <div className="backdrop-blur-[1.5px] absolute top-0 left-0 bg-black/60 w-full h-full flex flex-col md:flex-row justify-center items-center text-xl md:text-3xl box-border pb-16 pt-28 md:pt-40 ">
                 <div className='flex flex-col items-center justify-center flex-1 gap-4 p-8 pt-0 md:items-start'>
                   <h1 className='mb-3 text-4xl font-extrabold text-center text-white capitalize md:text-left sm:text-4xl lg:text-6xl'>{t?.hero?.slides[index]?.title || item.title}</h1>
                   <p className='text-sm text-center text-gray-400 md:text-left lg:text-lg'>{t?.hero?.slides[index]?.text || item.text}</p>
-          
-                  <button data-aos="slide-up" className='p-4 px-6 mt-2 text-sm text-white rounded-full md:rounded-md w-fit bg-primary'>{t?.hero?.cta || "Get Started"}</button>
+                  <button className='p-4 px-6 mt-2 text-sm text-white rounded-full md:rounded-md w-fit bg-primary'>{t?.hero?.cta || "Get Started"}</button>
                 </div>
                 <div className="relative flex-1 w-full h-full p-8 lg:flex">
                   <Image src={InvestImg} alt="" className="object-cover w-full h-full" />
