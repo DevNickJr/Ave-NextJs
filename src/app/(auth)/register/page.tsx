@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { apiRegister } from '@/services/AuthService'
 import Loader from '@/components/Loader'
 import countryData from "@/lib/countries.json"
+import currenciesData from '@/lib/currencies.json'
 import { IPageContent } from '@/dictionaries/register'
 import { RegisterContent } from '@/dictionaries/register'
 import { useTranslation } from '@/hooks/useTranslationContext'
@@ -24,38 +25,38 @@ const initialState: IUserRegister = {
   currency: ''  
 }
 
-const currencies = [
-  {
-    "code": "AUD",
-    "name": "Austrillian Dollar",
-    "symbol": "$"
-  },
-  {
-    "code": "BWP",
-    "name": "Botswana Pula",
-    "symbol": "P"
-  },
-  {
-    "code": "EUR",
-    "name": "Euro",
-    "symbol": "€"
-  },
-  {
-    "code": "GBP",
-    "name": "British Pound",
-    "symbol": "£"
-  },
-  {
-    "code": "USD",
-    "name": "US Dollar",
-    "symbol": "$"
-  },
-  {
-    "code": "ZAR",
-    "name": "South African Rand",
-    "symbol": "R"
-  }
-]
+// const currencies = [
+//   {
+//     "code": "AUD",
+//     "name": "Austrillian Dollar",
+//     "symbol": "$"
+//   },
+//   {
+//     "code": "BWP",
+//     "name": "Botswana Pula",
+//     "symbol": "P"
+//   },
+//   {
+//     "code": "EUR",
+//     "name": "Euro",
+//     "symbol": "€"
+//   },
+//   {
+//     "code": "GBP",
+//     "name": "British Pound",
+//     "symbol": "£"
+//   },
+//   {
+//     "code": "USD",
+//     "name": "US Dollar",
+//     "symbol": "$"
+//   },
+//   {
+//     "code": "ZAR",
+//     "name": "South African Rand",
+//     "symbol": "R"
+//   }
+// ]
 
 const Register = () => {
   const { language } = useTranslation()
@@ -174,7 +175,7 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
                   <select value={user?.currency} onChange={(e) => dispatch({ type: "currency", payload: e.target.value})} className='w-full p-2 px-3 text-sm border rounded-md text-black/70' name="currency" id="currency">
                     <option value="">{t?.currency || "Currency"}</option>
                     {
-                      currencies.map(currency => <option key={currency.code} value={currency.code}>{currency.code}</option>)
+                      currenciesData?.currencies.map(currency => <option key={currency.code} value={currency.code}>{currency.code}</option>)
                     }
                   </select>
                   {/* <input required value={user?.currency} onChange={(e) => dispatch({ type: "currency", payload: e.target.value})}  type="password" name="currency" id="currency" className='w-full p-2 px-3 border rounded-md placeholder:text-sm' placeholder='Currency' /> */}

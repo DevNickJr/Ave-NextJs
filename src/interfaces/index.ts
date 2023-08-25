@@ -65,6 +65,7 @@ export interface IUser extends IUserRegister {
         back: string
     },
     referral_id?: string
+    symbol?: string  
 }
 
 export interface IVerifyKYC {

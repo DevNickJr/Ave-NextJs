@@ -20,7 +20,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
   React.useEffect(() => {
     if (!user?.is_admin) {
-      toast.error('You are not authorized to view this page')
+      // toast.error('You are not authorized to view this page')
       return router.push("/dashboard")
     }
   }, [user, router])

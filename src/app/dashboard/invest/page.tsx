@@ -67,7 +67,7 @@ const Invest = () => {
   const columns: ITableColumn[] = [
     {
       name: 'amount',
-      label: 'Amount($)',
+      label: `Amount(${user?.symbol || "$"})`,
     },
     {
       name: 'plan',
@@ -96,7 +96,7 @@ const Invest = () => {
     },
     {
       name: 'profit',
-      label: 'Returns($)',
+      label: `Returns(${user?.symbol || "$"})`,
       extra: true,
       custom: (val: string, meta: IInvest) => {
         // interface IRealTimeProfitDisplayProps {
@@ -119,7 +119,7 @@ const Invest = () => {
             :
             meta?.status === "completed" ?
             <p>
-              ${(meta.amount * plan?.roi!/100) + meta.amount}
+              {user?.symbol || "$"}{(meta.amount * plan?.roi!/100) + meta.amount}
             </p>
             :
            <RealTimeProfitDisplay 
@@ -199,7 +199,7 @@ const Invest = () => {
             <div key={index} className="flex flex-col text-center border rounded-md shadow-md border-primary">
               <div className="flex flex-col gap-1 p-2 py-4 text-center text-white border-b rounded-t-md bg-primary">
                 <h4 className='text-lg'>{plan.name} {t?.plan || "PLAN"}</h4>
-                <p className='text-sm'>{t?.range || "Investment Range"}: ${plan.minimum} - ${plan.maximum}</p>
+                <p className='text-sm'>{t?.range || "Investment Range"}: {user?.symbol || "$"}{plan.minimum} - {user?.symbol || "$"}{plan.maximum}</p>
               </div>
               <div className="p-3 px-12 border-b">{t?.duration || "Duration"}: {plan.duration} {t?.days || "Days"}</div>
               <div className="p-3 px-12 border-b">{t?.roi || "ROI"}: {plan.roi}%</div>
@@ -219,15 +219,15 @@ const Invest = () => {
           <div className="flex flex-col max-w-xs gap-4 px-4 mt-2">
             <div className="flex items-center justify-between gap-6 p-3 font-semibold text-white rounded-md bg-primary">
               <span>{t?.wallet_balance || "Wallet Balance"}</span>
-            <span>${userDetails?.balance}</span>
+            <span>{user?.symbol || "$"}{userDetails?.balance}</span>
             </div>
             <div className="flex items-center justify-between gap-6 px-3 text-xs">
               <span>{t?.minimum || "Minimum Deposit"}</span>
-              <span>${investment?.minimum}</span>
+              <span>{user?.symbol || "$"}{investment?.minimum}</span>
             </div>
             <div className="flex items-center justify-between gap-6 px-3 text-xs">
               <span>{t?.maximum || "Maximum Deposit"}</span>
-              <span>${investment?.maximum}</span>
+              <span>{user?.symbol || "$"}{investment?.maximum}</span>
             </div>
             <div className="flex items-center justify-between gap-6 text-sm">
               <input value={amount} onChange={(e) => setAmount(e.target.value)} type="text" name="" id="" placeholder={t?.amount || 'Enter Amount'} min={investment?.minimum} max={investment?.maximum} className='w-full p-3 border border-black rounded-md' />

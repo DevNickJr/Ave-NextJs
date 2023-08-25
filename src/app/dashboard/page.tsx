@@ -36,6 +36,8 @@ const Home = () => {
 
   const user = context?.user
 
+  // console.log({ dashboard: user})
+
   
   const { data: wallets, error, isLoading, isFetching, remove, fetchStatus } = useFetch<IWallet[]>({api: apiGetWallets, key: ['wallets'] })
 
@@ -81,20 +83,6 @@ const Home = () => {
     },
   ]
 
-  const tableData = [
-    {
-        name: 'Dollar',
-        full_name: '$0.00',
-    },
-    {
-        name: 'Bitcoin',
-        full_name: '$0.00',
-    },
-    {
-        matric_no: 'Ethereum',
-        full_name: '$0.00',
-    },
-  ]
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6 bg-black/5'>
@@ -128,13 +116,13 @@ const Home = () => {
         <div className='flex flex-col gap-4 mb-12 lg:flex-row'>
           <div className="flex flex-col flex-1 gap-4 p-5 text-sm font-bold bg-white rounded-md shadow-md">
               <span className='font-bold text-primary'>{tAccount?.regular || "Regular Account"}</span>
-              <p>${userDetails?.balance || '0.00'}</p>
+              <p>{user?.symbol || "$"}{userDetails?.balance || '0.00'}</p>
               <span className='font-bold text-primary'>{tAccount?.earnings || "Total Earnings"}</span>
-              <p>${userDetails?.total_earnings || '0.00'}</p>
+              <p>{user?.symbol || "$"}{userDetails?.total_earnings || '0.00'}</p>
               <span className='font-bold text-primary'>{tAccount?.investment || "Total Investment"}</span>
-              <p>${userDetails?.total_investment || '0.00'}</p>
+              <p>{user?.symbol || "$"}{userDetails?.total_investment || '0.00'}</p>
               <span className='font-bold text-primary'>{tAccount?.bonus ||"Bonus"}</span>
-              <p>${userDetails?.bonus || '0.00'}</p>
+              <p>{user?.symbol || "$"}{userDetails?.bonus || '0.00'}</p>
               <Link href={"/dashboard/invest"} className='flex items-center justify-center p-2 px-3 text-sm text-white bg-primary'>{tAccount?.invest || "Start Investment"}</Link>
           </div>
         </div>

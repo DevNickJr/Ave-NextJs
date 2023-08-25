@@ -20,6 +20,7 @@ import useCopyToClipboard from '@/hooks/useCopy'
 import { MdCopyAll } from 'react-icons/md'
 import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
 import { CryptoCurrencyMarket } from "react-ts-tradingview-widgets";
+import currenciesData from '@/lib/currencies.json'
 
 
 const Deposit = () => {
@@ -118,7 +119,7 @@ const Deposit = () => {
                     </div>
                     <div className="flex justify-between flex-items-center">
                       <span>{formatDate(deposit.createdAt)}</span>
-                      <span>${deposit.amount}</span>
+                      <span>{user?.symbol || "$"}{deposit.amount}</span>
                     </div>
                   </div>
               ): (

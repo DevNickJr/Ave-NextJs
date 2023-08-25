@@ -14,6 +14,8 @@ import useMutation from '@/hooks/useMutation'
 import { useAuthContext } from '@/hooks/useAuthContext'
 import Image from 'next/image'
 import Logo2 from '@/assets/losgo.jpg'
+import currenciesData from '@/lib/currencies.json'
+
 
 
 const initialState: IUserLogin = {
@@ -42,8 +44,15 @@ const loginMutation = useMutation<IUserLogin, any>(
   apiLogin,
   {
     onSuccess: (data) => {
-        console.log("data", data)
-        context.dispatch({ type: "LOGIN", payload: data})
+        // console.log("data", data)
+
+        const symbol = currenciesData?.currencies?.find((currency) => currency?.code === data?.currency)
+  
+        context.dispatch({ type: "LOGIN", payload: {
+          symbol: symbol?.symbol || "$",
+          ...data
+        }})
+        
         toast.success("Logged in Successfully.")
         return router.push('/dashboard')
     },
@@ -73,7 +82,7 @@ const handleLoginMutation = async (e: FormEvent<HTMLFormElement>): Promise<void>
             }
         })
 
-        console.log("res", res)
+        // console.log("res", res)
 
         if (!res?.error) {
           return router.push('/dashboard')

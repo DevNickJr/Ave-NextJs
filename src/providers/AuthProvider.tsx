@@ -25,6 +25,7 @@ const init: IUser = {
     last_name: '',    
     nationality: '',
     currency: '',
+    symbol: '',
 }
 
 let user = null

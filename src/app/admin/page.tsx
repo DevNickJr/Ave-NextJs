@@ -15,6 +15,8 @@ import GentleLoader from "@/components/GentleLoader"
 const Admin = () => {
   // const { data } = useSession()
   const { data: users, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IUser[]>({api: apiGetUsers, key: ['users'] })
+  const [selectedUser, setSelectedUser] = React.useState<IUser | null>(null)
+  const [userOpen, setUserOpen] = React.useState(false)
 
   // console.log( { users  })
 
@@ -36,6 +38,11 @@ const Admin = () => {
 
   const denyUserHandler = (id: string) => {
     verifyUser.mutate({ _id: id, status: 'failed' }) 
+  }
+  
+  const handleSelectUser = (user: IUser) => {
+    setSelectedUser(user)
+    setUserOpen(true)
   }
 
   // console.log({users})
@@ -120,11 +127,15 @@ const Admin = () => {
             <div className='flex items-center space-x-2'>
               <button onClick={() => verifyUserHandler(meta?._id!)} className='text-white bg-primary px-2 py-1.5 rounded-md'>Verify</button>
               <button onClick={() => denyUserHandler(meta?._id!)} className='border-red-200 border px-2 py-1.5 rounded-md text-red-500'>Deny</button>
+              {/* view user details */}
+              <button onClick={() => handleSelectUser(meta)} className='text-white bg-primary px-2 py-1.5 rounded-md'>View User Details</button>
             </div>
         )
       }
     }
   ]
+
+  console.log({ selectedUser })
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
@@ -135,6 +146,41 @@ const Admin = () => {
         <div className='mb-6'>
           <Table title='Users' data={users || []} columns={columns} colspan={8} />
         </div>
+        {
+          userOpen && 
+          <div className="fixed top-0 left-0 z-40 w-full h-full overflow-x-hidden overflow-y-auto outline-none">
+          <div 
+            className='sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto overflow-scroll'
+          >
+            <div className='relative flex flex-col w-full p-4 overflow-scroll bg-white rounded-md'>
+              <div className='flex items-center justify-between mb-4'>
+                <h2 className='text-lg font-semibold'>User Details</h2>
+                <button onClick={() => setUserOpen(false)} className='text-white bg-primary px-2 py-1.5 rounded-md'>Close</button>
+              </div>
+              <div className='flex flex-col gap-4'>
+                {
+                  selectedUser && (
+                    Object.keys(selectedUser).map((key, index) => {
+                      console.log({ key, index })
+                      if (true) {
+                        console.log(1)
+                        return <div key={key} className='flex flex-col gap-2'>
+                          <p className='font-semibold'>{key}</p>
+                          <p>{String(selectedUser[key as keyof IUser])}</p>
+                        </div>
+                      }
+                      return <></>
+                      }
+                    )
+                  )
+                }
+              </div>
+            </div>
+                
+                  
+          </div>
+          </div>
+        }
     </main>
   )
 }
