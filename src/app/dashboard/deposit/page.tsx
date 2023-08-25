@@ -18,6 +18,9 @@ import GentleLoader from '@/components/GentleLoader'
 import { apiGetBanks } from '@/services/AdminService'
 import useCopyToClipboard from '@/hooks/useCopy'
 import { MdCopyAll } from 'react-icons/md'
+import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
+import { CryptoCurrencyMarket } from "react-ts-tradingview-widgets";
+
 
 const Deposit = () => {
   const { language } = useTranslation()
@@ -132,7 +135,7 @@ const Deposit = () => {
             <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
             {t?.cryto_wallets || 'Cryto Wallets'}
           </h4>
-          <div className="flex flex-col gap-4 md:flex-row">
+          <div className="flex flex-col gap-4 lg:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
               <select onChange={(e) => setChioce(e.target.value)} name="" id="">
                 <option value="">{t?.choose_wallet || "Choose a payment method"}</option>
@@ -159,8 +162,12 @@ const Deposit = () => {
                   
               }
             </div>
-            <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
+            <div className="flex-1 rounded-md shadow-md min-h-[350px]">
+              <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
             </div>
+            {/* <div className="flex-1 rounded-md shadow-md min-h-[350px]">
+             <AdvancedRealTimeChart theme="dark" autosize></AdvancedRealTimeChart>
+            </div> */}
           </div>
         </>
       )}
@@ -212,7 +219,8 @@ const Deposit = () => {
               </div>}
                   
             </div>
-            <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
+            <div className="flex-1 rounded-md shadow-md min-h-[350px]">
+              <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
             </div>
           </div>
         </>
@@ -235,7 +243,8 @@ const Deposit = () => {
               <input onChange={e => uploadImage(e.target.files![0])} type="file" className='rounded-md' placeholder='Upload' />
           <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleDeposit}>{t?.submit || "Submit"}</button>
             </div>
-            <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
+            <div className="flex-1 rounded-md shadow-md min-h-[350px]">
+              <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
             </div>
           </div>
         </>

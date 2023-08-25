@@ -26,6 +26,9 @@ import { HomeData } from '@/dictionaries/home'
 import useFetch from '@/hooks/useFetch'
 import { IPlan } from '@/interfaces'
 import { apiGetPlans } from '@/services/AdminService'
+import { TickerTape } from "react-ts-tradingview-widgets";
+
+import { Ticker } from "react-ts-tradingview-widgets";
 
 
 const stepsImg = [
@@ -88,6 +91,7 @@ export default function Home() {
       <Header />
       <main className="">
         <Hero t={t} />
+        <TickerTape colorTheme="light"></TickerTape>
         <section className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
             <h2 className='text-3xl font-semibold text-primary'>{t?.howItWorks.title || "How It Works"}</h2>

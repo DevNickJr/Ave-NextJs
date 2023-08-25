@@ -13,6 +13,7 @@ import { useAuthContext } from '@/hooks/useAuthContext'
 import { BiLeftArrow } from 'react-icons/bi'
 import GentleLoader from '@/components/GentleLoader'
 import { toast } from 'react-toastify'
+import { CryptoCurrencyMarket } from 'react-ts-tradingview-widgets'
 
 
 const Withdrawal = () => {
@@ -109,7 +110,8 @@ const Withdrawal = () => {
               <input onChange={(e) => setWallet(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.wallet || 'Enter BTC Wallet'} />
           <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleWithdrawal}>{t?.submit || "Submit"}</button>
             </div>
-            <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
+            <div className="flex-1 rounded-md shadow-md min-h-[350px]">
+              <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
             </div>
           </div>
         </>

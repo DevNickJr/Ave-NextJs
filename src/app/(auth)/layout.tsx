@@ -16,7 +16,6 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <Header />
       <div className='flex w-full my-6 overflow-hidden sm:my-12 md:my-24 md:mt-24 lg:h-screen'>
         <div className="relative flex-1 p-4 py-6 overflow-y-auto md:px-12">
-            {/* <Image src={Logo} alt="Auth Image" className='h-12 mb-4' /> */}
             {/* <h1 className='text-3xl font-bold text-primary'>AVESTOCK</h1> */}
             {children}
         </div>

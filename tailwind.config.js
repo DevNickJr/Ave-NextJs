@@ -19,7 +19,7 @@ module.exports = {
         // dark: "#BBA89C",
         // dark: "#9EB0A2",
         // primaryDark: '#2167B4',
-      }
+      },
     },
   },
   plugins: [

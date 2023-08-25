@@ -12,6 +12,9 @@ import { useTranslation } from '@/hooks/useTranslationContext'
 import { apiLogin } from '@/services/AuthService'
 import useMutation from '@/hooks/useMutation'
 import { useAuthContext } from '@/hooks/useAuthContext'
+import Image from 'next/image'
+import Logo2 from '@/assets/losgo.jpg'
+
 
 const initialState: IUserLogin = {
   email: '',

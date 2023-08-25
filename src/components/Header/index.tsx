@@ -61,6 +61,26 @@ const Header = () => {
       setTranslated(HeaderContent[language])
     }, [language])
 
+  //   const googleTranslateElementInit = () => {
+  //     new window.google.translate.TranslateElement(
+  //       {
+  //         pageLanguage: "en",
+  //         autoDisplay: false
+  //       },
+  //       "google_translate_element"
+  //     );
+  //   };
+    
+  // React.useEffect(() => {
+  //   var addScript = document.createElement("script");
+  //   addScript.setAttribute(
+  //     "src",
+  //     "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  //   );
+  //   document.body.appendChild(addScript);
+  //   window.googleTranslateElementInit = googleTranslateElementInit;
+  // }, []);
+
   return (
     <>
       <header className='bg-white text-black shadow-md flex items-center justify-between py-2 px-4 md:py-5 md:px-10 lg:px-24 fixed top-0 left-0 z-20 w-full min-h-[50px]'>
@@ -110,6 +130,8 @@ const Header = () => {
               ))
             }
           </select>
+          {/* <div id="google_translate_element"></div> */}
+          {/*  */}
           <BiMenu onClick={() => setIsOpen(true)} className='relative z-50 text-3xl font-bold cursor-pointer md:hidden text-primary' />
         </div>
         
