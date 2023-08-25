@@ -12,7 +12,7 @@ import Logo2 from '@/assets/losgo.jpg'
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
-    <main>
+    <main className='text-black bg-white'>
       <Header />
       <div className='flex w-full my-6 overflow-hidden sm:my-12 md:my-24 md:mt-24 lg:h-screen'>
         <div className="relative flex-1 p-4 py-6 overflow-y-auto md:px-12">
