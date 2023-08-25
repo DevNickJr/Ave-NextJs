@@ -88,7 +88,6 @@ export default function Home() {
       <Header />
       <main className="">
         <Hero t={t} />
-        {/* <div id="google_translate_element"></div> */}
         <section className='px-12 py-20 text-black bg-white lg:px-24'>
           <div data-aos="fade-in" className='flex flex-col items-center gap-3 mb-12 text-center'>
             <h2 className='text-3xl font-semibold text-primary'>{t?.howItWorks.title || "How It Works"}</h2>

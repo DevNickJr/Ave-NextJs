@@ -131,7 +131,7 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 
 
   return (
-    <div className='bg-white md:pl-24'>
+    <div className='max-w-md mx-auto bg-white lg:max-w-none lg:pl-24'>
       {registerMutation?.isLoading && <Loader />}
       <div className="flex flex-col items-center gap-4 mt-16 mb-8">
           <h1 className='text-2xl font-bold'>{t?.title || "Create an Account"}</h1>

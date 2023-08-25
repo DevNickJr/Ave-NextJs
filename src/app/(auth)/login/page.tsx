@@ -85,7 +85,7 @@ const handleLoginMutation = async (e: FormEvent<HTMLFormElement>): Promise<void>
 }
 
   return (
-    <div className='bg-white md:pl-24'>
+    <div className='max-w-md mx-auto bg-white lg:max-w-none lg:pl-24'>
       {(loading || loginMutation?.isLoading) && <Loader />}
       <div className="flex flex-col items-center gap-4 mt-16 mb-12">
           <h1 className='text-2xl font-bold'>{t?.title || "Welcome Back!"}</h1>
