@@ -61,25 +61,25 @@ const Header = () => {
       setTranslated(HeaderContent[language])
     }, [language])
 
-  //   const googleTranslateElementInit = () => {
-  //     new window.google.translate.TranslateElement(
-  //       {
-  //         pageLanguage: "en",
-  //         autoDisplay: false
-  //       },
-  //       "google_translate_element"
-  //     );
-  //   };
+    const googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          autoDisplay: false
+        },
+        "google_translate_element"
+      );
+    };
     
-  // React.useEffect(() => {
-  //   var addScript = document.createElement("script");
-  //   addScript.setAttribute(
-  //     "src",
-  //     "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-  //   );
-  //   document.body.appendChild(addScript);
-  //   window.googleTranslateElementInit = googleTranslateElementInit;
-  // }, []);
+  React.useEffect(() => {
+    var addScript = document.createElement("script");
+    addScript.setAttribute(
+      "src",
+      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    );
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
+  }, []);
 
   return (
     <>
@@ -114,7 +114,7 @@ const Header = () => {
           </ul>
         </nav>
         <div className='flex items-center gap-2'>
-          <select 
+          {/* <select 
             value={language} 
             onChange={(e) => {
               const value: ILanguage = e.target.value as ILanguage
@@ -129,8 +129,8 @@ const Header = () => {
                 <option className='bg-white' key={lang.id} value={lang.code}>{lang.name}</option>
               ))
             }
-          </select>
-          {/* <div id="google_translate_element"></div> */}
+          </select> */}
+          <div id="google_translate_element"></div>
           {/*  */}
           <BiMenu onClick={() => setIsOpen(true)} className='relative z-50 text-3xl font-bold cursor-pointer md:hidden text-primary' />
         </div>
