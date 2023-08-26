@@ -119,7 +119,7 @@ const Settings = () => {
       }
       <h2 className='mb-6 text-lg font-semibold'>Account Settings: Personalize Your Experience</h2>
       {step === "home" && (
-        <>
+       <div>
           <div className="p-5 mb-6 bg-white rounded-md">
             <h4 className='mb-4 font-semibold'>{t?.general || "General"}</h4>
             <div onClick={() => setStep('profile')} className="w-fit cursor-pointer flex flex-col gap-1 p-4 rounded-md shadow-md min-w-[200px] bg-primary text-white">
@@ -154,10 +154,10 @@ const Settings = () => {
               </p>
             </Link>
           </div>
-        </>
+        </div>
       )}
       {step === "profile" && (
-        <>
+       <div>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 max-w-lg gap-4 p-5 bg-white rounded-md">
               <h4 className='flex items-center gap-4 mb-4 font-semibold'>
@@ -186,10 +186,10 @@ const Settings = () => {
               </div>              
             </div>
           </div>
-        </>
+        </div>
       )}
       {step === "security" && (
-        <>
+       <div>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 max-w-lg gap-4 p-5 bg-white rounded-md">
               <h4 className='flex items-center gap-4 mb-4 font-semibold'>
@@ -214,7 +214,7 @@ const Settings = () => {
               </div>              
             </div>
           </div>
-        </>
+        </div>
       )}
     </main>
   )

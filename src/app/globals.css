@@ -103,7 +103,7 @@ box-shadow: none !important;
   padding-left: 0.75rem/* 12px */;
   padding-right: 0.75rem/* 12px */;
   cursor: pointer;
-  width: 7rem/* 112px */;
+  /* width: 7rem112px; */
   height: 2.5rem/* 40px */;
   border-width: 1px;
   border-style: solid;
@@ -132,5 +132,10 @@ box-shadow: none !important;
 /* make the above comment html span element display none */
 
 span.label-dzbd7lyV.label-e9c6dycV.end-dzbd7lyV.top-dzbd7lyV.snap-dzbd7lyV.js-copyright-label {
+  display: none !important;
+}
+
+/* id="goog-gt-tt" */
+#goog-gt-tt {
   display: none !important;
 }

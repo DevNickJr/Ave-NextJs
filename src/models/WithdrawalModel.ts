@@ -14,9 +14,26 @@ const WithdrawalSchema: Schema = new Schema<IWithdrawal>({
     type: Number,
     required: true,
   },
+  account_number: {
+    type: String,
+  },
+  account_name: {
+    type: String,
+  },
+  bank_name: {
+    type: String,
+  },
   wallet: {
     type: String,
-    required: true,
+    // required: true,
+  },
+  type: {
+    type: String,
+    enum: ['BANK', "CRYPTO"]
+  },
+  asset: {
+    type: String,
+    enum: ["BTC", "ETH", "BNB"]
   },
   // proof: {
     // type: String,

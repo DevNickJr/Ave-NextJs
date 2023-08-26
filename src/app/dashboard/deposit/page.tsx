@@ -92,7 +92,7 @@ const Deposit = () => {
       }
       <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Deposit"}</h2>
       {step === 1 && (
-        <>
+       <div>
           <div className='grid gap-4 mb-6 mb-12 md:grid-cols-2 lg:grid-cols-3'>
             <div onClick={() => setStep(2)} className="cursor-pointer flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px]">
               <p className='font-bold text-primary'>{t?.via_crypto || "Fund Via Cryto Wallet"}</p>
@@ -128,10 +128,10 @@ const Deposit = () => {
                 </div>
             )}
           </div>
-        </>
+        </div>
       )}
       {step === 2 && (
-        <>
+       <div>
           <h4 className='flex items-center gap-4 mb-4 text-xs font-semibold'>
             <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
             {t?.cryto_wallets || 'Cryto Wallets'}
@@ -170,10 +170,10 @@ const Deposit = () => {
              <AdvancedRealTimeChart theme="dark" autosize></AdvancedRealTimeChart>
             </div> */}
           </div>
-        </>
+        </div>
       )}
       {step === 3 && (
-        <>
+       <div>
          <h4 className='flex items-center gap-4 mb-4 text-xs font-semibold'>
             <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
             {t?.bank_title || "Bank Details"}
@@ -224,10 +224,10 @@ const Deposit = () => {
               <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
             </div>
           </div>
-        </>
+        </div>
       )}
       {step === 4 && (
-        <>
+       <div>
          <h4 className='flex items-center gap-4 mb-4 text-xs font-semibold'>
             <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
             {t?.payment_proof || "Payment Proof"}
@@ -248,7 +248,7 @@ const Deposit = () => {
               <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
             </div>
           </div>
-        </>
+        </div>
       )}
     </main>
   )

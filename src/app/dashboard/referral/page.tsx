@@ -42,7 +42,7 @@ const Refer = () => {
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
       <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Referral Program: Share and Earn Together"}</h2>
-        <>
+        
           <div className="flex flex-col gap-1 p-4 bg-white rounded-md shadow-md min-w-[200px] mb-6">
             <p className='text-lg'>0</p>
             <p className='font-semibold text-primary'>{t?.refer || "Total Referral"}</p>
@@ -74,7 +74,7 @@ const Refer = () => {
               </div>
             </div>
           </div>
-        </>
+       
     </main>
   )
 }

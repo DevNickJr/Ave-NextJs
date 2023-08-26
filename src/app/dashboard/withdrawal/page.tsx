@@ -14,11 +14,13 @@ import { BiLeftArrow } from 'react-icons/bi'
 import GentleLoader from '@/components/GentleLoader'
 import { toast } from 'react-toastify'
 import { CryptoCurrencyMarket } from 'react-ts-tradingview-widgets'
-
+import { WithdrawalType, assetType } from '@/interfaces'
 
 const Withdrawal = () => {
   const { language } = useTranslation()
   const [t, setTranslated] = React.useState<IPageContent | null>(null)
+
+
 
   React.useEffect(() => {
     setTranslated(DashboardWithdrawContent[language])
@@ -33,6 +35,11 @@ const Withdrawal = () => {
   const [step, setStep] = React.useState(1)
   const [amount, setAmount] = React.useState('')
   const [wallet, setWallet] = React.useState('')
+  const [assetType, setAssetType] = React.useState<assetType | undefined>()
+  const [bankName, setBankName] = React.useState<string>('')
+  const [accountName, setAccountName] = React.useState<string>('')
+  const [accountNumber, setAccountNumber] = React.useState<string>('')
+  
 
   const { data: withdrawals, error: withdrawalsError, isLoading: withdrawalsLoading, refetch } = useFetch<IWithdrawal[]>({api: apiGetUserWithdrawals, param: user?._id, key: ['userWithdrawals'] })
 
@@ -51,13 +58,26 @@ const Withdrawal = () => {
     }   
   })
 
-  const handleWithdrawal = () => {
+  const handleWithdrawalViaBank = () => {
     withdrawalMutation.mutate({
       email: user?.email!,      
       userId: user?._id!,
-      wallet,
+      type: "BANK",
       amount: +amount,
-      // proof: 'image_to_firebase',      
+      bank_name: bankName,
+      account_name: accountName,
+      account_number: accountNumber,
+    })
+  }
+  
+  const handleWithdrawalViaCrypto = () => {
+    withdrawalMutation.mutate({
+      email: user?.email!,      
+      userId: user?._id!,
+      type: "CRYPTO",
+      amount: +amount,
+      wallet,
+      asset: assetType
     })
   }
 
@@ -68,10 +88,14 @@ const Withdrawal = () => {
       }
       <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Withdrawal"}</h2>
       {step === 1 && (
-        <>
+       <div>
           <div className='grid gap-4 mb-6 md:grid-cols-2 lg:grid-cols-3'>
             <div onClick={() => setStep(2)} className="cursor-pointer flex flex-col gap-1 p-4 bg-primary text-white rounded-md shadow-md min-w-[200px]">
-              <p className='font-semibold'>{t?.subtitle || "Withdraw Funds"}</p>
+              <p className='font-semibold'>{t?.subtitle || "Withdraw Funds Via Wallet"}</p>
+              <p className='text-xs'>{t?.subtitle_text || "click to initiate withdrawal"}</p>
+            </div>
+            <div onClick={() => setStep(3)} className="cursor-pointer flex flex-col gap-1 p-4 bg-primary text-white rounded-md shadow-md min-w-[200px]">
+              <p className='font-semibold'>{t?.via_bank || "Withdraw Funds Via Bank"}</p>
               <p className='text-xs'>{t?.subtitle_text || "click to initiate withdrawal"}</p>
             </div>
           </div>
@@ -97,24 +121,49 @@ const Withdrawal = () => {
               )   
             }
           </div>
-        </>
+       </div>
       )}
       {step === 2 && (
-        <>
+       <div>
+          <h4 className='flex items-center gap-4 mb-4 font-semibold'>
+              <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
+            </h4>
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
+              <select onChange={(e) => setAssetType(e.target.value as assetType)} className='p-3 rounded-md'>
+                <option value="">Select Asset Type</option>
+                <option value="BNB">{"BNB"}</option>
+                <option value="ETH">{"ETH"}</option>
+                <option value="BTC">{"BTC"}</option>
+              </select>
+              <input onChange={(e) => setAmount(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.amount || 'Enter Amount'} />
+              <input onChange={(e) => setWallet(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.wallet || 'Enter Wallet Address'} />
+          <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleWithdrawalViaCrypto}>{t?.submit || "Submit"}</button>
+            </div>
+            <div className="flex-1 rounded-md shadow-md min-h-[350px]">
+              <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
+            </div>
+          </div>
+       </div>
+      )}
+      {step === 3 && (
+       <div>
           <h4 className='flex items-center gap-4 mb-4 font-semibold'>
               <BiLeftArrow className={'cursor-pointer'} onClick={() => setStep(1)} size={"1.3rem"} />
             </h4>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
               <input onChange={(e) => setAmount(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.amount || 'Enter Amount'} />
-              <input onChange={(e) => setWallet(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.wallet || 'Enter BTC Wallet'} />
-          <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleWithdrawal}>{t?.submit || "Submit"}</button>
+              <input onChange={(e) => setBankName(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.bank_name || 'Enter Bank Name'} />
+              <input onChange={(e) => setAccountName(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.account_name || 'Enter Account Name'} />
+              <input onChange={(e) => setAccountNumber(e.target.value)} type="text" className='p-3 rounded-md' placeholder={t?.account_number || 'Enter Account Number'} />
+              <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleWithdrawalViaBank}>{t?.submit || "Submit"}</button>
             </div>
             <div className="flex-1 rounded-md shadow-md min-h-[350px]">
               <CryptoCurrencyMarket colorTheme="dark" width="100%" height={400}></CryptoCurrencyMarket>
             </div>
           </div>
-        </>
+       </div>
       )}
     </main>
   )

@@ -185,12 +185,21 @@ export interface IInvest {
     }
 }
 
+export type WithdrawalType = 'BANK' | 'CRYPTO'
+export type assetType = "BTC" | "ETH" | "BNB"
+
 export interface IWithdrawal {
     _id?: string;
     email: string;
     userId: string;
     amount: number;
-    wallet: string;
+    type: WithdrawalType;
+    bank_name?: string;
+    account_name?: string;
+    account_number?: string;
+    // account?: string;
+    asset?: assetType;
+    wallet?: string;
     // proof: string;
     status?: string;
     createdAt?: string;

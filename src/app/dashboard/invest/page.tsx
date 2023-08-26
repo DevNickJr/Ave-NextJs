@@ -112,7 +112,7 @@ const Invest = () => {
         const initialProfit = meta.amount
         console.log(val, meta)
         return  (
-          <>
+          <div className="">
            { 
            meta.status === "paused" ? 
             <p>FRONZEN</p>
@@ -129,7 +129,7 @@ const Invest = () => {
               numberOfDays={plan?.duration!} 
             />
             }
-          </>
+            </div>
         )
       },
     },

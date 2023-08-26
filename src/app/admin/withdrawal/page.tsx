@@ -45,13 +45,59 @@ const Withdrawal = () => {
       label: "Amount",
     },
     {
+      name: 'type',
+      label: 'Type',
+    },
+    {
       name: 'wallet',
       label: 'Wallet',
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <p>{val || "null"}</p>
+        )
+      }
     },
-    // {
-    //   name: 'proof',
-    //   label: 'Proof',
-    // },
+    {
+      name: 'asset',
+      label: 'Asset',
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <p>{val || "null"}</p>
+        )
+      }
+    },
+    {
+      name: 'account_number',
+      label: 'Account Number',
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <p>{val || "null"}</p>
+        )
+      }
+    },
+    {
+      name: 'account_name',
+      label: 'Account Name',
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <p>{val || "null"}</p>
+        )
+      }
+    },
+    {
+      name: 'bank_name',
+      label: 'Bank Name',
+      extra: true,
+      custom: (val: string, meta: any) => {
+        return  (
+            <p>{val || "null"}</p>
+        )
+      }
+    },
     {
       name: 'status',
       label: 'Status',

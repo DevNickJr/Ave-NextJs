@@ -18,7 +18,6 @@ export async function GET(req: NextRequest) {
         // if (!session) {
         //   return res.status(401).json({ message: "You must be signed in to access this" });
         // } 
-      
         
         const withdrawal = await WithdrawalModel.find({}).sort({ createdAt: -1 }).lean();
     
@@ -50,7 +49,7 @@ export async function POST(req: NextRequest) {
       const body: IWithdrawal = await req.json()
 
 
-      if (!body.userId || !body.email || !body.amount || !body.wallet) {
+      if (!body.userId || !body.email || !body.amount || !body.type) {
           return NextResponse.json({ message: 'Please fill in all fields' }, { status: 400 });
       }
 

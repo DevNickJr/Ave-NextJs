@@ -99,7 +99,7 @@ const Deposit = () => {
       }
       <h2 className='mb-6 text-lg font-semibold'>{t?.title || "Upload KYC Documents: Verify Your Identity"}</h2>
       {step === 1 && (
-        <>
+       <div>
           <div className='grid gap-4 mb-6 mb-12 md:grid-cols-2 lg:grid-cols-3'>
             <div onClick={() => setStep(2)} className="cursor-pointer flex flex-col gap-1 p-4 rounded-md shadow-md min-w-[200px] bg-primary text-white">
               <p className='font-semibold'>{t?.identity || "Identity Verification"}</p>
@@ -140,10 +140,10 @@ const Deposit = () => {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
       {step === 2 && (
-        <>
+       <div>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col flex-1 gap-4 p-5 bg-white rounded-md">
               <select className='cursor-pointer' onChange={(e) => setChioce(e.target.value)} name="" id="">
@@ -172,7 +172,7 @@ const Deposit = () => {
             {/* <div className="flex-1 p-5 bg-gray-100 rounded-md shadow-md">
             </div> */}
           </div>
-        </>
+        </div>
       )}
     </main>
   )

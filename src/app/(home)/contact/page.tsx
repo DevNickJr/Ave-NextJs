@@ -51,7 +51,7 @@ const ContactUs = () => {
         feedbackMutation.post(feedback)
     }
   return (
-    <>
+    <div>
         <Header />
         {(feedbackMutation.loading) && <Loader />}
         <section className='flex flex-col items-center justify-center gap-3 px-12 pt-40 text-center text-white bg-white py-28 lg:px-24 grad-to-right'>
@@ -107,7 +107,7 @@ const ContactUs = () => {
             </div>
         </section>
         <Footer />
-    </>
+    </div>
   )
 }
 
