@@ -115,9 +115,9 @@ const Home = () => {
 
         <div className='flex flex-col gap-4 mb-12 lg:flex-row'>
           <div className="flex flex-col flex-1 gap-4 p-5 text-sm font-bold bg-white rounded-md shadow-md">
-              <span className='font-bold text-primary'>{tAccount?.regular || "Regular Account"}</span>
+              <span className='font-bold text-primary'>{tAccount?.regular || "Current Balance"}</span>
               <p>{user?.symbol || "$"}{userDetails?.balance || '0.00'}</p>
-              <span className='font-bold text-primary'>{tAccount?.earnings || "Total Earnings"}</span>
+              <span className='font-bold text-primary'>{tAccount?.earnings || "Total Profit"}</span>
               <p>{user?.symbol || "$"}{userDetails?.total_earnings || '0.00'}</p>
               <span className='font-bold text-primary'>{tAccount?.investment || "Total Investment"}</span>
               <p>{user?.symbol || "$"}{userDetails?.total_investment || '0.00'}</p>
@@ -186,7 +186,7 @@ const Home = () => {
           </div>
         </div>
         <div className=''>
-          <Table title={t?.table_title || 'Deposit Wallets'} data={wallets || []} columns={columns} />
+          <Table showSearch={false} title={t?.table_title || 'Deposit Wallets'} data={wallets || []} columns={columns} />
         </div>
     </main>
   )

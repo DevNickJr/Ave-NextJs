@@ -8,7 +8,8 @@ interface Props<T = any> {
   columns: ITableColumn[]
   className?: string
   colspan?: number
-  title?: string
+  title?: string,
+  showSearch?: boolean
 } 
 
 
@@ -37,7 +38,7 @@ const formatDate = (date: number) => {
 };
 
 
-const Table = <T extends any>({ data, columns, className, colspan, title }: Props) => {
+const Table = <T extends any>({ data, columns, className, colspan, title, showSearch=true }: Props) => {
   const [filtererdData, setFilteredData] = React.useState<null | T[]>(null);
   const [search, setSearch] = React.useState<string>("");
 
@@ -51,13 +52,14 @@ const Table = <T extends any>({ data, columns, className, colspan, title }: Prop
     setFilteredData(filtered);
   };
 
-  // const debounce =  (func, wait) => {
-  //   let timeout;
-  //   return function executedFunction(...args) {
+  // const debounce =  (func: () => void, wait: number) => {
+  //   let timeout: any;
+  //   return function executedFunction(...args: any) {
   //     clearTimeout(timeout);
   //     timeout = setTimeout(() => {
   //       clearTimeout(timeout);
-  //       func(...args);
+  //       func();
+  //       // func(...args);
   //     }, wait);
   //   };
   // };
@@ -66,10 +68,12 @@ const Table = <T extends any>({ data, columns, className, colspan, title }: Prop
 
   return (
       <div className="overflow-hidden font-medium">
-        {/* <div className="flex items-center w-full gap-8 mb-8">
-         <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="search" className="my-2 w-full -black/20 md:pl-4 p-2 py-2.5 rounded-lg border-2 outline-none" />
-         <Button onClick={handleFilter} className="text-white px-4 sm:px-8 py-2.5 rounded-lg">Search</Button>
-        </div> */}
+        { showSearch && <div className="flex items-center justify-end w-full gap-4 mb-4 md:gap-8">
+         <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder="search"
+         className="px-4 py-2.5 text-sm border border-gray-300 focus:border-primary rounded-md w-full md:max-w-xl"
+          />
+         <button onClick={handleFilter} className="px-4 py-2 text-white rounded-md bg-primary">Search</button>
+        </div>}
         <div className="pb-10 overflow-x-auto text-sm">
           <table className="min-w-full text-sm font-light text-left border-none rounded-t-lg table-auto">
             <thead className="font-normal rounded-t">

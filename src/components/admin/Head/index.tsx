@@ -34,11 +34,11 @@ const AdminHead = () => {
             <div className='relative cursor-pointer group'>
               <RxCaretDown className='text-2xl text-gray-dark' />
               <div className='absolute right-0 flex-col hidden gap-2 pt-2 bg-white shadow-md top-6 group-hover:flex'>
-                {/* <Link href={`/admin/banks`} className='py-2 border-b-2 cursor-pointer sm:hidden'>
+                <Link href={`/admin/banks`} className='py-2 border-b-2 cursor-pointer sm:hidden'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
-                    Banks
+                   Banks
                   </span>
-                </Link> */}
+                </Link>
                 <div onClick={handleLogout} className='pb-2'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
                     Logout

@@ -67,6 +67,26 @@ const Head = () => {
     router.push('/login')
 }
 
+const googleTranslateElementInit = () => {
+  new window.google.translate.TranslateElement(
+    {
+      pageLanguage: "en",
+      autoDisplay: false
+    },
+    "google_translate_element"
+  );
+};
+
+React.useEffect(() => {
+var addScript = document.createElement("script");
+addScript.setAttribute(
+  "src",
+  "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+);
+document.body.appendChild(addScript);
+window.googleTranslateElementInit = googleTranslateElementInit;
+}, []);
+
 
   return (
     <div className='sticky top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 text-black bg-white shadow overflow-visibl sm:py-4 md:px-6'>
@@ -75,7 +95,9 @@ const Head = () => {
         <div className='flex items-center justify-between gap-2'>
           {/* <div className="w-4 h-4 bg-gray-200 rounded-full" /> */}
           <div className='flex items-center gap-2 text-xs'>
-            <select 
+            <div id="google_translate_element"></div>
+
+            {/* <select 
               value={language} 
               onChange={(e) => {
                 const value: ILanguage = e.target.value as ILanguage
@@ -90,7 +112,7 @@ const Head = () => {
                   <option key={lang.id} value={lang.code}>{lang.name}</option>
                 ))
               }
-            </select>
+            </select> */}
             <div className="w-6 h-6 rounded-full bg-primary/30" />
             <div className="flex-col hidden gap-1 md:flex">
               <div className='text-sm font-semibold'>{user?.last_name} {user?.first_name}</div>
@@ -98,12 +120,12 @@ const Head = () => {
             </div>
             <div className='relative cursor-pointer group'>
               <RxCaretDown className='text-2xl text-gray-dark md:' />
-              <div className='absolute right-0 flex-col hidden gap-2 bg-white shadow-md top-6 group-hover:flex'>
-                <Link href={`/dashboard/settings`} className='py-2 border-b-2 cursor-pointer'>
+              <div className='absolute right-0 flex-col hidden gap-2 pt-2 bg-white shadow-md top-6 group-hover:flex'>
+                {/* <Link href={`/dashboard/settings`} className='py-2 border-b-2 cursor-pointer'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
                     {t?.settings || "Settings"}
                   </span>
-                </Link>
+                </Link> */}
                 <div onClick={handleLogout} className='pb-2'>
                   <span className={`py-2 pb-2.5 px-6 text-xs font-medium`}>
                     {t?.logout || "Logout"}

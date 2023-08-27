@@ -54,7 +54,7 @@ const SideNav = ({ }) => {
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("invest") && 'font-bold'}`} href={"/dashboard/invest"}>
                     <BsBarChart size={"1.3rem"} />
-                    {t?.invest || "in?.invest"}
+                    {t?.invest || "ininvest"}
 
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("deposit") && 'font-bold'}`} href={"/dashboard/deposit"}>
@@ -65,10 +65,10 @@ const SideNav = ({ }) => {
                     <BiMoneyWithdraw size={"1.3rem"} />
                     {t?.withdraw || "withdraw"}
                 </Link>
-                <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("settings") && 'font-bold'}`} href={"/dashboard/settings"}>
+                {/* <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("settings") && 'font-bold'}`} href={"/dashboard/settings"}>
                     <MdSettings size={"1.3rem"} />
                     {t?.settings || "settings"}
-                </Link>
+                </Link> */}
             </div>
         </div>
         <div className='flex flex-col gap-10 pb-2 underline'>

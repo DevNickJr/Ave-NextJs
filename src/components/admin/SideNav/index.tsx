@@ -51,7 +51,7 @@ const SideNav = ({ }) => {
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("banks") && 'font-bold'}`} href={"/admin/banks"}>
                     <RiBankFill size={"1.3rem"} />
-                    Manage banks
+                    Manage Banks
                 </Link>
                 <Link className={`py-2.5 pl-6 text-sm flex items-center gap-2 ${pathname?.includes("trades") && 'font-bold'}`} href={"/admin/trades"}>
                     <BsBarChart size={"1.3rem"} />

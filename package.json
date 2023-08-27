@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -12,6 +12,7 @@
     "@tanstack/react-query": "^4.32.6",
     "@types/aos": "^3.0.4",
     "@types/node": "20.4.8",
+    "@types/nodemailer": "^6.4.9",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
     "@types/uuid": "^9.0.2",
@@ -27,6 +28,7 @@
     "nanoid": "^4.0.2",
     "next": "13.4.12",
     "next-auth": "^4.22.4",
+    "nodemailer": "^6.9.4",
     "postcss": "^8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",

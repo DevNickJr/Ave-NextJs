@@ -22,8 +22,8 @@
   export const DashboardAccountContent: ITranslations = {
     en: {
       title: 'Account',
-      regular: 'Regular Account',
-      earnings: 'Total Earnings',
+      regular: 'Current Balance',
+      earnings: 'Total Profit',
       investment: 'Total Investment', 
       invest: 'Start Investment',
       bonus: 'Bonus',
@@ -33,7 +33,7 @@
     },
     es: {
       title: 'Cuenta',
-      regular: 'Cuenta regular',
+      regular: 'Saldo actual',
       earnings: 'Ganancias totales',
       investment: 'Inversión total',
       invest: 'Inversión inicial',
@@ -44,8 +44,8 @@
     },
     de: {
       title: 'Konto',
-      regular: 'Reguläres Konto',
-      earnings: 'Gesamteinnahmen',
+      regular: 'Aktueller Kontostand',
+      earnings: 'Gesamtgewinn',
       investment: 'Gesamt Investition',
       invest: 'Startinvestition', 
       bonus: 'Bonus',
@@ -55,7 +55,7 @@
     },
     zh: {
       title: '帐户',
-      regular: '常规帐户',
+      regular: '当前余额',
       earnings: '总收益',
       investment: '总投资',
       invest: '开始投资',
@@ -66,7 +66,7 @@
     },
     ko: {
       title: '계정',
-      regular: '정기 계정',
+      regular: '현재 잔액',
       earnings: '총 수익',
       investment: '총 투자',
       invest: '투자 시작',
@@ -77,7 +77,7 @@
     },
     tr: {
       title: 'Hesap',
-      regular: 'Düzenli Hesap',
+      regular: 'Mevcut Bakiye',
       earnings: 'Toplam Kazanç',
       investment: 'Toplam Yatırım',
       invest: 'Yatırıma Başla',
