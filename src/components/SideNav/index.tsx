@@ -12,6 +12,9 @@ import { useAuthContext } from '@/hooks/useAuthContext'
 import { useTranslation } from '@/hooks/useTranslationContext'
 import { IPageContent } from '@/dictionaries/dashboard/header'
 import { HeaderContent } from '@/dictionaries/dashboard/header'
+import Image from 'next/image'
+import Logo from "@/assets/logo3.png"
+
 
 // import { useSession, signIn, signOut } from "next-auth/react"
 
@@ -39,7 +42,7 @@ const SideNav = ({ }) => {
         <div>
             <div className='flex flex-col items-center w-full gap-5 py-5 text-center border-b border-white/10'>
                 <Link href={"/dashboard/"} className='text-2xl font-semibold'>
-                    {/* <Image src={Logo} className='w-full h-12 bg-white md:h-12' alt='' /> */}
+                    <Image src={Logo} className='w-full h-14 md:h-14' alt='Avestock' />
                     Avestock
                 </Link>
             </div>

@@ -1,10 +1,13 @@
 'use client'
 import { useAuthContext } from '@/hooks/useAuthContext'
 import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { RxCaretDown } from 'react-icons/rx'
+// import Logo from "@/assets/losgo.jpg"
+
 
 const AdminHead = () => {
   // const session = useSession()
@@ -23,6 +26,8 @@ const AdminHead = () => {
     <div className='sticky top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 text-black bg-white shadow overflow-visibl sm:py-4 md:px-6'>
         {/* <input type="text" placeholder='Search' className='border border-gray-300 rounded-full px-4 min-w-[100px] md:w-96' /> */}
         <h1 className='font-semibold text-primary'>Dashboard</h1>
+        {/* <Image src={Logo} className='w-12 h-8 md:h-8' alt='Avestock' /> */}
+
         <div className='flex items-center justify-between gap-2'>
           {/* <div className="w-4 h-4 bg-gray-200 rounded-full" /> */}
           <div className='flex items-center gap-2 text-xs'>

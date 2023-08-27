@@ -10,7 +10,7 @@ import { RiLuggageDepositLine } from 'react-icons/ri'
 import { BiMoneyWithdraw } from 'react-icons/bi'
 import { IoIosOptions } from 'react-icons/io'
 import { BsBarChart } from 'react-icons/bs'
-import Logo from "@/assets/logo.svg"
+import Logo from "@/assets/logo3.png"
 import Image from 'next/image'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useAuthContext } from '@/hooks/useAuthContext'
@@ -36,8 +36,8 @@ const SideNav = ({ }) => {
         <div>
             <div className='flex flex-col items-center w-full gap-5 py-5 text-center border-b border-white/10'>
                 <Link href={"/admin/"} className='text-2xl font-semibold'>
-                    {/* <Image src={Logo} className='w-full h-12 bg-white md:h-12' alt='' /> */}
-                    Avestock
+                    <Image src={Logo} className='w-full h-14 md:h-14' alt='Avestock' />
+                    {/* Avestock */}
                 </Link>
             </div>
             <div className='flex flex-col gap-2 pt-12 pb-2'>
