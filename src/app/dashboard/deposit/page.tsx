@@ -240,6 +240,9 @@ const Deposit = () => {
                 {wallets?.map(wallet => 
                   <option key={wallet.name} value={wallet.name}>{wallet.name}</option>
                 )}
+                 {banks?.map(bank => 
+                  <option key={bank._id} value={bank.name}>{bank.name}</option>
+                )}
               </select>
               <input onChange={e => uploadImage(e.target.files![0])} type="file" className='rounded-md' placeholder='Upload' />
           <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={handleDeposit}>{t?.submit || "Submit"}</button>
