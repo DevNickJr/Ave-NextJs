@@ -89,7 +89,8 @@ window.googleTranslateElementInit = googleTranslateElementInit;
 
 
   return (
-    <div className='sticky top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 text-black bg-white shadow overflow-visibl sm:py-4 md:px-6'>
+    <div className='fixed top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 text-black bg-white shadow sm:sicky overflow-visibl sm:py-4 md:px-6 sm:ml-60'>
+    {/* <div className='fixed top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 p-4 text-black bg-white shadow sm:sicky overflow-visibl sm:py-4 md:px-6'> */}
         {/* <input type="text" placeholder='Search' className='border border-gray-300 rounded-full px-4 min-w-[100px] md:w-96' /> */}
         <h1 className='font-semibold text-primary'>{t?.dashboard || "Dashboard"}</h1>
         <div className='flex items-center justify-between gap-2'>

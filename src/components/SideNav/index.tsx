@@ -38,7 +38,8 @@ const SideNav = ({ }) => {
     }
 
   return (
-    <div className='no-scrollbar hidden sm:flex flex-col justify-between grad-to-bottom max-h-screen overflow-hidden h-screen min-w-[240px] w-60 pb-4 grad-to-right text-white'>
+    <div className='no-scrollbar hidden sm:flex flex-col justify-between grad-to-bottom max-h-screen overflow-hidden h-screen min-w-[240px] w-60 pb-4 grad-to-right text-white fixed top-0 left-0'>
+    {/* <div className='no-scrollbar hidden sm:flex flex-col justify-between grad-to-bottom max-h-screen overflow-hidden h-screen min-w-[240px] w-60 pb-4 grad-to-right text-white'> */}
         <div>
             <div className='flex flex-col items-center w-full gap-5 py-5 text-center border-b border-white/10'>
                 <Link href={"/dashboard/"} className='text-2xl font-semibold'>

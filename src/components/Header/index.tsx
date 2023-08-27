@@ -83,7 +83,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='bg-white text-black shadow-md flex items-center justify-between py-2 px-4 md:py-5 md:px-10 lg:px-24 fixed top-0 left-0 z-20 w-full min-h-[50px]'>
+      <header className='bg-white text-black shadow-md flex items-center justify-between py-4 px-4 md:py-5 md:px-10 lg:px-24 fixed top-0 left-0 z-20 w-full min-h-[50px]'>
         <Link href={"/"}>
           <Image src={Logo1} alt="Avestock" className='w-12 h-8 md:h-12' />
           {/* <span className='h-8 md:h-12'>Avestock</span> */}

@@ -32,31 +32,31 @@ const BottomNav = () => {
         <nav className="flex items-center w-full gap-x-14 md:gap-4 lg:gap-7">
           <ul className='flex items-center justify-between w-full gap-2 text-xs font-medium text-dark-light md:gap-4 lg:gap-7'>
             <li className={`flex-1 ${pathname==="/dashboard" ? "text-primary font-bold" : "text-white/90"}`}>
-                <Link href="/dashboard" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
+                <Link href="/dashboard" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center text-center`}>
                     <AiOutlineHome className='text-xl' />
                     {t?.home || "Home"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/accounts" ? "text-primary font-bold" : "text-white/90"}`}>
-                <Link href="/dashboard/accounts" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
+                <Link href="/dashboard/accounts" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center text-center`}>
                     <MdOutlineDashboard className='text-xl' />
                     {t?.account || "account"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/invest" ? "text-primary font-bold" : "text-white/90"}`}>
-                <Link href="/dashboard/invest" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
+                <Link href="/dashboard/invest" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center text-center`}>
                     <BsBarChart className='text-xl' />
                     {t?.invest || "invest"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/deposit" ? "text-primary font-bold" : "text-white/90"}`}>
-                <Link href="/dashboard/deposit" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
+                <Link href="/dashboard/deposit" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center text-center`}>
                     <RiLuggageDepositLine className='text-xl' />
                     {t?.deposit || "deposit"}
                 </Link>
             </li>
             <li className={`flex-1 ${pathname==="/dashboard/withdrawal" ? "text-primary font-bold" : "text-white/90"}`}>
-                <Link href="/dashboard/withdrawal" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center`}>
+                <Link href="/dashboard/withdrawal" className={`pb-1.5 px-1 font-medium flex flex-col justify-center items-center text-center`}>
                     <BiMoneyWithdraw className='text-xl' />
                     {t?.withdraw || "withdraw"}
                 </Link>

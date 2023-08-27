@@ -16,6 +16,16 @@ body {
   width: 100%;
 }
 
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .top-section {
   margin-top: 50px/* 64px */;
   padding-top: 2rem/* 32px */;
@@ -61,12 +71,12 @@ body {
 
   }
 
-  .goog-te-gadget{
-
-color:transparent!important;
-font-size :0;
-
-}
+  .goog-te-gadget {
+    color:transparent!important;
+    font-size :0;
+    height: 40px;
+    margin-top: -20px;
+  }
 
 .goog-tooltip {
 display: none !important;
@@ -87,7 +97,9 @@ box-shadow: none !important;
 .VIpgJd-ZVi9od-ORHb-OEVmcd {
   display: none !important;
   z-index: -1;
-
+  position: fixed;
+  top: 0;
+  height: 1px;
 }
 
 .goog-te-combo {
@@ -118,6 +130,8 @@ box-shadow: none !important;
   position: relative;
   top: 6px;
 }
+
+
 
 #tradingview_widget_wrapper > div:nth-child(2) {
   display: none !important;
