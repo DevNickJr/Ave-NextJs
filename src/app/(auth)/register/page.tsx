@@ -19,7 +19,8 @@ const initialState: IUserRegister = {
   password: '', 
   // confirm_password: '',
   first_name: '',      
-  last_name: '',        
+  last_name: '',   
+  phone: '',
   terms: false,
   nationality: '',
   currency: ''  
@@ -146,12 +147,18 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
                 <input required value={user?.first_name} onChange={(e) => dispatch({ type: "first_name", payload: e.target.value})} type='text' name="first_name" id="first_name" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.first_name || "First Name"} />
               </div>
               <div className='flex flex-col gap-2 text-xs'>
-                <label htmlFor="last_name">{t?.last_name || "First Name"}</label>
+                <label htmlFor="last_name">{t?.last_name || "Last Name"}</label>
                 <input required value={user?.last_name} onChange={(e) => dispatch({ type: "last_name", payload: e.target.value})}  type="text" name="last_name" id="last_name" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.last_name || "First Name"} />
               </div>
-              <div className='flex flex-col gap-2 text-xs'>
-                <label htmlFor="email">{t?.email || "Email Address"}</label>
-                <input required value={user?.email} onChange={(e) => dispatch({ type: "email", payload: e.target.value})}  type="email" name="email" id="email" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.email || "Email Address"} />
+              <div className="grid w-full gap-4 md:grid-cols-2 md:gap-2">
+                <div className='flex flex-col gap-2 text-xs'>
+                  <label htmlFor="phone">{t?.phone || "Phone Number"}</label>
+                  <input required value={user?.phone} onChange={(e) => dispatch({ type: "phone", payload: e.target.value})}  type="text" name="phone" id="phone" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.phone || "Phone Number"} />
+                </div>
+                <div className='flex flex-col gap-2 text-xs'>
+                  <label htmlFor="email">{t?.email || "Email Address"}</label>
+                  <input required value={user?.email} onChange={(e) => dispatch({ type: "email", payload: e.target.value})}  type="email" name="email" id="email" className='p-2 px-3 border rounded-md placeholder:text-sm' placeholder={t?.email || "Email Address"} />
+                </div>
               </div>
               <div className='flex flex-col gap-2 text-xs'>
                 <label htmlFor="password">{t?.password || "Password"}</label>

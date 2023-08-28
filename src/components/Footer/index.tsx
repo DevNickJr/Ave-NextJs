@@ -72,15 +72,15 @@ const Footer = () => {
               <ul className='flex flex-col gap-6 text-xs text-footer-gray'>
                 <li className='flex items-center gap-3'> 
                   <BiLocationPlus />
-                  <span>980 Great West Road,London, UK</span>
+                  <span>level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW.</span>
                 </li>
                 <li className='flex items-center gap-3'> 
                   <BiPhone />
-                  <span>98000000000</span>
+                  <span>+1(345) 453 ****</span>
                 </li>
                 <li className='flex items-center gap-3'> 
                   <MdOutlineEmail />
-                  <span>support@hnmm.vom</span>
+                  <span>support@avestock.com</span>
                 </li>
               </ul>
             </div>

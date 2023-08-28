@@ -64,24 +64,20 @@ const ContactUs = () => {
                     <Image src={Logo2} alt="" className="w-full h-40 max-w-sm mb-8 rounded-md grad-to-right" />
                     <div>
                         <h3 className="mb-3 text-xl font-bold text-gray-800 font-argentinum">{t?.address?.title || "Office Addres"}s</h3>
-                        <p className="text-sm text-[#6D6D6D] font-medium">Office Address:<br /> 13B, Mambila Street<br /> Off Aso Drive Maitama, FCT-Abuja, Nigeria</p>
+                        <p className="text-sm text-[#6D6D6D] font-medium">Office Address:<br /> level 28, One International Tower, <br />2000 Barangaroo Avenue,<br />2000 Sydney, AUSTRALIA, NSW.</p>
                     </div>
                     <div>
                         <h3 className="mb-3 text-xl font-bold text-gray-800 font-argentinum">{t?.address?.phone || "Phone Number"}</h3>
                         <div className="text-sm text-[#6D6D6D] font-medium flex flex-col">
-                            <a href='tel:+2347001020300'>+2347001020300</a>
-                            <a href='tel:+2347030858742'>+2347030858742</a>
-                            <a href='tel:+2348024419117'>+2348024419117</a>
+                            <a>+1(345) 453 ****</a>
+                            {/* <a href='tel:+2348024419117'>+2348024419117</a> */}
                         </div>
                     </div>
                     <div>
                         <h3 className="mb-3 text-xl font-bold text-gray-800 font-argentinum">{t?.address?.email || "Email/Website Address"}</h3>
                         <div className="text-sm text-[#6D6D6D] font-medium flex flex-col">
-                            <a href="https://box.reinsys.net/brilliant/" className="hover:text-primary">
-                                https://box.reinsys.net/brilliant/
-                            </a>
-                            <a href="mailto:info@bbscholarships.org" className="hover:text-primary">
-                                info@bbscholarships.org
+                            <a href="mailto:support@avestock.com" className="hover:text-primary">
+                                support@avestock.com
                             </a>
                         </div>
                     </div>
