@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import useFetch from '@/hooks/useFetch'
 import { apiDeposit, apiGetUserDeposits, apiGetWallets } from '@/services/UserService'
 import { IBank, IDeposit, IWallet } from '@/interfaces'
@@ -41,11 +41,13 @@ const Deposit = () => {
   const [step, setStep] = React.useState(1)
   const [choice, setChioce] = React.useState('')
   const [bankChoice, setBankChioce] = React.useState('')
+  const [selectedBank, setSelectedBank] = React.useState<IBank | null>(null)
   const [amount, setAmount] = React.useState('')
   const [proof, setProof] = React.useState('')
   const [paymentMethod, setPaymentMethod] = React.useState('')
   const { url, uploadImage, error: errorImage, loading } = useImage()
   const { copy } = useCopyToClipboard()
+
 
 
 
@@ -83,6 +85,11 @@ const Deposit = () => {
     })
   }
   // const { data } = useSession()
+  useEffect(() => {
+    if (bankChoice) {
+      setSelectedBank(banks?.find(bank => bank._id === bankChoice) || null)
+    }
+  }, [bankChoice, banks])
 
 
   return (
@@ -186,38 +193,55 @@ const Deposit = () => {
                   <option key={bank._id} value={bank._id}>{bank.name}</option>
                 )}
               </select>
-          {bankChoice &&
+            {bankChoice && selectedBank && selectedBank?.special ?
+              <div className='flex flex-col gap-4'>
+                <p>{t?.bank_transfer || "Make a transfer or deposit to the details below"}</p>
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span>Bank</span>
+                  {selectedBank?.name}
+                </div>
+                <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
+                  <span className='break-words'>{selectedBank?.type || ""}</span>
+                  <div className="flex items-center justify-center gap-2 break-words">
+                    {selectedBank?.number}
+                    <MdCopyAll onClick={() => copy(selectedBank?.number || '')} className='text-xl cursor-pointer text-primary' />
+                  </div>
+                </div>
+                <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={() => setStep(4)}>{t?.next || "Next"}</button>
+              </div>
+              :
               <div className='flex flex-col gap-4'>
                 <p>{t?.bank_transfer || "Make a transfer or deposit to the details below"}</p>
                 <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
                   <span>Recipient</span>
-                  {banks?.find(bank => bank._id === bankChoice)?.recipient}
+                  {selectedBank?.recipient}
                 </div>
                 <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
                   <span>Account Number</span>
                   <div className="flex items-center justify-center gap-2">
-                    {banks?.find(bank => bank._id === bankChoice)?.number}
-                    <MdCopyAll onClick={() => copy(banks?.find(bank => bank._id === bankChoice)?.number || '')} className='text-xl cursor-pointer text-primary' />
+                    {selectedBank?.number}
+                    <MdCopyAll onClick={() => copy(selectedBank?.number || '')} className='text-xl cursor-pointer text-primary' />
                   </div>
                 </div>
                 <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
                   <span>Account Type</span>
-                  {banks?.find(bank => bank._id === bankChoice)?.type}
+                  {selectedBank?.type}
                 </div>
                 <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
                   <span>Bank</span>
-                  {banks?.find(bank => bank._id === bankChoice)?.name}
+                  {selectedBank?.name}
                 </div>
                 <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
                   <span>Branch</span>
-                  {banks?.find(bank => bank._id === bankChoice)?.branch}
+                  {selectedBank?.branch}
                 </div>
                 <div className="flex items-center justify-between w-full gap-8 p-2 text-center rounded-md">
                   <span>Reernce</span>
-                  {banks?.find(bank => bank._id === bankChoice)?.reference}
+                  {selectedBank?.reference}
                 </div>
                 <button className='p-3 px-4 mt-8 text-white rounded-md cursor-pointer bg-primary' onClick={() => setStep(4)}>{t?.next || "Next"}</button>
-              </div>}
+              </div>
+            }
                   
             </div>
             <div className="flex-1 rounded-md shadow-md min-h-[350px]">

@@ -19,6 +19,10 @@ export interface IVerifyUser {
     status: 'verified' | 'unverified' | 'suspended' | 'failed' | 'pending'
 }
 
+export interface IId { 
+    _id: string
+}
+
 export interface IApproveWithdrawal { 
     _id: string
     status: 'approved' | 'denied' | 'processing'
@@ -43,7 +47,8 @@ export interface IUserRegister {
     password: string
     // confirm_password: string
     first_name: string      
-    last_name: string    
+    last_name: string   
+    phone: string
     terms?: boolean  
     nationality: string
     currency: string   
@@ -112,7 +117,7 @@ export interface ILoginReducerAction extends IReducerAction<"email" | "password"
     payload: string
 }
 
-export interface IRegistereducerAction extends IReducerAction<"email" | "password" | "confirm_password" | "first_name" | "last_name" | "terms" | "currency" | "nationality"> {
+export interface IRegistereducerAction extends IReducerAction<"email" | "password" | "confirm_password" | "first_name" | "last_name" | "terms" | "currency" | "nationality" | "phone"> {
     payload: string
 }
 
@@ -148,6 +153,7 @@ export interface IBank {
     name: string;
     branch: string;
     reference: string;
+    special: boolean;
 }
 
 export interface IPlan {

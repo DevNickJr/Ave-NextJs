@@ -104,13 +104,14 @@ const Invest = () => {
         //   initialProfit: number;
         //   percentageProfit: number;
         //   numberOfDays: number;
+      
         // }
         const plan = plans?.find(plan => plan._id == meta?.plan)
-        console.log("plan exist", plan)
+        // console.log("plan exist", plan)
         const date = new Date(meta?.createdAt!)
         const startTime = date.getTime()
         const initialProfit = meta.amount
-        console.log(val, meta)
+        // console.log(val, meta)
         return  (
           <div className="">
            { 
@@ -127,6 +128,8 @@ const Invest = () => {
               startTime={startTime} 
               percentageProfit={Number(plan?.roi)!} 
               numberOfDays={plan?.duration!} 
+              symbol={user?.symbol! || "$"}
+              pause={meta?.pause}
             />
             }
             </div>

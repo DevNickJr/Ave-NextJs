@@ -85,7 +85,7 @@ const Home = () => {
 
 
   return (
-    <main className='relative p-4 overflow-y-auto md:p-6 bg-black/5'>
+    <main className='relative p-4 pt-2 overflow-y-auto md:p-6'>
       <div className="flex items-center gap-2 mb-6">
         <h2 className='text-lg font-semibold'>{t?.title || "Welcome"}, {userDetails?.last_name} {userDetails?.first_name}</h2>  
         {

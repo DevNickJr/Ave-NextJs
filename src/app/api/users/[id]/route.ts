@@ -97,10 +97,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
     const { 
       password,
-      balance,
+      // balance,
       total_deposit,
       total_withdrawal,
-      bonus,
+      // bonus,
       is_admin,
       ...rest 
     } = body

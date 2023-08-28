@@ -1,4 +1,4 @@
-import { IUser, IPassword, IWallet, IDeposit, IWithdrawal, IPlan, IInvest, IVerifyUser, IApproveWithdrawal, IApproveDeposit, IHandleInvest, IBank } from '@/interfaces'
+import { IUser, IPassword, IWallet, IDeposit, IWithdrawal, IPlan, IInvest, IVerifyUser, IApproveWithdrawal, IApproveDeposit, IHandleInvest, IBank, IId } from '@/interfaces'
 import BaseService from "./BaseService"
 import { AxiosResponse } from 'axios'
 
@@ -6,6 +6,10 @@ import { AxiosResponse } from 'axios'
 
 export const apiGetUsers = (): Promise<AxiosResponse<IUser[], any>> => {
     return BaseService.get(`/users`)
+}
+
+export const apiDeleteUser = (data: IId): Promise<AxiosResponse<IUser, any>> => {
+    return BaseService.delete(`/users/${data._id}`)
 }
 
 export const apiUpdatePlan = (data: IPlan): Promise<AxiosResponse<IPlan, any>> => {

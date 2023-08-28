@@ -86,7 +86,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       invest.pause = {
         status: false,
         start: 0,
-        total: newTotal + invest.pause?.total
+        total: newTotal
       }
 
       invest.status = body.status

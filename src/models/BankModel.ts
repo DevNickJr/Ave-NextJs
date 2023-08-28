@@ -6,25 +6,29 @@ const BankSchema: Schema = new Schema<IBank>({
     type: String,
     required: true,
   },
-  recipient: {
-    type: String,
-    required: true,
-  },
   number: {
     type: String,
     required: true,
   },
+  special: {
+    type: Boolean,
+    default: false,
+  }, 
+  recipient: {
+    type: String,
+    // required: true,
+  },
   type: {
     type: String,
-    required: true,
+    // required: true,
   },
   branch: {
     type: String,
-    required: true,
+    // required: true,
   },
   reference: {
     type: String,
-    required: true,
+    // required: true,
   },
 }, {
   timestamps: true

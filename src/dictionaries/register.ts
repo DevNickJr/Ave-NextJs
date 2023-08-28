@@ -3,6 +3,7 @@ export interface IPageContent {
     content: string;
     first_name: string;
     last_name: string;
+    phone: string;
     nationality: string;
     currency: string;
     email: string;
@@ -28,6 +29,7 @@ export interface IPageContent {
         content: 'Create an account to Get Started',
         first_name: 'First Name',
         last_name: 'Last Name',
+        phone: "Phone Number",
         email: 'Email Address',
         password: 'Password',
         register: 'Register',
@@ -42,6 +44,7 @@ export interface IPageContent {
         content: 'Crea una cuenta para comenzar',
         first_name: 'Nombre',
         last_name: 'Apellido',
+        phone: "Número de teléfono",
         email: 'Correo electrónico',
         password: 'Contraseña',
         register: 'Registrarse',
@@ -56,6 +59,7 @@ export interface IPageContent {
         content: 'Erstellen Sie ein Konto, um loszulegen',
         first_name: 'Vorname',
         last_name: 'Nachname',
+        phone: "Telefonnummer",
         email: 'E-Mail-Addresse',
         password: 'Passwort',
         register: 'Registrieren',
@@ -70,6 +74,7 @@ export interface IPageContent {
         content: '创建帐户开始',
         first_name: '名字',
         last_name: '姓',
+        phone: "电话号码",
         email: '电子邮件地址',
         password: '密码',
         register: '寄存器',
@@ -84,6 +89,7 @@ export interface IPageContent {
         content: '시작하려면 계정을 만드십시오',
         first_name: '이름',
         last_name: '성',
+        phone: "전화 번호",
         email: '이메일 주소',
         password: '암호',
         register: '레지스터',
@@ -98,6 +104,7 @@ export interface IPageContent {
         content: 'Başlamak için bir hesap oluşturun',
         first_name: 'Ad',
         last_name: 'Soyad',
+        phone: "Telefon numarası",
         email: 'E-posta adresi',
         password: 'Parola',
         register: 'Kayıt ol',

@@ -22,6 +22,10 @@ const UserSchema: Schema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+    // required: true,
+  },
   currency: {
     type: String,
     required: true,

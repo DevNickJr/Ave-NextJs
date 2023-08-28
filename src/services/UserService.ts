@@ -32,6 +32,10 @@ export const apiInvest = (data: IInvest): Promise<AxiosResponse<IInvest, any>> =
     return BaseService.post(`/investments`, data)
 }
 
+export const apiUpdateInvest = (data: { _id: string, amount: number }): Promise<AxiosResponse<IInvest, any>> => {
+    return BaseService.patch(`/investments/${data._id}`, data)
+}
+
 export const apiWithdrawal = (data: IWithdrawal): Promise<AxiosResponse<IWithdrawal, any>> => {
     return BaseService.post(`/withdrawals`, data)
 }

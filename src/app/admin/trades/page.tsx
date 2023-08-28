@@ -89,7 +89,7 @@ const Trades = () => {
             :
             meta?.status === "completed" ?
             <p>
-              ${(meta.amount * plan?.roi!/100) + meta.amount}
+              {(meta.amount * plan?.roi!/100) + meta.amount}
             </p>
             :
            <RealTimeProfitDisplay 
@@ -97,6 +97,8 @@ const Trades = () => {
               startTime={startTime} 
               percentageProfit={Number(plan?.roi)!} 
               numberOfDays={plan?.duration!} 
+              symbol=""
+              pause={meta?.pause}
             />
             }
           </>
