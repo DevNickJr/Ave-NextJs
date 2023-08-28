@@ -118,7 +118,9 @@ const Banks = () => {
         <div className="flex flex-col gap-4">
           {
             data.map((bank, index) => (
-              <div key={index} className="flex flex-col gap-2 p-4">
+              <>
+              {
+                bank.special ?   <div key={index} className="flex flex-col gap-2 p-4">
                 <h2 className='py-2 text-2xl border-b border-black'>{bank.name}</h2>
                 <div className="flex flex-col max-w-xs gap-4 pt">
                   <div className="flex flex-col gap-1">
@@ -126,28 +128,49 @@ const Banks = () => {
                     <input type="text" value={bank.name} onChange={(e) => handleBankName(e, bank)} name="name" id="name" className='p-1.5 rounded-md border border-black w-full' />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span>Account Number</span>
-                    <input type="number" value={bank.number} onChange={(e) => handleAccountNumber(e, bank)} name="Account" id="Account" className='p-1.5 rounded-md border border-black w-full' />
+                    <span>Email/Phone/Tag</span>
+                    <input type="text" value={bank.number} onChange={(e) => handleAccountNumber(e, bank)} name="Account" id="Account" className='p-1.5 rounded-md border border-black w-full' />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span>Type</span>
-                    <input type="text" value={bank.type} onChange={(e) => handleBankType(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span>Recipient</span>
-                    <input type="text" value={bank.recipient} onChange={(e) => handleBankRecipient(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span>Branch</span>
-                    <input type="text" value={bank.branch} onChange={(e) => handleBankBranch(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span>Reference</span>
-                    <input type="text" value={bank.reference} onChange={(e) => handleBankReference(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
-                  </div>
+                      <span>Type</span>
+                      <input type="text" value={bank.type} onChange={(e) => handleBankType(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
+                    </div>
                 </div>
                 <button onClick={() => handleUpdate(bank)} className='p-2 px-4 mt-3 text-white rounded-md w-fit bg-primary'>Update</button>
               </div>
+                : 
+                  <div key={index} className="flex flex-col gap-2 p-4">
+                    <h2 className='py-2 text-2xl border-b border-black'>{bank.name}</h2>
+                    <div className="flex flex-col max-w-xs gap-4 pt">
+                      <div className="flex flex-col gap-1">
+                        <span>Name </span>
+                        <input type="text" value={bank.name} onChange={(e) => handleBankName(e, bank)} name="name" id="name" className='p-1.5 rounded-md border border-black w-full' />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span>Account Number</span>
+                        <input type="number" value={bank.number} onChange={(e) => handleAccountNumber(e, bank)} name="Account" id="Account" className='p-1.5 rounded-md border border-black w-full' />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span>Type</span>
+                        <input type="text" value={bank.type} onChange={(e) => handleBankType(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span>Recipient</span>
+                        <input type="text" value={bank.recipient} onChange={(e) => handleBankRecipient(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span>Branch</span>
+                        <input type="text" value={bank.branch} onChange={(e) => handleBankBranch(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span>Reference</span>
+                        <input type="text" value={bank.reference} onChange={(e) => handleBankReference(e, bank)} name="" id="" className='p-1.5 rounded-md border border-black w-full' />
+                      </div>
+                    </div>
+                    <button onClick={() => handleUpdate(bank)} className='p-2 px-4 mt-3 text-white rounded-md w-fit bg-primary'>Update</button>
+                  </div>
+              }
+              </>
             ))}
         </div>
     </main>

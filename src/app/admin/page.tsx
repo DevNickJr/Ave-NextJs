@@ -2,13 +2,13 @@
 import Table from '@/components/Table'
 import useFetch from '@/hooks/useFetch'
 import useMutation from '@/hooks/useMutation'
-import { IUser, ITableColumn, IPlan, IChangePassword, IVerifyUser } from '@/interfaces'
-import { apiGetUsers, apiUpdatePlan, apiVerifyUser } from '@/services/AdminService'
-import { apiChangePassword } from '@/services/AuthService'
+import { IUser, ITableColumn, IVerifyUser, IId } from '@/interfaces'
+import { apiDeleteUser, apiGetUsers, apiVerifyUser } from '@/services/AdminService'
 import { formatDate } from '@/utils/dateFunc'
 import React from 'react'
 import { toast } from 'react-toastify'
 import GentleLoader from "@/components/GentleLoader"
+import Link from "next/link"
 // import { useSession } from 'next-auth/react'
 
 
@@ -32,6 +32,17 @@ const Admin = () => {
     }   
   })
 
+  const deleteUserMutation = useMutation<IId, any>(apiDeleteUser, {
+    onSuccess: (data) => {
+      // console.log({ data })
+      toast.success('Operation Successful')
+      refetch()
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message || 'An error occured')
+    }   
+  })
+
   const verifyUserHandler = (id: string) => {
     verifyUser.mutate({ _id: id, status: 'verified' })
   }
@@ -51,6 +62,12 @@ const Admin = () => {
     {
       name: 'email',
       label: 'Email',
+      extra: true,
+      custom: (val: string, meta: IUser) => {
+        return  (
+          <Link href={`/admin/users/${meta?._id}`} className='underline cursor-pointer text-primary underline-offset-1'>{val}</Link>
+        )
+      }
     },
     {
       name: 'first_name',
@@ -59,6 +76,10 @@ const Admin = () => {
     {
       name: 'last_name',
       label: 'Last Name',
+    },
+    {
+      name: 'phone',
+      label: 'Phone Number',
     },
     {
       name: 'status',
@@ -129,18 +150,19 @@ const Admin = () => {
               <button onClick={() => denyUserHandler(meta?._id!)} className='border-red-200 border px-2 py-1.5 rounded-md text-red-500'>Deny</button>
               {/* view user details */}
               <button onClick={() => handleSelectUser(meta)} className='text-white bg-primary px-2 py-1.5 rounded-md'>View User Details</button>
+              <button onClick={() => deleteUserMutation.mutate({ _id: meta?._id! })} className='text-white bg-red-500 px-2 py-1.5 rounded-md'>Delete</button>
             </div>
         )
       }
     }
   ]
 
-  console.log({ selectedUser })
+  // console.log({ selectedUser })
 
   return (
     <main className='relative p-4 overflow-y-auto md:p-6'>
       {
-        verifyUser?.isLoading && <GentleLoader />
+        (verifyUser?.isLoading || deleteUserMutation?.isLoading) && <GentleLoader />
       }
         <h2 className='mb-6 text-lg font-semibold'>Admin Dashboard - Users</h2>
         <div className='mb-6'>
