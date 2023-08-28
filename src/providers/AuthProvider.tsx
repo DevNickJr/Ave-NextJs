@@ -15,6 +15,7 @@ const init: IUser = {
     total_withdrawal: 0,
     status: '',
     is_admin: false,
+    phone: '',
     document: {
         front: '',
         back: '',
