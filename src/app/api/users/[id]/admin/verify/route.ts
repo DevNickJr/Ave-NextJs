@@ -3,6 +3,7 @@ import dbConnect from '@/lib/dbConnection';
 import UserModel from '@/models/UserModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
+import { authorizeAdmin } from "@/middlewares/authorize";
 
 
 // ----------------------------------------------------------------------
@@ -26,6 +27,13 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     const body: {
         status: string
     } = await req.json()
+
+    try {
+      await authorizeAdmin(req)
+    } catch (error: any) {
+      return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+    }
+
 
     
 

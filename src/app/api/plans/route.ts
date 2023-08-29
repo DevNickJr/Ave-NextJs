@@ -4,6 +4,7 @@ import PlanModel from '@/models/PlanModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { IPlan } from '@/interfaces';
+import { authorizeAdmin } from "@/middlewares/authorize";
 
 // ----------------------------------------------------------------------
 
@@ -47,6 +48,11 @@ export async function POST(req: NextRequest) {
       // body.confirm_password = "123456";
 
       const body: IPlan = await req.json()
+      try {
+        await authorizeAdmin(req)
+      } catch (error: any) {
+        return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+      }
 
 
       if (!body.maximum || !body.name || !body.minimum || !body.roi) {

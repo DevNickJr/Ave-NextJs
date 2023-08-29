@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { AxiosResponse } from 'axios'
 import { type } from 'os'
+import { useAuthContext } from '@/hooks/useAuthContext'
+
 
 interface IProps<T> {
     api: (a?: any, b?: any) =>  Promise<AxiosResponse<T, any>>
@@ -15,11 +17,15 @@ interface IProps<T> {
 }
 
 const useFetch = <T,>({ api, param, key, onSuccess, requireAuth, select, enabled, ...rest }: IProps<T>) => {
+    const context = useAuthContext()
+    const token = context?.token
+    
+
 
     const { data, error, isLoading, isSuccess, isFetching, remove, refetch, fetchStatus } = useQuery({
         queryKey: [...key],
         enabled: typeof enabled === 'undefined' ? true : !!enabled,
-        queryFn: () => requireAuth ? api('session?.user?.token.access', param) : api(param),
+        queryFn: () => requireAuth ? api(token, param) : api(param),
         // queryFn: () => requireAuth ? api(session?.user?.token.access, param) : api(param),
         select: select || ((d: any): T => d?.data),
         ...rest

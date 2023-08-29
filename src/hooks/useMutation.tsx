@@ -2,6 +2,7 @@ import { MutationFunction, useMutation } from "@tanstack/react-query";
 import { toast } from 'react-toastify';
 import { AxiosResponse } from "axios";
 import { useSession } from 'next-auth/react'
+import { useAuthContext } from '@/hooks/useAuthContext'
 
 
 interface State {
@@ -13,13 +14,17 @@ interface State {
   id?: string;
 }
 
-const useMutations = <T,K>(api: (data: T, { id, ...rest } : { id: string, rest?: any }) => Promise<AxiosResponse>, { onSuccess, onError, showSuccessMessage=false, showErrorMessage=false, requireAuth, id, ...rest }: State) => {
+const useMutations = <T,K>(api: (data: T, { id, token, ...rest } : { id: string, token: string, rest?: any }) => Promise<AxiosResponse>, { onSuccess, onError, showSuccessMessage=false, showErrorMessage=false, requireAuth, id, ...rest }: State) => {
     // const { data: session } = useSession()
+    const context = useAuthContext()
+    const token = context?.token || ""
+    
 
     const Mutation = useMutation<K, K, T>({
         mutationFn: async (data: T) => {
+          
           // const response = requireAuth ? await api(data, session?.user?.token.access) : await api(data)
-          const response = requireAuth ? await api(data, { id: ''}) : await api(data, { id: id! })
+          const response = requireAuth ? await api(data, { id: id!, token }) : await api(data, { id: id!, token })
           // console.log("response from usePost", response)
           return response?.data
           // if (response?.data?.status === "success") {

@@ -14,7 +14,11 @@ import Link from "next/link"
 
 const Admin = () => {
   // const { data } = useSession()
-  const { data: users, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IUser[]>({api: apiGetUsers, key: ['users'] })
+  const { data: users, error, isLoading, isFetching, refetch, fetchStatus } = useFetch<IUser[]>({
+    api: apiGetUsers, 
+    key: ['users'],
+    requireAuth: true,
+  })
   const [selectedUser, setSelectedUser] = React.useState<IUser | null>(null)
   const [userOpen, setUserOpen] = React.useState(false)
 

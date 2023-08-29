@@ -3,24 +3,31 @@ import BaseService from "./BaseService"
 import { AxiosResponse } from 'axios'
 
 
+const Auth = (token: string) => ({
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
+})
 
-export const apiGetUsers = (): Promise<AxiosResponse<IUser[], any>> => {
-    return BaseService.get(`/users`)
+
+export const apiGetUsers = (token: string): Promise<AxiosResponse<IUser[], any>> => {
+    return BaseService.get(`/users`, Auth(token))
 }
 
-export const apiDeleteUser = (data: IId): Promise<AxiosResponse<IUser, any>> => {
-    return BaseService.delete(`/users/${data._id}`)
+export const apiDeleteUser = (data: IId, { token }: { token: string}): Promise<AxiosResponse<IUser, any>> => {
+    return BaseService.delete(`/users/${data._id}`, Auth(token))
 }
 
-export const apiUpdatePlan = (data: IPlan): Promise<AxiosResponse<IPlan, any>> => {
-    return BaseService.patch(`/plans/${data._id}`, data)
+export const apiUpdatePlan = (data: IPlan, { token }: { token: string}): Promise<AxiosResponse<IPlan, any>> => {
+    return BaseService.patch(`/plans/${data._id}`, data, Auth(token))
 }
 
-export const apiUpdateWallet = (data: IWallet, { id }: { id: string }): Promise<AxiosResponse<IWallet, any>> => {
-    return BaseService.patch(`/wallets/${data._id}`, data)
+export const apiUpdateWallet = (data: IWallet, { id, token }: { id: string, token: string }): Promise<AxiosResponse<IWallet, any>> => {
+    return BaseService.patch(`/wallets/${data._id}`, data, Auth(token))
 }
-export const apiUpdateBank = (data: IBank, { id }: { id: string }): Promise<AxiosResponse<IBank, any>> => {
-    return BaseService.patch(`/banks/${data._id}`, data)
+
+export const apiUpdateBank = (data: IBank, { id, token }: { id: string, token: string }): Promise<AxiosResponse<IBank, any>> => {
+    return BaseService.patch(`/banks/${data._id}`, data, Auth(token))
 }
 
 export const apiGetInvestments = (): Promise<AxiosResponse<IInvest[], any>> => {
@@ -78,18 +85,18 @@ export const apiWithdrawal = (data: IWithdrawal): Promise<AxiosResponse<IWithdra
 
 // Path: src\services\DepositService.ts
 
-export const apiVerifyUser = (data: IVerifyUser): Promise<AxiosResponse<IUser, any>> => {
-    return BaseService.patch(`/users/${data._id}/admin/verify`, data)
+export const apiVerifyUser = (data: IVerifyUser, { token }: { token: string}): Promise<AxiosResponse<IUser, any>> => {
+    return BaseService.patch(`/users/${data._id}/admin/verify`, data, Auth(token))
 }
 
-export const apiAprroveWithdrawal = (data: IApproveWithdrawal): Promise<AxiosResponse<IWithdrawal, any>> => {
-    return BaseService.patch(`/withdrawals/${data._id}/verify`, data)
+export const apiAprroveWithdrawal = (data: IApproveWithdrawal, { token }: { token: string}): Promise<AxiosResponse<IWithdrawal, any>> => {
+    return BaseService.patch(`/withdrawals/${data._id}/verify`, data, Auth(token))
 }
 
-export const apiAprroveDeposit = (data: IApproveDeposit): Promise<AxiosResponse<IDeposit, any>> => {
-    return BaseService.patch(`/deposits/${data._id}/verify`, data)
+export const apiAprroveDeposit = (data: IApproveDeposit, { token }: { token: string}): Promise<AxiosResponse<IDeposit, any>> => {
+    return BaseService.patch(`/deposits/${data._id}/verify`, data, Auth(token))
 }
 
-export const apiHandleInvest = (data: IHandleInvest): Promise<AxiosResponse<IInvest, any>> => {
-    return BaseService.patch(`/investments/${data._id}/verify`, data)
+export const apiHandleInvest = (data: IHandleInvest, { token }: { token: string}): Promise<AxiosResponse<IInvest, any>> => {
+    return BaseService.patch(`/investments/${data._id}/verify`, data, Auth(token))
 }

@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { IApproveWithdrawal } from "@/interfaces";
 import UserModel from "@/models/UserModel";
+import { authorizeAdmin } from "@/middlewares/authorize";
 
 
 // ----------------------------------------------------------------------
@@ -24,6 +25,13 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     if (!id) {
       return NextResponse.json({ message: 'ID is required' }, { status: 400 });
     }
+
+    try {
+      await authorizeAdmin(req)
+    } catch (error: any) {
+      return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+    }
+
 
     const body: IApproveWithdrawal = await req.json()
 

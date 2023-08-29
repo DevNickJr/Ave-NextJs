@@ -1,4 +1,4 @@
-import NextAuthSesssionProvider from '@/providers/SesssionProvider';
+// import NextAuthSesssionProvider from '@/providers/SesssionProvider';
 import QueryProvider from '@/providers/QueryProvider';
 import { TranslationProvider } from '@/providers/TranslationProvider';
 import { AuthContextProvider } from '@/providers/AuthProvider';
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className=''>
-      <NextAuthSesssionProvider>
+      {/* <NextAuthSesssionProvider> */}
         <AuthContextProvider>
         <QueryProvider>
           <TranslationProvider>
@@ -33,7 +33,7 @@ export default function RootLayout({
           </TranslationProvider>
         </QueryProvider>
         </AuthContextProvider>
-      </NextAuthSesssionProvider>
+      {/* </NextAuthSesssionProvider> */}
       </body>
       <script src="//code.tidio.co/xmkv5uj01vnyzvbec65ti8tmhdaoylfc.js" async></script>
     </html>

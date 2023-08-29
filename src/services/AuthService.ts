@@ -1,6 +1,5 @@
-import { IUserRegister, IUserLogin, IUser, IPassword, IForgotPassword, IChangePassword } from '@/interfaces'
+import { IUserRegister, IUserLogin, IUser, IPassword, IForgotPassword, IChangePassword, ILogin } from '@/interfaces'
 import BaseService from "./BaseService"
-import { User } from "next-auth"
 
 const servicePrefix = "/auth"
 
@@ -16,7 +15,7 @@ export const apiRegister = (data: IUserRegister) => {
 
 
 export const apiLogin =  (data: IUserLogin) => {
-    return BaseService.post<User>(`${servicePrefix}/login`, data)
+    return BaseService.post<ILogin>(`${servicePrefix}/login`, data)
 }
 
 export const apiGetUser =  ({ id }: { id: string }) => {

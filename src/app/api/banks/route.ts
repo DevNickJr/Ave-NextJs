@@ -4,6 +4,7 @@ import BankModel from '@/models/BankModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { IBank } from '@/interfaces';
+import { authorizeAdmin } from "@/middlewares/authorize";
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +44,13 @@ export async function POST(req: NextRequest) {
 
 
       const body: IBank = await req.json()
+
+      try {
+        await authorizeAdmin(req)
+      } catch (error: any) {
+        return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+      }
+
 
 
       if (!body.name || !body.number || !body.branch || !body.reference || !body.recipient || !body.type) {

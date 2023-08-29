@@ -3,6 +3,7 @@ import dbConnect from '@/lib/dbConnection';
 import { NextResponse } from 'next/server';
 import { IUserLogin } from '@/interfaces';
 import UserModel from '@/models/UserModel';
+import { createToken } from '@/utils/createToken';
 
 // ----------------------------------------------------------------------
  
@@ -29,7 +30,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         });
 
         if (!user) {
-            return NextResponse.json({ message: 'User not found' }, { status: 400 });
+            return NextResponse.json({ message: 'Invalid User' }, { status: 400 });
         }
 
         const isMatch = await user.comparePassword(credentials.password);
@@ -37,8 +38,12 @@ export async function POST(req: Request, res: NextApiResponse) {
         if (!isMatch) {
             return NextResponse.json({ message: 'Incorrect Username or Password' }, { status: 400 });
         }
+
+        const token = await createToken(user._id);
+
+        if (!token) return NextResponse.json({ message: 'Token activation Failed' }, { status: 500 });
         
-        return NextResponse.json(user, { status: 200 });
+        return NextResponse.json({ user, token }, { status: 200 });
 
     } catch (error: any) {
         console.error({error});

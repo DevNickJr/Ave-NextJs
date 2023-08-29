@@ -1,10 +1,11 @@
 "use client"
-import { IUser } from "@/interfaces";
+import { ILogin, IUser } from "@/interfaces";
 import { ReactNode, Reducer, createContext, useEffect, useReducer } from "react";
 
 interface IAuthContext {
     isLoggedIn: boolean
-    user: IUser | null
+    user: IUser | null,
+    token: string | null
 }
 
 const init: IUser = {
@@ -37,11 +38,12 @@ if (typeof window !== "undefined" && localStorage) {
 const initialState: IAuthContext = user ? JSON.parse(user) : {
     isLoggedIn: false,
     user: init,
+    token: ''
 };
 
 interface IAction {
     type: "LOGIN" | "LOGOUT"
-    payload: IUser | null
+    payload: ILogin | null
 }
 
 interface IAuthContextProvider extends IAuthContext {
@@ -52,6 +54,7 @@ interface IAuthContextProvider extends IAuthContext {
 const initAuthContext: IAuthContextProvider = {
     isLoggedIn: false,
     user: init,
+    token: '',
     dispatch: (): void => {}
 }
 
@@ -65,17 +68,20 @@ export const authReducer = (state: IAuthContext, action: IAction) => {
             // console.log("action.payload", action.payload)
             localStorage.setItem("user", JSON.stringify({
                 isLoggedIn: true,
-                user: action.payload
+                user: action?.payload?.user || null,
+                token: action?.payload?.token || null
             }))
             return {
                 isLoggedIn: true,
-                user: action.payload
+                user: action?.payload?.user || null,
+                token: action?.payload?.token || null
             }
         case "LOGOUT":
             localStorage.removeItem("user")
             return {
                 isLoggedIn: true,
-                user: null
+                user: null,
+                token: null
             }
         default:
             return state
@@ -89,13 +95,16 @@ export const AuthContextProvider = ({children} : { children: ReactNode }) => {
         const auth = localStorage.getItem("user")
         if (auth) {
             const user: IAuthContext = JSON.parse(auth)
-            dispatch({type: "LOGIN", payload: user.user })
+            dispatch({type: "LOGIN", payload: {
+                user: user.user,
+                token: user.token
+            } })
         }
     }, [dispatch])
     
-    // console.log("Auth State", state)
+    console.log("Auth State", state)
     return (
-        <AuthContext.Provider value={{user: state.user, isLoggedIn: state.isLoggedIn, dispatch}}>
+        <AuthContext.Provider value={{ user: state.user, isLoggedIn: state.isLoggedIn, token: state.token, dispatch}}>
             { children }
         </AuthContext.Provider>
     )

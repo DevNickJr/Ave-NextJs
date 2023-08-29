@@ -14,7 +14,8 @@ const months = [
     "December",
   ];
 
-export const formatDate = (date) => {
+
+export const formatDate = (date: string | number) => {
     const newDate = new Date(date);
     const day = newDate.getDate();
     const month = newDate.getMonth() + 1;
@@ -23,7 +24,7 @@ export const formatDate = (date) => {
     return `${day} ${months[month-1]} ${year}`;
 };
 
-export const formatDate2 = (date) => {
+export const formatDate2 = (date: number | string) => {
     const newDate = new Date(date);
     const day = newDate.getDate();
     const month = newDate.getMonth() + 1;

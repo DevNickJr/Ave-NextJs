@@ -1,14 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import dbConnect from '@/lib/dbConnection';
 import UserModel from '@/models/UserModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
+import { authorizeAdmin } from '@/middlewares/authorize';
 
 // ----------------------------------------------------------------------
 
 
-export async function GET(req: Request, res: NextApiResponse) {
+export async function GET(req: NextRequest) {
     try {
         await dbConnect();
         // const session = await getServerSession(authOptions)
@@ -17,7 +18,12 @@ export async function GET(req: Request, res: NextApiResponse) {
         // if (!session) {
         //   return res.status(401).json({ message: "You must be signed in to access this" });
         // } 
-      
+        try {
+          await authorizeAdmin(req)
+        } catch (error: any) {
+          return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+        }
+  
         
         const users = await UserModel.find({}).sort({ createdAt: -1 }).lean();
     

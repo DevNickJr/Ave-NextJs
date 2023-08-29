@@ -3,6 +3,7 @@ import dbConnect from '@/lib/dbConnection';
 import PlanModel from '@/models/PlanModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
+import { authorizeAdmin } from "@/middlewares/authorize";
 
 
 // ----------------------------------------------------------------------
@@ -55,6 +56,13 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     // } 
 
     const { id } = params;
+
+    try {
+      await authorizeAdmin(req)
+    } catch (error: any) {
+      return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+    }
+
     // console.log('id', id)
     if (!id) {
       return NextResponse.json({ message: 'ID is required' }, { status: 400 });
@@ -92,6 +100,13 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     if (!id) {
       return NextResponse.json({ message: 'ID is required' }, { status: 400 });
     }
+
+    try {
+      await authorizeAdmin(req)
+    } catch (error: any) {
+      return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+    }
+
 
     const body = await req.json()
 

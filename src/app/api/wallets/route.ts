@@ -4,11 +4,15 @@ import WalletModel from '@/models/WalletModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { IWallet } from '@/interfaces';
+import { authenticate } from "@/middlewares/authenticate";
+import { authorizeAdmin } from "@/middlewares/authorize";
+import { NextApiRequest } from "next";
+
 
 // ----------------------------------------------------------------------
 
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextApiRequest) {
     try {
         await dbConnect();
         // const session = await getServerSession(authOptions)
@@ -47,7 +51,12 @@ export async function POST(req: NextRequest) {
       // body.confirm_password = "123456";
 
       const body: IWallet = await req.json()
-
+      
+      try {
+        await authorizeAdmin(req)
+      } catch (error: any) {
+        return NextResponse.json({ message: error?.message || "Unauthorized access" }, { status: 403 });
+      }
 
       if (!body.address || !body.qr_code || !body.name) {
           return NextResponse.json({ message: 'Please fill in all fields' }, { status: 400 });

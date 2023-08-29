@@ -318,44 +318,57 @@ export async function POST(req: NextRequest) {
       });
 
       const mailOptions = {
-        // from: sender,
-        to: recipient,
-        subject,
-        text: message,
-        html: `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-            <title>Reply</title>
-        </head>
-        <body style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
-            <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
-                <div style="padding: 24px; padding-top: 24px;">
-                    <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
-                        ${message}
-                    </p>
-                    <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
-                        <p>Best Regards,</p>
-                        <p>The Brilliant Brains Team</p>
-                    </div>
-                    <p style="height: 1px; background-color: #00000025;"></p>
-                    <div>
-                        <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
-                            Talk to us anytime! Call +2347001020300 or email info@bbscholarship.org © 2023 Brilliant Brains, Inc. All rights reserved.
-                        </p>
-                    </div>
-                </div>
-            </main>
-        </body>
-        </html>
-        `
+        host: 'smtp.zoho.com',
+        port: 587,
+        secure: true, // use TLS
+        auth: {
+            user: "username",
+            pass: "pass",
+        },
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false,
+        },
       };
+    //   const mailOptions = {
+    //     // from: sender,
+    //     to: recipient,
+    //     subject,
+    //     text: message,
+    //     html: `
+    //     <!DOCTYPE html>
+    //     <html lang="en">
+    //     <head>
+    //         <meta charset="UTF-8">
+    //         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    //         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    //         <link rel="preconnect" href="https://fonts.googleapis.com">
+    //         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    //         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    //         <title>Reply</title>
+    //     </head>
+    //     <body style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+    //         <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+    //             <div style="padding: 24px; padding-top: 24px;">
+    //                 <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+    //                     ${message}
+    //                 </p>
+    //                 <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+    //                     <p>Best Regards,</p>
+    //                     <p>The Brilliant Brains Team</p>
+    //                 </div>
+    //                 <p style="height: 1px; background-color: #00000025;"></p>
+    //                 <div>
+    //                     <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+    //                         Talk to us anytime! Call +2347001020300 or email info@bbscholarship.org © 2023 Brilliant Brains, Inc. All rights reserved.
+    //                     </p>
+    //                 </div>
+    //             </div>
+    //         </main>
+    //     </body>
+    //     </html>
+    //     `
+    //   };
 
       // Send the email
     transporter.sendMail(mailOptions, function(error: any, info) {

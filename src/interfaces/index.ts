@@ -1,3 +1,7 @@
+import { JwtPayload } from "jsonwebtoken"
+import { NextApiRequest } from "next"
+import { NextRequest } from "next/server"
+
 export interface IUserLogin {
     email: string
     password: string
@@ -73,6 +77,11 @@ export interface IUser extends IUserRegister {
     symbol?: string  
 }
 
+export interface ILogin {
+    user: IUser | null,
+    token: string | null
+}
+
 export interface IVerifyKYC {
     front: string
     back: string
@@ -81,6 +90,10 @@ export interface IVerifyKYC {
 export interface IRegisterFace {
     email: string
     image: string
+}
+
+export interface CustomRequest extends NextRequest {
+    user: IUser | JwtPayload;
 }
 
 export interface IVerifiedFace {
