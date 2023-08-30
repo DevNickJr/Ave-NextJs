@@ -187,7 +187,7 @@ const Admin = () => {
                 {
                   selectedUser && (
                     Object.keys(selectedUser).map((key, index) => {
-                      console.log({ key, index })
+                      // console.log({ key, index })
                       if (true) {
                         console.log(1)
                         return <div key={key} className='flex flex-col gap-2'>

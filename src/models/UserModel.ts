@@ -78,7 +78,10 @@ const UserSchema: Schema = new Schema<IUser>({
   document: {
     front: String,
     back: String
-    // required: true,
+  },
+  reset: {
+    code: String,
+    time: String
   },
   is_admin: {
     type: Boolean,

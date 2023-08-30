@@ -73,6 +73,10 @@ export interface IUser extends IUserRegister {
         front: string
         back: string
     },
+    reset?: {
+        code: string
+        time: number
+    },
     referral_id?: string
     symbol?: string  
 }
@@ -80,6 +84,17 @@ export interface IUser extends IUserRegister {
 export interface ILogin {
     user: IUser | null,
     token: string | null
+}
+
+export interface IResetPassword {
+    email: string
+}
+
+export interface IConfirmResetPassword {
+    email: string,
+    code: string,
+    new_password: string,
+    confirm_password: string
 }
 
 export interface IVerifyKYC {
@@ -127,6 +142,9 @@ export interface IReducerAction<T> {
 }
 
 export interface ILoginReducerAction extends IReducerAction<"email" | "password"> {
+    payload: string
+}
+export interface IPasswordResetReducerAction extends IReducerAction<"new_password" | "confirm_password"> {
     payload: string
 }
 

@@ -194,7 +194,7 @@ const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
               </div> */}
               <div className="flex items-center gap-3">
                 <input className='cursor-pointer' type="checkbox" name="terms" id="terms" checked={user?.terms} onChange={(e) => dispatch({ type: "terms", payload: String(!user?.terms ? "true": "false") })}  />
-                <label htmlFor='terms' className='text-xs cursor-pointer'>{t?.privacy || "I agree to Polar Profits Terms & Conditions and Privacy Policy"}</label>
+                <label htmlFor='terms' className='text-xs cursor-pointer'>{t?.privacy || "I agree to Avestocks' Terms & Conditions and Privacy Policy"}</label>
               </div>
               <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 text-sm font-bold text-white rounded-md bg-primary'>
                 {t?.register || "Sign Up"}

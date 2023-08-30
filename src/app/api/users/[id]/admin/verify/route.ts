@@ -4,6 +4,7 @@ import UserModel from '@/models/UserModel';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/configs/authOptions"
 import { authorizeAdmin } from "@/middlewares/authorize";
+import { mailerAsync } from "@/lib/mailer";
 
 
 // ----------------------------------------------------------------------
@@ -11,12 +12,6 @@ import { authorizeAdmin } from "@/middlewares/authorize";
 export async function PATCH(req: NextRequest, { params }: { params: { id: string }}) {
   try {
     await dbConnect();
-    // const session = await getServerSession(authOptions)
-    // console.log({session})
-
-    // if (!session) {
-    //   return res.status(401).json({ message: "You must be signed in to access this" });
-    // } 
 
     const { id } = params;
     
@@ -37,10 +32,93 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
     
 
-    const user = await UserModel.findByIdAndUpdate(id, body, { new: true }).lean();
+    const user = await UserModel.findByIdAndUpdate(id, body, { new: true });
 
     if (!user) {
       return NextResponse.json({ message: 'failed to verify user' }, { status: 400 });
+    }
+
+    if (body.status == "verified") {
+      try {          
+        await mailerAsync({
+            subject: "KYC Approved - Avestock",
+            to: user.email,
+            message: `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>KYC Approved</title>
+            </head>
+            <body>
+                <div style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+                    <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+                        <div style="padding: 24px; padding-top: 24px;">
+                            <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+                                Your KYC request has been approved. You can continue trading on Avestock.
+                            </p>
+                            <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+                                <p>Best Regards,</p>
+                                <p>The Avestocks Team</p>
+                            </div>
+                            <p style="height: 1px; background-color: #00000025;"></p>
+                            <div>
+                                <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+                                    Level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW. <br /><br />
+                                    COPYRIGHT © 2023 AVESTOCKS, ALL RIGHTS RESERVE
+                                </p>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </body>
+            </html>
+            `
+        })
+      } catch (error: any) {
+        console.log({ error })
+      }
+    } else if (body.status == "failed") {
+      try {          
+        await mailerAsync({
+          to: user.email,
+          subject: "KYC Declined - Avestock",
+          message: `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>KYC Declined</title>
+            </head>
+            <body>
+                <div style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+                    <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+                        <div style="padding: 24px; padding-top: 24px;">
+                            <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+                                Your KYC request has been declined. Please contact support for more information.
+                            </p>
+                             <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+                                <p>Best Regards,</p>
+                                <p>The Avestocks Team</p>
+                            </div>
+                            <p style="height: 1px; background-color: #00000025;"></p>
+                            <div>
+                                <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+                                    Level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW. <br /><br />
+                                    COPYRIGHT © 2023 AVESTOCKS, ALL RIGHTS RESERVE
+                                </p>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </body>
+            </html>
+            `
+        })
+      } catch (error: any) {
+        console.log({ error })
+      }
+
     }
           
 

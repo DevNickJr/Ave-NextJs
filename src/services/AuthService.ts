@@ -1,4 +1,4 @@
-import { IUserRegister, IUserLogin, IUser, IPassword, IForgotPassword, IChangePassword, ILogin } from '@/interfaces'
+import { IUserRegister, IUserLogin, IUser, IPassword, IForgotPassword, IChangePassword, ILogin, IResetPassword, IConfirmResetPassword } from '@/interfaces'
 import BaseService from "./BaseService"
 
 const servicePrefix = "/auth"
@@ -16,6 +16,14 @@ export const apiRegister = (data: IUserRegister) => {
 
 export const apiLogin =  (data: IUserLogin) => {
     return BaseService.post<ILogin>(`${servicePrefix}/login`, data)
+}
+
+export const apiResetPassword =  (data: IResetPassword) => {
+    return BaseService.post(`${servicePrefix}/reset-password`, data)
+}
+
+export const apiConfirmResetPassword =  (data: IConfirmResetPassword) => {
+    return BaseService.post(`${servicePrefix}/reset`, data)
 }
 
 export const apiGetUser =  ({ id }: { id: string }) => {

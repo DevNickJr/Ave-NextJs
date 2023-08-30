@@ -11,15 +11,9 @@ import { authOptions } from "@/configs/authOptions"
 export async function GET(req: NextRequest, { params }: { params: { id: string }}) {
     try {
         await dbConnect();
-        // const session = await getServerSession(authOptions)
-        // console.log({session})
-    
-        // if (!session) {
-        //   return res.status(401).json({ message: "You must be signed in to access this" });
-        // } 
 
         const { id } = params;
-        // console.log('id', id)
+
         if (!id) {
           return NextResponse.json({ message: 'ID is required' }, { status: 400 });
         }
@@ -29,14 +23,11 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         if (!withdrawal) {
           return NextResponse.json({ message: 'withdrawal not found' }, { status: 400 });
         }
-              
 
         return NextResponse.json(withdrawal, { status: 200 });
-    
-        // return res.status(200).json({ users: allUsers });
+
       } catch (error) {
         console.error(error);
-        // return res.status(500).json({ message: 'Internal server error' });
         return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
 
       }
@@ -47,15 +38,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 export async function DELETE(req: NextRequest, { params }: { params: { id: string }}) {
   try {
     await dbConnect();
-    // const session = await getServerSession(authOptions)
-    // console.log({session})
-
-    // if (!session) {
-    //   return res.status(401).json({ message: "You must be signed in to access this" });
-    // } 
 
     const { id } = params;
-    // console.log('id', id)
+
     if (!id) {
       return NextResponse.json({ message: 'ID is required' }, { status: 400 });
     }

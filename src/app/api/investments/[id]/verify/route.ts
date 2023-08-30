@@ -6,6 +6,7 @@ import { authOptions } from "@/configs/authOptions"
 import { IHandleInvest, IInvest } from "@/interfaces";
 import UserModel from "@/models/UserModel";
 import { authorizeAdmin } from "@/middlewares/authorize";
+import { mailerAsync } from "@/lib/mailer";
 
 
 // ----------------------------------------------------------------------
@@ -62,6 +63,49 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
         total: invest.pause?.total || 0
       }
 
+      const user = await UserModel.findById(invest.userId || '')
+
+        try {       
+          await mailerAsync({
+            to: user.email,
+            subject: "Trade Stopped Running - Avestock",
+            message: `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Trade Stopped Running</title>
+                </head>
+                <body>
+                    <div style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+                        <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+                            <div style="padding: 24px; padding-top: 24px;">
+                                <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+                                    We regret to inform you that the trade you were participating in has been stopped running. Please review your account for more information.
+                                </p>
+                                 <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+                                    <p>Best Regards,</p>
+                                    <p>The Avestocks Team</p>
+                                </div>
+                                <p style="height: 1px; background-color: #00000025;"></p>
+                                <div>
+                                    <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+                                        Level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW. <br /><br />
+                                        COPYRIGHT © 2023 AVESTOCKS, ALL RIGHTS RESERVED
+                                    </p>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </body>
+                </html>
+                `
+          })
+        } catch (error) {
+          console.log({error})
+        }
+      
+
      await invest.save()
 
      return NextResponse.json(invest, { status: 200 });
@@ -99,6 +143,49 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
       invest.status = body.status
 
+      const user = await UserModel.findById(invest.userId || '')
+
+      try {       
+        await mailerAsync({
+          to: user.email,
+          subject: "Trade Resumed Running - Avestock",
+          message: `
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <title>Trade Resumed Running</title>
+              </head>
+              <body>
+                  <div style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+                      <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+                          <div style="padding: 24px; padding-top: 24px;">
+                              <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+                                  We're pleased to inform you that the trade you were participating in has resumed running. Your trading activity has been reactivated.
+                              </p>
+                               <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+                                  <p>Best Regards,</p>
+                                  <p>The Avestocks Team</p>
+                              </div>
+                              <p style="height: 1px; background-color: #00000025;"></p>
+                              <div>
+                                  <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+                                      Level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW. <br /><br />
+                                      COPYRIGHT © 2023 AVESTOCKS, ALL RIGHTS RESERVED
+                                  </p>
+                              </div>
+                          </div>
+                      </main>
+                  </div>
+              </body>
+              </html>
+              `
+      })
+      
+      } catch (error) {
+        console.log({error})
+      }
+
       await invest.save()
       return NextResponse.json(invest, { status: 200 });
 
@@ -132,6 +219,48 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       if (!userUpdate || !investUpdate) {
         return NextResponse.json({ message: 'Investment Update Error' }, { status: 400 });
       }
+
+      try {      
+        await mailerAsync({
+          to: user.email,
+          subject: "Trade Completed - Avestock",
+          message: `
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <title>Trade Completed</title>
+              </head>
+              <body>
+                  <div style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+                      <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+                          <div style="padding: 24px; padding-top: 24px;">
+                              <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+                                  Congratulations! Your trade has been successfully completed. Thank you for using Avestock.
+                              </p>
+                              <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+                                  <p>Best Regards,</p>
+                                  <p>The Avestocks Team</p>
+                              </div>
+                              <p style="height: 1px; background-color: #00000025;"></p>
+                              <div>
+                                  <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+                                      Level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW. <br /><br />
+                                      COPYRIGHT © 2023 AVESTOCKS, ALL RIGHTS RESERVED
+                                  </p>
+                              </div>
+                          </div>
+                      </main>
+                  </div>
+              </body>
+              </html>
+              `
+        })
+      } catch (error) {
+        console.log({error})
+      }
+    
+
 
       return NextResponse.json(invest, { status: 200 });
 

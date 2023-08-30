@@ -37,7 +37,7 @@ export interface IPageContent {
         loginLink: 'Login',
         nationality:  "Nationality",
         currency: "Currency",
-        privacy: 'I agree to Polar Profits Terms & Conditions and Privacy Policy'
+        privacy: "I agree to Avestocks' Terms & Conditions and Privacy Policy"
     },
     es: {
         title: 'Crear una cuenta',
@@ -52,7 +52,7 @@ export interface IPageContent {
         loginLink: 'Iniciar sesión',
         nationality:  "Nacionalidad",
         currency: "Moneda",
-        privacy: 'Acepto los Términos y Condiciones y la Política de Privacidad de Polar Profits'
+        privacy: 'Acepto los Términos y Condiciones y la Política de Privacidad de Avestocks'
     },
     de: {
         title: 'Konto erstellen',
@@ -67,7 +67,7 @@ export interface IPageContent {
         loginLink: 'Anmeldung',
         nationality:  "Nationalität",
         currency: "Währung",
-        privacy: 'Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie von Polar Profits'
+        privacy: 'Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie von Avestocks'
     },
     zh: {
         title: '创建帐号',
@@ -82,7 +82,7 @@ export interface IPageContent {
         loginLink: '登錄',
         nationality:  "国籍",
         currency: "货币",
-        privacy: '我同意Polar Profits的条款和条件以及隐私政策'
+        privacy: '我同意Avestocks的条款和条件以及隐私政策'
     },
     ko: {
         title: '계정 생성',
@@ -97,7 +97,7 @@ export interface IPageContent {
         loginLink: '로그인',
         nationality:  "국적",
         currency: "통화",
-        privacy: 'Polar Profits의 약관 및 개인 정보 보호 정책에 동의합니다'
+        privacy: 'Avestocks의 약관 및 개인 정보 보호 정책에 동의합니다'
     },
     tr: {
         title: 'Hesap oluştur',
@@ -112,7 +112,7 @@ export interface IPageContent {
         loginLink: 'Oturum aç',
         nationality:  "Milliyet",
         currency: "Para birimi",
-        privacy: 'Polar Profits Gizlilik Politikası ve Şartlar ve Koşullarını kabul ediyorum'
+        privacy: 'Avestocks Gizlilik Politikası ve Şartlar ve Koşullarını kabul ediyorum'
     }
   }
       

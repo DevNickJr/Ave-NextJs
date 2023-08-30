@@ -9,6 +9,7 @@ import Bg4 from "@/assets/bg4.jpg"
 import CryptImage from '@/assets/cryp.png'
 import InvestImg from '@/assets/invest5.svg'
 import { LanguageData } from '@/interfaces/home'
+import Link from 'next/link';
 
 
 interface IProps {
@@ -137,7 +138,7 @@ const Hero = ({ t }: IProps) => {
                 <div className='flex flex-col items-center justify-center flex-1 gap-4 p-8 pt-0 md:items-start'>
                   <h1 className='mb-3 text-4xl font-extrabold text-center text-white capitalize md:text-left sm:text-4xl lg:text-6xl'>{t?.hero?.slides[index]?.title || item.title}</h1>
                   <p className='text-sm text-center text-gray-400 md:text-left lg:text-lg'>{t?.hero?.slides[index]?.text || item.text}</p>
-                  <button className='p-4 px-6 mt-2 text-sm text-white rounded-full md:rounded-md w-fit bg-primary'>{t?.hero?.cta || "Get Started"}</button>
+                  <Link href={"/register"} className='p-4 px-6 mt-2 text-sm text-white rounded-full md:rounded-md w-fit bg-primary'>{t?.hero?.cta || "Get Started"}</Link>
                 </div>
                 <div className="relative flex-1 w-full h-full p-8 lg:flex">
                   <Image src={InvestImg} alt="" className="object-cover w-full h-full" />

@@ -6,6 +6,7 @@ import { authOptions } from "@/configs/authOptions"
 import { IApproveDeposit, IDeposit } from "@/interfaces";
 import UserModel from "@/models/UserModel";
 import { authorizeAdmin } from "@/middlewares/authorize";
+import { mailerAsync } from "@/lib/mailer";
 
 
 // ----------------------------------------------------------------------
@@ -56,6 +57,48 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
       deposit.status = 'denied';
       await deposit.save();
+
+      const user = await UserModel.findById(deposit.userId || "")
+
+      try {          
+        await mailerAsync({
+          to: user.email,
+          subject: "Deposit Declined - Avestock",
+          message: `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <title>Deposit Declined</title>
+          </head>
+          <body>
+              <div style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+                  <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+                      <div style="padding: 24px; padding-top: 24px;">
+                          <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+                              Your deposit request has been declined. Please contact support for more information.
+                          </p>
+                          <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+                              <p>Best Regards,</p>
+                              <p>The Avestocks Team</p>
+                          </div>
+                          <p style="height: 1px; background-color: #00000025;"></p>
+                          <div>
+                              <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+                                  Level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW. <br /><br />
+                                  COPYRIGHT © 2023 AVESTOCKS, ALL RIGHTS RESERVE
+                              </p>
+                          </div>
+                      </div>
+                  </main>
+              </div>
+          </body>
+          </html>
+          `
+        })
+      } catch (error: any) {
+        console.log({ error })
+      }
   
 
       return NextResponse.json(deposit, { status: 200 });
@@ -94,6 +137,48 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       if (!updatedUser || !updatedDeposit) {
         return NextResponse.json({ message: 'Failed to update user balance' }, { status: 400 });
       }
+
+      
+      try {          
+        await mailerAsync({
+            subject: "Deposit Approved - Avestock",
+            to: user.email,
+            message: `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>Deposit Approved</title>
+            </head>
+            <body>
+                <div style="background-color: #F5F5F5; font-family: 'Montserrat', sans-serif;">
+                    <main style="background-color: white; color: #1C1C1C; max-width: 507px; margin-inline: auto; ">
+                        <div style="padding: 24px; padding-top: 24px;">
+                            <p style="font-size: 14px; max-width: 410px; line-height: 25px; letter-spacing: 0.02em; font-weight: 500; opacity: 0.95;">
+                                Your deposit request has been approved. Your funds have been credited to your account.
+                            </p>
+                             <div style="margin-top: 42px; font-weight: 500; opacity: 0.97; margin-bottom: 42px; font-size: 14px;">
+                                <p>Best Regards,</p>
+                                <p>The Avestocks Team</p>
+                            </div>
+                            <p style="height: 1px; background-color: #00000025;"></p>
+                            <div>
+                                <p style="font-size: 12px; margin-top: 30px; margin-bottom: 30px; color: #444444; max-width: 410px; line-height: 25px; letter-spacing: 0.02em;">
+                                    Level 28, One International Tower, 2000 Barangaroo Avenue, 2000 Sydney, AUSTRALIA, NSW. <br /><br />
+                                    COPYRIGHT © 2023 AVESTOCKS, ALL RIGHTS RESERVE
+                                </p>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </body>
+            </html>
+            `
+        })
+      } catch (error: any) {
+        console.log({ error })
+      }
+
   
       return NextResponse.json(updatedDeposit, { status: 200 });
     }

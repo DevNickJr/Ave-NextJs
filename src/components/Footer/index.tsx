@@ -80,7 +80,7 @@ const Footer = () => {
                 </li>
                 <li className='flex items-center gap-3'> 
                   <MdOutlineEmail />
-                  <span>support@avestock.com</span>
+                  <span>support@avestocks.com</span>
                 </li>
               </ul>
             </div>

@@ -114,7 +114,7 @@ const handleLoginMutation = async (e: FormEvent<HTMLFormElement>): Promise<void>
               <input  value={user?.password} onChange={(e) => dispatch({ type: "password", payload: e.target.value})} type="text" name="password" id="password" className='p-3 border rounded-md placeholder:text-sm' placeholder={t?.password || "Password"} />
             </div>
         </div>
-        <Link href='/login' className='my-2 text-sm font-semibold text-'>
+        <Link href='/forgot-password' className='my-2 text-sm font-semibold text-'>
             {t?.forgotPassword || "Forgot Password?"}
         </Link>
         <button type='submit' className='flex items-center justify-center w-full gap-2 p-4 pl-5 pr-6 mt-12 text-sm font-bold text-white rounded-md bg-primary'>
