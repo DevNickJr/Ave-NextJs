@@ -27,7 +27,7 @@
     "eslint-config-next": "13.4.12",
     "firebase": "^10.2.0",
     "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.2",
+    "mongoose": "^7.5.0",
     "nanoid": "^4.0.2",
     "next": "13.4.12",
     "next-auth": "^4.22.4",
